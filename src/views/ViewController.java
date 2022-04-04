@@ -104,7 +104,7 @@ public class ViewController {
     //   Documentation: https://docs.oracle.com/javase/7/docs/api/java/awt/font/LineBreakMeasurer.html
     // * Deal with how bad <html> looks and have the user use horizontal scroll to see text. [3/26]
     //Label temp = new Label(string, stkText.view);
-    createMessageLabel(string);
+    new Label("<html><p>"+string+"</p></html>", stkText.view);
     reload();
   }
   public void sendText(String[] strings) {
@@ -119,6 +119,7 @@ public class ViewController {
     }
     reload();
   }
+  //test
   private void createMessageLabel(String string) {
     new Label("<html><p>"+string+"</p></html>", stkText.view);
   }
