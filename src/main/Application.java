@@ -8,14 +8,13 @@ import src.views.*;
  * 
  * Class: #22569 | IT:Program: Part 4 (Java) 
  * Jacob Miranda | StudentID: 24272503
- * 
- * GitHub Assignment Check
- * Brian Herman
  */
 
 public class Application {
   public static void main(String[] args) {
-    new ViewController();
-
+    ViewController view = new ViewController();
+    view.sendText("test");
+    view.sendText("test 2");
+    view.sendText("Another test");
   }
 }
