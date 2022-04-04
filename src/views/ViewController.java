@@ -120,6 +120,12 @@ public class ViewController {
     reload();
   }
 
+  
+  private void createMessageLabel(String string) {
+    new Label("<html><p>"+string+"</p></html>", stkText.view);
+  }
+
+
   private void reload() {
     /// Reloads the textbox after text is added. 
     ///

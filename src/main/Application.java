@@ -15,6 +15,12 @@ public class Application {
     ViewController view = new ViewController();
     view.sendText("test");
     view.sendText("test 2");
+<<<<<<< HEAD
     view.sendText("Another test");
+=======
+    view.sendText("test 3");
+    view.sendText("test 2");
+    view.sendText("test 3");
+>>>>>>> 6370de6da2245ee4797fd4db76606117f9a52a07
   }
 }
