@@ -15,5 +15,6 @@ public class Application {
     ViewController view = new ViewController();
     view.sendText("test");
     view.sendText("test 2");
+    view.sendText("test 3");
   }
 }
