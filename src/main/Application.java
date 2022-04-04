@@ -15,9 +15,6 @@ public class Application {
     ViewController view = new ViewController();
     view.sendText("test");
     view.sendText("test 2");
-<<<<<<< HEAD
     view.sendText("Another test");
-=======
->>>>>>> main
   }
 }
