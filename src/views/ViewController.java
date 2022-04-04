@@ -116,6 +116,7 @@ public class ViewController {
     /// });
     for (int i = 0; i < strings.length; i++) {
       createMessageLabel(strings[i]);
+      // Undo this
     }
     reload();
   }
