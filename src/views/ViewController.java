@@ -119,6 +119,7 @@ public class ViewController {
     }
     reload();
   }
+  
   private void createMessageLabel(String string) {
     new Label("<html><p>"+string+"</p></html>", stkText.view);
   }
