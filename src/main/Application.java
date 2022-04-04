@@ -12,6 +12,8 @@ import src.views.*;
 
 public class Application {
   public static void main(String[] args) {
-    new ViewController();
+    ViewController view = new ViewController();
+    view.sendText("test");
+    view.sendText("test 2");
   }
 }
