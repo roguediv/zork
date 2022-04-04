@@ -16,5 +16,7 @@ public class Application {
     view.sendText("test");
     view.sendText("test 2");
     view.sendText("test 3");
+    view.sendText("test 2");
+    view.sendText("test 3");
   }
 }
