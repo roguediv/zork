@@ -14,9 +14,6 @@ public class Application {
   public static void main(String[] args) {
     ViewController view = new ViewController();
     view.sendText("test");
-    view.sendText("test 2");
-    view.sendText("test 3");
-    view.sendText("test 2");
-    view.sendText("test 3");
+    
   }
 }
