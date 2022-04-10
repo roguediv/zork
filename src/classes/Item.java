@@ -1,10 +1,6 @@
-/**
- * Item super class
- */
 package src.classes;
 
 public abstract class Item {
-    
     public Item(double d, String s){
         this.price = d;
         this.name = s;
@@ -15,7 +11,7 @@ public abstract class Item {
     /**
      * Gets price
      */
-    public GetPrice(){
+    public double GetPrice(){
         return price;
     }
     
@@ -40,4 +36,3 @@ public abstract class Item {
         this.name = s;
     }
 }
-

@@ -3,7 +3,7 @@ package src.main;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-import src.classes.*;
+import src.classes.Weapon;
 import src.views.*;
 /**
  * Final Project: Text-based Game
@@ -45,8 +45,6 @@ public class Application {
     Sleep(2);
     // Conversation topic: How will we handle movement
     // Maybe a each room is a grid? 
-
-
   }
   /**
    * A method to implement sleep function
@@ -59,10 +57,19 @@ public class Application {
     }
     catch(Exception e){}
   }
+
   /**
    * A function to display help features, will flush out once controls are decided
    */
   public static void HelpButton(){
     //TO:DO code help buttons
+  }
+
+  /**
+   * Set up method creates rooms, weapons, characters, assigns weapons to merchants, bounties to contracters.
+   */
+  public static void SetUp(){
+    Weapon dagger = new Weapon();
+    Potion healingPotion = new Potion();
   }
 }

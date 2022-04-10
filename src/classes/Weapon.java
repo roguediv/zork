@@ -1,10 +1,6 @@
-/**
- * Weapon class that extends item
- */
 package src.classes;
 
-public class Weapon extends Item {
-
+public class Weapon extends Item{
     /**
      * Contructor for Weapon
      */
