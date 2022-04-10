@@ -7,5 +7,4 @@ public class Potion extends Item {
      * We could have different potions return different values, but we couldn't access the player class's
      * health from the potion class.
      */
-
 }

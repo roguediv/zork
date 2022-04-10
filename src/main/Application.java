@@ -69,7 +69,7 @@ public class Application {
    * Set up method creates rooms, weapons, characters, assigns weapons to merchants, bounties to contracters.
    */
   public static void SetUp(){
-    Weapon dagger = new Weapon();
+    Weapon dagger = new Weapon(39.99, "Dagger");
     Potion healingPotion = new Potion();
   }
 }
