@@ -70,6 +70,5 @@ public class Application {
    */
   public static void SetUp(){
     Weapon dagger = new Weapon(39.99, "Dagger");
-    Potion healingPotion = new Potion();
   }
 }
