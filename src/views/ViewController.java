@@ -16,7 +16,7 @@ import src.$Librarys.GUI.*;
  * 
  * Class: #22569   | IT:Program: Part 4 (Java) 
  * Jacob Miranda   | StudentID: 24272503
- * Tristan Butzine | StudentID: 00000000
+ * Tristan Butzine | StudentID: 24415685
  * Brian Herman    | StudentID: 00000000
  */
 
@@ -56,7 +56,7 @@ public class ViewController {
     ScrollView svwScroll = new ScrollView(stkTextHldr.view, stkContent.view); // Make text scrollable
     svwScroll.view.setPreferredSize(new Dimension(500, 300));
     bar = svwScroll.view.getVerticalScrollBar();
-    sendText("Welcome to Zork!");
+    //sendText("Welcome to Zork!");
     new VSpacer(gap, stkContent.view);
 
     /// The input section where the user can interact with the game. 
