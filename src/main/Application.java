@@ -42,6 +42,7 @@ public class Application {
       "You must find a secret contracter to find the targets",
       "and the bounties."
     });
+    Sleep(2);
     // Conversation topic: How will we handle movement
     // Maybe a each room is a grid? 
 
