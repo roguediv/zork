@@ -4,9 +4,9 @@ import java.awt.Container;
 import javax.swing.JComboBox;
 
 public class SelectBox {
-  public JComboBox view;
+  public JComboBox<String> view;
   public SelectBox(String[] options, Container container) {
-    view = new JComboBox(options); 
+    view = new JComboBox<String>(options); 
     container.add(view);
   }
 }
