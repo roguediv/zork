@@ -1,6 +1,8 @@
-package src.classes;
+package src.classes.items.weapons;
 
-public class Weapon extends Item{
+import src.classes.items.Item;
+
+public abstract class Weapon extends Item{
     /**
      * Contructor for Weapon
      */
