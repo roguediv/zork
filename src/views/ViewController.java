@@ -9,6 +9,7 @@ import javax.swing.JScrollBar;
 
 /// LOCAL Imports:
 import src.$Librarys.GUI.*;
+import src.classes.managers.MasterMethods;
 
 /*
  * Final Project: Text-based Game
@@ -24,7 +25,9 @@ public class ViewController {
   /// padding is used as a default measure for gaps between sections
   private static int padding = 25;
   /// gap is the length between elements in the same section
-  private static int gap = 10;
+  private static int gap = 15;
+  /// The speed that strings are written to the console. 
+  private static int typeSpeed = 15;
   /// frame stores the main viewport for the game
   private Frame frame;
   /// stkText is where new labels are passed to the game
@@ -33,6 +36,10 @@ public class ViewController {
   private Text txtInput;
   /// bar controls scrolling within stkText
   private JScrollBar bar;
+
+  private Button btnEnter;
+
+  private Button[] numButtons;
 
   public ViewController() {
     /// Constructor generates the view window and displays it to the user.
@@ -64,13 +71,15 @@ public class ViewController {
     txtInput = new Text (stkMainInput.view); // Main Text Box
     txtInput.view.setPreferredSize(new Dimension(300, 25));
     new HSpacer((gap / 2), stkMainInput.view);
-    Button btnEnter = new Button("Enter", stkMainInput.view, e-> sendText(txtInput.view.getText()));
+    btnEnter = new Button("Enter", stkMainInput.view, e-> sendText(txtInput.view.getText()));
     new VSpacer(gap, stkContent.view);
     Grid grdQuickActions = new Grid(1, 4, gap, gap, stkContent.view);
-    Button btnOne = new Button("1", grdQuickActions.view, e -> sendText("1 Pressed"));
-    Button btnTwo = new Button("2", grdQuickActions.view, e -> sendText("2 Pressed"));
-    Button btnThree = new Button("3", grdQuickActions.view, e -> sendText("3 Pressed"));
-    Button btnFour = new Button("4", grdQuickActions.view, e -> sendText("4 Pressed"));
+    numButtons = new Button[] {
+      new Button("1", grdQuickActions.view, e -> sendText("1 Pressed")),
+      new Button("2", grdQuickActions.view, e -> sendText("2 Pressed")),
+      new Button("3", grdQuickActions.view, e -> sendText("3 Pressed")),
+      new Button("4", grdQuickActions.view, e -> sendText("4 Pressed"))
+    };
     new VSpacer(padding, stkContent.view);
 
     /// The buttons on the bottom that control key aspects of the game. 
@@ -119,12 +128,16 @@ public class ViewController {
     }
     reload();
   }
-
   
   private void createMessageLabel(String string) {
-    new Label("<html><p>"+string+"</p></html>", stkText.view);
+    String loadString = "" + string.charAt(0);
+    Label lblTemp = new Label("<html><p>"+loadString+"</p></html>", stkText.view);
+    for (int i = 1; i < string.length(); i++) {
+      MasterMethods.sleep(typeSpeed);
+      loadString = loadString + string.charAt(i);
+      lblTemp.setText("<html><p>"+loadString+"</p></html>");
+    }
   }
-
 
   private void reload() {
     /// Reloads the textbox after text is added. 
@@ -138,5 +151,13 @@ public class ViewController {
 
     /// Scroll to bottom of svwScroll
     bar.setValue(bar.getMaximum());
+  }
+
+  public void setControls(boolean state) {
+    txtInput.view.setEnabled(state);
+    btnEnter.view.setEnabled(state);
+    for (int i = 0; i < numButtons.length; i++) {
+      numButtons[i].view.setEnabled(state);
+    }
   }
 }
