@@ -1,6 +1,5 @@
 package src.main;
 
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import src.classes.Weapon;
@@ -13,7 +12,6 @@ import src.views.*;
  * Jacob Miranda | StudentID: 24272503
  * Tristan Butzine | StudentID: 24415685
  */
-
 public class Application {
   public static void main(String[] args) {
     ViewController view = new ViewController();
