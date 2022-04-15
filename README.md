@@ -8,13 +8,19 @@ roguediv/zork is a text-based game similar to Zork that takes place in medieval 
 * **Upgrade Gear.** Use coin to purchase new and better items from the shop. This is how you progress dynamically through the game. Some targets are too tough to take down without upgraded gear. 
 * **Dynamic Database.** Database is backed up to json data. Saves your inventory, targets you've assassinated, and location you are in. 
 
+## Coding Standards:
+* Use 2-spaces for indenting
+* Camel-case for variables and functions
+* Capitalization Camel-case for class and file names
+* Lowercase for foldernames, use _ between words
+
 ## TODO List
 ### Keyword Recognization - In Progress (Jake)  
 > STARTED: 2022-04-10 | DUE: 2022-04-17
-  * [ ] Loop through input to find specific keywords
-  * [ ] Remove filler words that don't matter from input 
-  * [ ] Create a class for each type of action that can be taken by the player 
-  * [ ] Recognize words around action phrases to complete tasks
+  * [X] Loop through input to find specific keywords
+  * [X] Remove filler words that don't matter from input 
+  * [X] Create a class for each type of action that can be taken by the player 
+  * [X] Recognize words around action phrases to complete tasks
   * [ ] Create a class for battle sequences that recognized battles-related keywords and disables the keywords for the overworld. 
   * [ ] Create a class for the convesation sequence that recognizes conversation-related keywords and disables the keywords for the overworld and battle sequence. 
   * [ ] Create a helper class that manages the sequences of gameplay 
@@ -22,7 +28,7 @@ roguediv/zork is a text-based game similar to Zork that takes place in medieval 
 > STARTED: 2022-04-10 | DUE: 2022-04-17
   * Feel free to write your tasks here, Tristan.  
 ### Environment Classes - In Progress (Brian)   
- > STARTED: 2022-04-10 | DUE: 2022-04-17b
+ > STARTED: 2022-04-10 | DUE: 2022-04-17
   * [ ] Create an abstract Environment class with a list for rooms
   * [ ] Create an abstract Room class that a player can navigate through
   * [ ] Create a Places class that holds all the environments of the game.
