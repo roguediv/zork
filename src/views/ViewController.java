@@ -6,10 +6,13 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.font.LineBreakMeasurer;
 import javax.swing.JScrollBar;
+import javax.swing.Timer;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
 
 /// LOCAL Imports:
 import src.$Librarys.GUI.*;
-import src.classes.managers.MasterMethods;
+import src.classes.managers.*;
 
 /*
  * Final Project: Text-based Game
@@ -41,6 +44,14 @@ public class ViewController {
 
   private Button[] numButtons;
 
+  private boolean storyMode = false;
+
+  private Timer timer;
+
+  private int index = 0;
+
+  private String loadString;
+
   public ViewController() {
     /// Constructor generates the view window and displays it to the user.
     ///
@@ -71,7 +82,7 @@ public class ViewController {
     txtInput = new Text (stkMainInput.view); // Main Text Box
     txtInput.view.setPreferredSize(new Dimension(300, 25));
     new HSpacer((gap / 2), stkMainInput.view);
-    btnEnter = new Button("Enter", stkMainInput.view, e-> sendText(txtInput.view.getText()));
+    btnEnter = new Button("Enter", stkMainInput.view, e-> InputWatcher.watchUserInput(txtInput.view.getText(), this));
     new VSpacer(gap, stkContent.view);
     Grid grdQuickActions = new Grid(1, 4, gap, gap, stkContent.view);
     numButtons = new Button[] {
@@ -128,15 +139,60 @@ public class ViewController {
     }
     reload();
   }
+
+  /**
+   * Set whether the controls are enabled.
+   * @param state True, if enabled
+   */
+  public void setControls(boolean state) {
+    txtInput.view.setEnabled(state);
+    btnEnter.view.setEnabled(state);
+    for (int i = 0; i < numButtons.length; i++) {
+      numButtons[i].view.setEnabled(state);
+    }
+  }
+
+  /**
+   * Set how text is written.
+   * @param state True, if writing in story mode
+   */
+  public void setStoryMode(boolean state) {
+    setControls(!state);
+    storyMode = state;
+  }
   
   private void createMessageLabel(String string) {
-    String loadString = "" + string.charAt(0);
+    loadString = "";
     Label lblTemp = new Label("<html><p>"+loadString+"</p></html>", stkText.view);
-    for (int i = 1; i < string.length(); i++) {
-      MasterMethods.sleep(typeSpeed);
-      loadString = loadString + string.charAt(i);
-      lblTemp.setText("<html><p>"+loadString+"</p></html>");
+    if (storyMode) {
+      for (int i = 0; i < string.length(); i++) {
+        MasterMethods.sleep(typeSpeed);
+        loadString = loadString + string.charAt(i);
+        lblTemp.setText("<html><p>"+loadString+"</p></html>");
+      }
+    } else {
+      /// Guard against a timer in use. 
+      if(timer != null && timer.isRunning()) return;
+
+      /// Set the default value of the lbl and index
+      setControls(false);
+      index = 0;
+    
+      timer = new javax.swing.Timer(typeSpeed, new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          loadString = loadString + String.valueOf(string.charAt(index));
+          lblTemp.setText("<html><p>"+loadString+"</p></html>");
+          index++;
+          if (index >= string.length()) {
+            timer.stop();
+            setControls(true);
+          }
+        }
+      });
+      timer.start();
     }
+
   }
 
   private void reload() {
@@ -151,13 +207,5 @@ public class ViewController {
 
     /// Scroll to bottom of svwScroll
     bar.setValue(bar.getMaximum());
-  }
-
-  public void setControls(boolean state) {
-    txtInput.view.setEnabled(state);
-    btnEnter.view.setEnabled(state);
-    for (int i = 0; i < numButtons.length; i++) {
-      numButtons[i].view.setEnabled(state);
-    }
   }
 }
