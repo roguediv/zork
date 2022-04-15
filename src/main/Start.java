@@ -17,14 +17,14 @@ public class Start {
     // On Jun 8th 1042 King Ethelred died
     // In 1002 he ordered the massacre of all Danes in England to elimate
     // potential treachery. Final boss could be King Ethelred
-    view.setControls(false);
+    view.setStoryMode(true);
     view.sendText("1042 London, England");
-    MasterMethods.sleep(200);
+    //MasterMethods.sleep(200);
     view.sendText(new String[] {
       "You have lived your whole life in hiding, all thanks",
       "to king Ethelred. Just because you are Danish."
     });
-    MasterMethods.sleep(200);
+    //MasterMethods.sleep(200);
     view.sendText(new String[] {
       "In the year 1002, King Ethelred ordered a massacre of",
       "all Danish people in England, but he missed you."
@@ -42,7 +42,7 @@ public class Start {
       "You must find a secret contracter to find the targets",
       "and the bounties."
     });
-    view.setControls(true);
+    view.setStoryMode(false);
     // Conversation topic: How will we handle movement
     // Maybe a each room is a grid? 
   }
