@@ -5,12 +5,12 @@ import java.util.List;
 /**
  * A charcter that sells items
  */
-public class merchant<T> extends character{
+public class Merchant<T> extends Character{
   // Shop of all items
   public List<T> shop;
 
   // Merchant constructor
-  public merchant(String name){
+  public Merchant(String name){
     super(name);
   }
 }

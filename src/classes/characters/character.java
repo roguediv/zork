@@ -2,12 +2,12 @@ package src.classes.characters;
 /**
  * Abstract character class
  */
-public abstract class character {
+public abstract class Character {
   /**
   * Constructor for character class
   * @param name character's name
   */
-  public character(String name){
+  public Character(String name){
     this.name = name;
   }
 

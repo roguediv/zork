@@ -1,24 +1,19 @@
 package src.classes.characters;
-import java.util.Collections;
 import java.util.List;
-
-import src.classes.items.*;
 
 /**
  * player class that represents the main player
  */
-public class player<T> extends character
+public class Player extends Character
 {
-  private static player mainPlayer = null;
+  // Eagar initialization singleton pattern
+  private static final Player mainPlayer = new Player();
 
-  private player(String name) {
-    super(name);
-    }
-  
-  public static player makePlayer(String name) {
-    if (mainPlayer == null) {
-      mainPlayer = new player(name);
-    } 
+  private Player() {
+    super("");
+  }
+
+  public static Player getInstance() {
     return mainPlayer;
   }
   // Variable for player's money
@@ -29,7 +24,7 @@ public class player<T> extends character
 
   // backpack that holds items
   // This is public for easy of looping through, adding items, using items and removing items.
-  public List<T> backpack;
+  public List<?> backpack;
 
   /**
    * Health getter

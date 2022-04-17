@@ -1,20 +1,20 @@
 package src.classes;
 
-import src.classes.characters.enemy;
+import src.classes.characters.Enemy;
 
 /**
  * A bounty placed on an enemy
  */
-public class bounty {
+public class Bounty {
 
   private double reward;
-  private enemy enemy;
+  private Enemy enemy;
   /**
    * Creates bounty using the reward and the target
    * @param reward
    * @param enemy
    */
-  public bounty(double reward, enemy enemy){
+  public Bounty(double reward, Enemy enemy){
     this.setEnemy(enemy);
     this.setReward(reward);
   }
@@ -22,14 +22,14 @@ public class bounty {
    * Get's enemy
    * @return
    */
-  public enemy getEnemy() {
+  public Enemy getEnemy() {
     return enemy;
   }
   /**
    * Set's enemy
    * @param enemy
    */
-  public void setEnemy(enemy enemy) {
+  public void setEnemy(Enemy enemy) {
     this.enemy = enemy;
   }
   /**

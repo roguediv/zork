@@ -1,9 +1,9 @@
 package src.classes.items;
 
 public abstract class Item {
-  public Item(double d, String s) {
-    this.price = d;
-    this.name = s;
+  public Item(double price, String name) {
+    this.price = price;
+    this.name = name;
   }
 
   // Every item will have a price.

@@ -3,7 +3,7 @@ package src.classes.characters;
 /**
  * Class the represents enemy
  */
-public class enemy<T> extends character{
+public class Enemy<T> extends Character{
   // Generic due to different kinds of weapons
   private T weapon;
 
@@ -16,7 +16,7 @@ public class enemy<T> extends character{
    * @param weapon - weapon they are carrying
    * @param health - health of enemy
    */
-  public enemy(String name, T weapon, double health){
+  public Enemy(String name, T weapon, double health){
     super(name);
     this.weapon = weapon;
     this.health = health;

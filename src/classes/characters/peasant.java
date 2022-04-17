@@ -2,7 +2,7 @@ package src.classes.characters;
 /**
  * Class to represent peasant which may give clues or side quests (if time)
  */
-public class peasant extends character{
+public class Peasant extends Character{
   // Information the peasent is holding
   private String information;
 
@@ -11,7 +11,7 @@ public class peasant extends character{
    * @param info - information the peasant holds
    * @param name
    */
-  public peasant(String info, String name){
+  public Peasant(String info, String name){
     super(name);
     this.information = info;
   }

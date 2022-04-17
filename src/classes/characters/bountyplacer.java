@@ -1,28 +1,23 @@
 package src.classes.characters;
 import java.util.List;
 
-import src.classes.bounty;
+import src.classes.Bounty;
 /**
  * The person who gives bounties
  */
-public class bountyplacer extends character{
-  
-  private static bountyplacer bountyPlacer = null;
+public class BountyPlacer extends Character
+{  
+  // Eagar initialization singleton pattern
+  private static final BountyPlacer bountyPlacer = new BountyPlacer();
 
-  /**
-   * Constructor
-   * @param name
-   */
-  private bountyplacer(String name) {
-    super(name);
+  private BountyPlacer() {
+    // Passing nothing as it's singleton, name will be set after
+    super("");
   }
     
-  public static bountyplacer makeBountyPlacer(String name) {
-    if (bountyPlacer == null) {
-      bountyPlacer = new bountyplacer(name);
-    } 
+  public static BountyPlacer getInstance() {
     return bountyPlacer;
   }
 
-  public List<bounty> bounties; 
+  public List<Bounty> bounties; 
 }
