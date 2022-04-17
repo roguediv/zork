@@ -21,17 +21,17 @@ public abstract class Potion extends Item {
    * health from the potion class.
    */
 
-  public Potion() { // This is capitalized camel-cased because it's a constructor for a class.
+  public Potion(double price, String name) {
     /**
      * Main constructor of the potion item.
      * 
      * 
      */
-    super(1, "Potion");
+    super(price, name);
   }
 
   @Override
-  public void useItem() { // This is uncapitalized camel-cased because it's a function within a class. 
+  public void useItem() {
     /**
      * Runs code for every potion that is used. 
      */
