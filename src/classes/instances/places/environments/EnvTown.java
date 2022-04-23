@@ -1,4 +1,4 @@
-package src.classes.places.environments;
+package src.classes.instances.places.environments;
 
 public class EnvTown extends EnvironmentMain{
 

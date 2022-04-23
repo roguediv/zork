@@ -1,4 +1,4 @@
-package src.classes.places.rooms;
+package src.classes.instances.places.rooms;
 
 public class TownEntrance extends RoomMain{
 

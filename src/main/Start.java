@@ -4,15 +4,24 @@ package src.main;
 //import src.classes.items.weapons.Weapon;
 import src.classes.managers.MasterMethods;
 import src.views.*;
+import src.classes.instances.entitys.*;
+import src.classes.instances.items.Quest;
+import src.classes.instances.items.potions.*;
+import src.classes.instances.items.weapons.*;
 
 public class Start {
+
+  public static void startGame(ViewController view) {
+    printStart(view);
+    initializePlayer();
+  }
 
   /**
    * Prints the backstory of the game. 
    * 
    * @param view The viewcontroller of the main application.
    */
-  public static void printStart(ViewController view) {
+  private static void printStart(ViewController view) {
     // Story elements below, feel free to change I am not a writer
     // On Jun 8th 1042 King Ethelred died
     // In 1002 he ordered the massacre of all Danes in England to elimate
@@ -50,8 +59,45 @@ public class Start {
     /**
    * Set up method creates rooms, weapons, characters, assigns weapons to merchants, bounties to contracters.
    */
-  public static void initializePlayer(){
+  private static Player initializePlayer(){
     //Weapon dagger = new Weapon(39.99, "Dagger");
+    // Creating player
+    Player player = Player.getInstance();
+
+        // Creating weapons
+        SharpObject bronzeSword = new SharpObject(100.00, "Bronze Sword", 32.5);
+        BluntObject woodClub = new BluntObject(10.00, "Wood Club", 15.00);
+        RangedObject rock = new RangedObject(2.00, "Hard Rock", 20.00);
+        // Maybe final boss weapon, might take some balancing
+        SharpObject obsidianSword = new SharpObject(1500.00, "Obsidian Sword", 50.00);
+        HealingPotion basicHealingPotion = new HealingPotion(40.00, "Basic Healing Potion");
+    
+        // Creating mechant and adding weapons
+        Merchant john = new Merchant("John");
+        john.shop.add(bronzeSword);
+        john.shop.add(woodClub);
+        john.shop.add(rock);
+        john.shop.add(basicHealingPotion);
+        john.shop.add(obsidianSword);
+    
+        // Creating enemies
+        Enemy Ethelred = new Enemy("King Ethelred", obsidianSword, 250.00);
+        Enemy Edrik = new Enemy("Edrik", bronzeSword, 100.00);
+        Enemy Grunt = new Enemy("Grunt", woodClub, 50.00);
+    
+        // Creating bounties
+        Quest contract3 = new Quest(1000000.00, Ethelred);
+        Quest contract2 = new Quest(100.00, Edrik);
+        Quest contract1 = new Quest(25.00, Grunt);
+    
+        // Creating bounty placer and adding bounties
+        BountyPlacer wulfstan = BountyPlacer.getInstance();
+        wulfstan.setName("Wulfstan");
+        wulfstan.bounties.add(contract1);
+        wulfstan.bounties.add(contract2);
+        wulfstan.bounties.add(contract3);
+
+    return player;
   }
 
 }
