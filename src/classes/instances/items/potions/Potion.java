@@ -21,20 +21,19 @@ public abstract class Potion extends Item {
    * health from the potion class.
    */
 
-  public Potion(double price, String name) {
+  public Potion(String name, double value) {
     /**
      * Main constructor of the potion item.
      * 
      * 
      */
-    super(price, name);
+    super(name, value);
   }
 
   @Override
   public void useItem() {
-    /**
-     * Runs code for every potion that is used. 
-     */
+    // Runs code for every potion that is used. 
+
     super.useItem(); // Remove the item from player inv
 
     // Code that every potion runs when using a potion...

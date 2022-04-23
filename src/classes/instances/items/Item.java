@@ -1,26 +1,28 @@
 package src.classes.instances.items;
 
-public abstract class Item {
-  public Item(double price, String name) {
-    this.price = price;
-    this.name = name;
+import src.classes.instances.Instance;
+
+public abstract class Item extends Instance {
+  public Item(String Name, double Value) {
+    super(Name);
+    value = Value;
   }
 
   // Every item will have a price.
-  private double price;
+  private double value;
 
   /**
    * Gets price
    */
   public double getPrice() {
-    return price;
+    return value;
   }
 
   /**
    * Sets price
    */
-  public void setPrice(double d) {
-    this.price = d;
+  public void setValue(double d) {
+    value = d;
   }
 
   // Every item will have a name.
@@ -30,11 +32,11 @@ public abstract class Item {
    * Gets name
    */
   public String getName() {
-    return this.name;
+    return name;
   }
 
   public void setName(String s) {
-    this.name = s;
+    name = s;
   }
 
   public void useItem() {

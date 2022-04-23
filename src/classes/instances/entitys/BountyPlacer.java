@@ -12,7 +12,7 @@ public class BountyPlacer extends Entity
 
   private BountyPlacer() {
     // Passing nothing as it's singleton, name will be set after
-    super("");
+    super("Wulfstan");
   }
     
   public static BountyPlacer getInstance() {

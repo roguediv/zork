@@ -1,8 +1,8 @@
 package src.classes.instances.items.potions;
 
 public class HealingPotion extends Potion{
-  public HealingPotion(double price, String name){
-    super(price, name);
+  public HealingPotion(String name, double value){
+    super(name, value);
   }
 
   public void useItem(){

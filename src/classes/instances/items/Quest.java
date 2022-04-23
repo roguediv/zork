@@ -7,17 +7,15 @@ import src.classes.instances.entitys.Enemy;
  */
 public class Quest extends Item {
 
-  private double reward;
   private Enemy enemy;
   /**
    * Creates bounty using the reward and the target
    * @param reward
    * @param enemy
    */
-  public Quest(double reward, Enemy enemy){
-    super(-1, "Bounty");
-    this.setEnemy(enemy);
-    this.setReward(reward);
+  public Quest(Enemy Enemy, double Reward){
+    super(Enemy.getName()+"_bounty", Reward);
+    setEnemy(Enemy);
   }
   /**
    * Get's enemy
@@ -32,19 +30,5 @@ public class Quest extends Item {
    */
   public void setEnemy(Enemy enemy) {
     this.enemy = enemy;
-  }
-  /**
-   * Get's reward
-   * @return
-   */
-  public double getReward() {
-    return reward;
-  }
-  /**
-   * Set's reward
-   * @param reward
-   */
-  public void setReward(double reward) { 
-    this.reward = reward;
   }
 }

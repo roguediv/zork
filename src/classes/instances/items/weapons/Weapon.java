@@ -6,9 +6,9 @@ public abstract class Weapon extends Item{
   /**
   * Contructor for Weapon
   */
-  public Weapon(double price, String name, double damage){
+  public Weapon(String name, double value, double damage){
     // Creates abstract item
-    super(price, name);
+    super(name, value);
     this.damage = damage;
   }
 
