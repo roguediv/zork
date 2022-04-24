@@ -1,7 +1,7 @@
 package src.classes.managers.instances;
 
-import src.classes.instances.entitys.Merchant;
-import src.classes.instances.entitys.BountyPlacer;
+import src.classes.instances.entities.BountyPlacer;
+import src.classes.instances.entities.Merchant;
 import src.classes.instances.items.Quest;
 
 public class InstanceManager {

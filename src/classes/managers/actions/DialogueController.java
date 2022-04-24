@@ -1,5 +1,5 @@
 package src.classes.managers.actions;
 
-public class DialogueController {
+public class DialogueController extends Action {
   
 }

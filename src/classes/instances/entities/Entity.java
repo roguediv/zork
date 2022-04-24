@@ -1,9 +1,11 @@
-package src.classes.instances.entitys;
+package src.classes.instances.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 import src.classes.instances.items.armor.Armor;
 import src.classes.instances.items.weapons.Weapon;
+import src.classes.instances.locations.environments.Environment;
+import src.classes.managers.instances.InstanceCollection;
 import src.classes.instances.Instance;
 import src.classes.instances.items.Item;
 
@@ -21,9 +23,11 @@ public abstract class Entity extends Instance {
   // Variable for player's health
   private double health = 100.00;
 
+  private Environment location;
+
   // backpack that holds items
   // This is public for easy of looping through, adding items, using items and removing items.
-  public List<Item> inventory = new ArrayList<Item>();
+  public InstanceCollection<Item> inventory = new InstanceCollection<Item>();
 
   public Item primary;
 
@@ -94,6 +98,13 @@ public abstract class Entity extends Instance {
     this.money = money;
   }
 
+  public Environment getLocation() {return location;}
+  public void setLocation(Environment Location) {location = Location;}
+
+  public InstanceCollection<Item> getInventory() {return inventory;}
+  public void addInventory(Item Item) {inventory.add(Item);}
+  public void remInventory(String Name) {inventory.remove(inventory.getInstance(Name));}
+
   public void equipItem(Weapon item) {
     primary = item;
   }
@@ -102,5 +113,5 @@ public abstract class Entity extends Instance {
     outfit[item.getType()] = item;
   }
 
-  private void die() {}
+  protected void die() {}
 }

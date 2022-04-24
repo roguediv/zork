@@ -25,20 +25,6 @@ public abstract class Item extends Instance {
     value = d;
   }
 
-  // Every item will have a name.
-  private String name;
-
-  /**
-   * Gets name
-   */
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String s) {
-    name = s;
-  }
-
   public void useItem() {
     // Code that every item runs when using an item...
     // e.g: make the item disappear. 

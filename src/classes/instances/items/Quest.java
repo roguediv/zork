@@ -1,6 +1,6 @@
 package src.classes.instances.items;
 
-import src.classes.instances.entitys.Enemy;
+import src.classes.instances.entities.Enemy;
 
 /**
  * A bounty placed on an enemy

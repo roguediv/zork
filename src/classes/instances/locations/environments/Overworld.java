@@ -1,24 +1,26 @@
 package src.classes.instances.locations.environments;
 
-public class Overworld extends Environment {
+import src.classes.instances.locations.environments.overworld_environments.*;
+import src.classes.managers.instances.*;
 
-  // Environment Variables
-  private String EntranceDialog;
+public class OverWorld extends Environment {
+
+  private static OverWorld overworld = new OverWorld("castle");
 
   // Rooms
   // Entrance, courtyard, tavern, market, castle(leads to another environment)
 
-  public Overworld(String name) {
-    super(name);
-
+  private OverWorld(String name) {
+    super(name, new String[] {"test"});
+    addRoom(new Shops("shopping_district", this));
+    addRoom(new Palace("palace", this));
+    addRoom(new Entrance("castle_entrance", this));
+    addRoom(new Housing("housing_district", this));
+    addItem(itemManager.getPotion("Basic_Healing_Potion"));
   }
 
-  @Override
-  public String getEntranceDialog() {
-    EntranceDialog = "This will be filler text for when the Player first gets to the Town.\n" +
-        " The Player sees Two options Enter town or Talk to the guards.";
-
-    return EntranceDialog;
+  public static OverWorld getOverWorld() {
+    return overworld;
   }
 
 }

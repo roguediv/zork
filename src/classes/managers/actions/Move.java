@@ -1,5 +1,5 @@
 package src.classes.managers.actions;
 
-public class Move {
+public class Move extends Action {
   
 }

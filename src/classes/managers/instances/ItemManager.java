@@ -24,10 +24,13 @@ public class ItemManager {
     weapons.add(new SharpObject("obsidian_sword", 1500, 50.00));
 
     // All potions in game
-    potions.add(new HealingPotion("Basic_Healing_Potion", 40));
+    potions.add(new HealingPotion("basic_healing_potion", 40));
+    potions.add(new HealingPotion("basic_healing_potion_2", 40));
   }
 
   public static ItemManager getItemManager() {return itemManager;}
 
-  public Weapon getWeapon(String name) {return weapons.getInstance(name);}
+  public Weapon getWeapon(String Name) {return weapons.getInstance(Name);}
+
+  public Potion getPotion(String Name) {return potions.getInstance(Name);}
 }

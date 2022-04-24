@@ -1,4 +1,4 @@
-package src.classes.instances.entitys;
+package src.classes.instances.entities;
 /**
  * Class to represent peasant which may give clues or side quests (if time)
  */

@@ -1,4 +1,4 @@
-package src.classes.instances.entitys;
+package src.classes.instances.entities;
 
 /**
  * Class the represents enemy

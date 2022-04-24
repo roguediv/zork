@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.font.LineBreakMeasurer;
+import java.util.List;
+
 import javax.swing.JScrollBar;
 import javax.swing.Timer;
 import javax.swing.AbstractAction;
@@ -13,6 +15,7 @@ import java.awt.event.ActionEvent;
 /// LOCAL Imports:
 import src.$Librarys.GUI.*;
 import src.classes.managers.*;
+import src.classes.managers.actions.InputWatcher;
 
 /*
  * Final Project: Text-based Game
@@ -25,6 +28,8 @@ import src.classes.managers.*;
  */
 
 public class ViewController {
+  private static ViewController viewController;
+
   /// padding is used as a default measure for gaps between sections
   private static int padding = 25;
   /// gap is the length between elements in the same section
@@ -52,7 +57,7 @@ public class ViewController {
 
   private String loadString;
 
-  public ViewController() {
+  private ViewController() {
     /// Constructor generates the view window and displays it to the user.
     ///
     /// Main Window:
@@ -104,6 +109,11 @@ public class ViewController {
     frame.showFrame();
   }
 
+  public static ViewController getViewController() {
+    if (viewController == null) viewController = new ViewController();
+    return viewController;
+  }
+
   /// sendText(): Method for sending text for the game to display
   public void sendText(String string) {
     /// Sends a line of text to the text stack.
@@ -136,6 +146,18 @@ public class ViewController {
     /// });
     for (int i = 0; i < strings.length; i++) {
       createMessageLabel(strings[i]);
+    }
+    reload();
+  }
+  public void sendText(List<String> strings) {
+    /// Allows for you to send multiple lines of text... like this: 
+    ///
+    /// sendText(new String[] {
+    ///   "adding 2 or more different lines", 
+    ///   "of strings so there is no spacing between them!"
+    /// });
+    for (int i = 0; i < strings.size(); i++) {
+      createMessageLabel(strings.get(i));
     }
     reload();
   }
@@ -172,7 +194,7 @@ public class ViewController {
       }
     } else {
       /// Guard against a timer in use. 
-      if(timer != null && timer.isRunning()) return;
+      if (timer != null && timer.isRunning()) return;
 
       /// Set the default value of the lbl and index
       setControls(false);

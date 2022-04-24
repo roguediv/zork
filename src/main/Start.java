@@ -1,10 +1,11 @@
 package src.main;
 
+import src.classes.instances.entities.*;
 /// Project Imports:
 //import src.classes.items.weapons.Weapon;
 import src.classes.managers.MasterMethods;
 import src.views.*;
-import src.classes.instances.entitys.*;
+import src.classes.instances.locations.environments.OverWorld;
 
 
 
@@ -62,7 +63,7 @@ public class Start {
     //Weapon dagger = new Weapon(39.99, "Dagger");
     // Creating player
     Player player = Player.getInstance();
-
+    player.setLocation(OverWorld.getOverWorld());
     return player;
   }
 

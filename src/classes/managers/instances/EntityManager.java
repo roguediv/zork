@@ -1,5 +1,5 @@
 package src.classes.managers.instances;
-import src.classes.instances.entitys.*;
+import src.classes.instances.entities.*;
 import src.classes.managers.instances.InstanceCollection;
 
 public class EntityManager {
@@ -24,5 +24,5 @@ public class EntityManager {
   public Enemy getEnemy(String Name) {return enemys.getInstance(Name);}
 
   public Merchant getMerchant(String Name) {return merchants.getInstance(Name);}
-  
+
 }

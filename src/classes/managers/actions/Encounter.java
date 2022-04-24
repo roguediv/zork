@@ -1,5 +1,5 @@
 package src.classes.managers.actions;
 
-public class Encounter {
+public class Encounter extends Action {
   
 }
