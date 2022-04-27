@@ -2,15 +2,17 @@ package src.views;
 
 /// JAVA Imports:
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.font.LineBreakMeasurer;
+import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.JScrollBar;
 import javax.swing.Timer;
 import javax.swing.AbstractAction;
+import javax.swing.InputMap;
+import javax.swing.KeyStroke;
 import java.awt.event.ActionEvent;
+import javax.swing.Action;
 
 /// LOCAL Imports:
 import src.$Librarys.GUI.*;
@@ -53,9 +55,7 @@ public class ViewController {
 
   private Timer timer;
 
-  private int index = 0;
-
-  private String loadString;
+  private Action enterAction = new EnterAction();
 
   private ViewController() {
     /// Constructor generates the view window and displays it to the user.
@@ -86,8 +86,10 @@ public class ViewController {
     HStack stkMainInput = new HStack(stkContent.view);
     txtInput = new Text (stkMainInput.view); // Main Text Box
     txtInput.view.setPreferredSize(new Dimension(300, 25));
+    txtInput.view.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "enterAction");
+    txtInput.view.getActionMap().put("enterAction", enterAction);
     new HSpacer((gap / 2), stkMainInput.view);
-    btnEnter = new Button("Enter", stkMainInput.view, e-> InputWatcher.watchUserInput(txtInput.view.getText(), this));
+    btnEnter = new Button("Enter", stkMainInput.view, e-> onEnter());
     new VSpacer(gap, stkContent.view);
     Grid grdQuickActions = new Grid(1, 4, gap, gap, stkContent.view);
     numButtons = new Button[] {
@@ -114,6 +116,24 @@ public class ViewController {
     return viewController;
   }
 
+  /**
+   * Implement Enter key binding
+   */
+  public class EnterAction extends AbstractAction {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      onEnter();
+    }
+  }
+
+  /**
+   * Code that runs upon pressing enter key or button
+   */
+  private void onEnter() {
+    InputWatcher.watchUserInput(txtInput.view.getText(), this);
+    txtInput.setText("");
+  }
+
   /// sendText(): Method for sending text for the game to display
   public void sendText(String string) {
     /// Sends a line of text to the text stack.
@@ -137,29 +157,26 @@ public class ViewController {
     createMessageLabel(string);
     reload();
   }
-  public void sendText(String[] strings) {
+  public void sendText(String[] Strings) {
     /// Allows for you to send multiple lines of text... like this: 
     ///
     /// sendText(new String[] {
     ///   "adding 2 or more different lines", 
     ///   "of strings so there is no spacing between them!"
     /// });
-    for (int i = 0; i < strings.length; i++) {
-      createMessageLabel(strings[i]);
+    for (int i = 0; i < Strings.length; i++) {
+      createMessageLabel(Strings[i]);
     }
     reload();
   }
-  public void sendText(List<String> strings) {
+  public void sendText(List<String> Strings) {
     /// Allows for you to send multiple lines of text... like this: 
     ///
-    /// sendText(new String[] {
-    ///   "adding 2 or more different lines", 
-    ///   "of strings so there is no spacing between them!"
-    /// });
-    for (int i = 0; i < strings.size(); i++) {
-      createMessageLabel(strings.get(i));
-    }
-    reload();
+    /// List<String> strings = new ArrayList<String>();
+    /// strings.add("Test sting");
+    /// strings.add("Test string2");
+    /// sendText(strings);
+    createMessageLabel(Strings);
   }
 
   /**
@@ -184,7 +201,7 @@ public class ViewController {
   }
   
   private void createMessageLabel(String string) {
-    loadString = "";
+    String loadString = "";
     Label lblTemp = new Label("<html><p>"+loadString+"</p></html>", stkText.view);
     if (storyMode) {
       for (int i = 0; i < string.length(); i++) {
@@ -198,9 +215,9 @@ public class ViewController {
 
       /// Set the default value of the lbl and index
       setControls(false);
-      index = 0;
-    
       timer = new javax.swing.Timer(typeSpeed, new AbstractAction() {
+        int index = 0;
+        String loadString = "";
         @Override
         public void actionPerformed(ActionEvent e) {
           loadString = loadString + String.valueOf(string.charAt(index));
@@ -214,6 +231,49 @@ public class ViewController {
       });
       timer.start();
     }
+
+  }
+
+  private void createMessageLabel(List<String> Strings) {
+    
+    if (timer != null && timer.isRunning()) return;
+    setControls(false);
+    timer = new javax.swing.Timer(typeSpeed, new AbstractAction() {
+      int index1 = 0;
+      int index2 = 0;
+      List<String> strings = Strings;
+      String loadString = "";
+      Label lblNewLn = new Label("<html><p>"+loadString+"</p></html>", stkText.view);;
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        boolean isWaiting = false;
+        int waitTime = 16;
+        int waiting = 0;
+        if (!isWaiting) {
+          loadString = loadString + String.valueOf(strings.get(index1).charAt(index2));
+          lblNewLn.setText("<html><p>"+loadString+"</p></html>");
+          index2++;
+          if (index2 == 2) bar.setValue(bar.getMaximum());
+          if (index2 >= strings.get(index1).length()) {
+            index1++;
+            index2 = 0;
+            loadString = "";
+            lblNewLn = new Label("<html><p>"+loadString+"</p></html>", stkText.view);
+            waiting = 0;
+            isWaiting = true;
+          }
+          if (index1 >= strings.size()) {
+            timer.stop();
+            setControls(true);
+            reload();
+          }
+        } else {
+          if (waiting > waitTime) isWaiting = false;
+          waiting++;
+        }
+      }
+    });
+    timer.start();
 
   }
 
