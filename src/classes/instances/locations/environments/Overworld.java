@@ -16,7 +16,13 @@ public class OverWorld extends Environment {
     addRoom(new Palace("palace", this));
     addRoom(new Entrance("castle_entrance", this));
     addRoom(new Housing("housing_district", this));
-    addItem(itemManager.getPotion("Basic_Healing_Potion"));
+
+    addEntity(entityManager.getEntity("james"));
+    
+    addItem(itemManager.getItem("Basic_Healing_Potion"));
+    addItem(itemManager.getItem("Basic_Healing_Potion_2"));
+
+    
   }
 
   public static OverWorld getOverWorld() {

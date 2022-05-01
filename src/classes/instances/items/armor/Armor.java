@@ -21,4 +21,8 @@ public class Armor extends Item {
   public int getType() {
     return type;
   }
+
+  public String getType(int type) {
+    return types[type];
+  }
 }

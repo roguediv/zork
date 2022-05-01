@@ -1,16 +1,21 @@
 package src.classes.instances.entities;
 
-import java.util.List;
+import src.classes.instances.items.Item;
+import src.classes.managers.instances.InstanceCollection;
 
 /**
  * A charcter that sells items
  */
-public class Merchant<T> extends Entity{
+public class Merchant<T> extends AI {
   // Shop of all items
-  public List<T> shop;
+  private InstanceCollection<Item> shop = new InstanceCollection<Item>();
 
   // Merchant constructor
   public Merchant(String name){
     super(name);
+  }
+
+  public void addItem(Item Item) {
+    shop.add(Item);
   }
 }

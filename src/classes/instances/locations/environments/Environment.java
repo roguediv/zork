@@ -2,12 +2,14 @@ package src.classes.instances.locations.environments;
 
 import src.classes.instances.Instance;
 import src.classes.instances.entities.*;
+import src.classes.managers.instances.EntityManager;
 import src.classes.managers.instances.InstanceCollection;
 import src.classes.managers.instances.ItemManager;
 import src.classes.instances.items.Item;
 
 public abstract class Environment extends Instance{
   protected ItemManager itemManager = ItemManager.getItemManager();
+  protected EntityManager entityManager = EntityManager.getEntityManager();
   protected Environment source;
   protected String[] entranceDialog;
   private InstanceCollection<Environment> rooms = new InstanceCollection<Environment>();
@@ -20,9 +22,8 @@ public abstract class Environment extends Instance{
     entranceDialog = EntranceDialog;
   }
   public Environment(String Name, Environment Source, String[] EntranceDialog) {
-    super(Name);
+    this(Name, EntranceDialog);
     source = Source;
-    entranceDialog = EntranceDialog;
   }
 
 
@@ -37,6 +38,8 @@ public abstract class Environment extends Instance{
   public InstanceCollection<Instance> getInstances() {return instances;}
   private void addInstance(Instance Instance) {instances.add(Instance);}
   private void removeInstance(String Name) {instances.remove(instances.getInstance(Name));}
+
+  public Environment getSource() {return source;}
 
   /// MARK - Room Management
   public InstanceCollection<Environment> getRooms() {return rooms;}

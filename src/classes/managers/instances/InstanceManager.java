@@ -1,5 +1,6 @@
 package src.classes.managers.instances;
 
+import src.classes.instances.Instance;
 import src.classes.instances.entities.BountyPlacer;
 import src.classes.instances.entities.Merchant;
 import src.classes.instances.items.Quest;
@@ -7,27 +8,29 @@ import src.classes.instances.items.Quest;
 public class InstanceManager {
   private static final InstanceManager instanceManager = new InstanceManager();
 
-  private EntityManager mgrEntity = EntityManager.getEntityManager();
-  private ItemManager mgrItem = ItemManager.getItemManager();
-  private LocationManager mgrLocation = LocationManager.getLocationManager();
 
-  private InstanceManager() {
-    /// Merchant that sells items
-    Merchant john = mgrEntity.getMerchant("john");
-    john.shop.add(mgrItem.getWeapon("bronze_sword"));
-    john.shop.add(mgrItem.getWeapon("wood_club"));
-    john.shop.add(mgrItem.getWeapon("hard_rock"));
-    john.shop.add(mgrItem.getPotion("basic_healing_potion"));
-    john.shop.add(mgrItem.getWeapon("obsidian_sword"));
 
-    /// Creating bounty placer and adding bounties
-    BountyPlacer wulfstan = BountyPlacer.getInstance();
-    wulfstan.bounties.add(new Quest(mgrEntity.getEnemy("grunt"), 25));
-    wulfstan.bounties.add(new Quest(mgrEntity.getEnemy("edrik"), 100));
-    wulfstan.bounties.add(new Quest(mgrEntity.getEnemy("ethelred"), 1000000.00));
-  }
+  private InstanceCollection<Instance> instances = new InstanceCollection<Instance>();
+
+  private InstanceManager() {}
 
   public static InstanceManager getInstanceManager() {
     return instanceManager;
   }
+
+  public InstanceCollection<Instance> getInstances() {return instances;}
+
+  public boolean createInstance(Instance Instance) {
+    for (Instance instance : instances ) {
+      
+      if (Instance.getName().equals(instance.getName())) {
+        System.out.println("Instance: '" + Instance.getName() + "' has another instance of the same name within the game. Could not create.");
+        return false;
+      }
+    }
+    instances.add(Instance);
+    return true;
+  }
+
+  public void removeInstance(Instance Instance) {instances.remove(Instance);}
 }

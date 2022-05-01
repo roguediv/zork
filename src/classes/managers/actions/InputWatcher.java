@@ -11,7 +11,6 @@ import java.util.Collections;
 import src.views.ViewController;
 import src.classes.instances.Instance;
 import src.classes.instances.entities.Player;
-import src.classes.managers.actions.*;
 import src.classes.managers.instances.InstanceCollection;
 
 /**
@@ -23,10 +22,12 @@ import src.classes.managers.instances.InstanceCollection;
 public class InputWatcher {
   private static Player player = Player.getInstance();
 
+  private static int inputType = 0;
+
   /**
    * Max words that a phrase can be. 
    */
-  private static int maxWords = 2;
+  private static final int maxWords = 2;
 
   /**
    * The actions that can be taken by the player based on an input. 
@@ -38,16 +39,19 @@ public class InputWatcher {
 
   /**
    * Phrases that are recognized by the game engine
+   * 
+   * Phrases can include up to 2 words
+   * If more than 2 words is ever needed, increase the maxWords variable within this class
    */
   private static String[][] phrases = {
     /// phrases for traversing the world
-    {"go to", "enter", "through"},
+    {"go to", "enter", "through", "move to", "location", "go"},
     /// phrases for viewing the world
     {"look at", "look", "observe", "view", "find", },
     /// phrases for viewing inventory
     {"inventory", "bag", "stuff", "items", "weapons", "potions", "armour", "armor"},
     /// Phrases for retrieving an item
-    {"retrieve", "pick up", "take"},
+    {"retrieve", "pick up", "take", "get", "grab"},
     /// phrases for triggering an item
     {"use", "trigger", "activate", "operate", "equip", "hold", "put on"},
     /// phrases for speaking with AI
@@ -77,11 +81,23 @@ public class InputWatcher {
    * phrases.
    * @param input Input provided by the user
    */
-  public static void watchUserInput(String input, ViewController view) {
-    String[] words = filterStringArray(cleanInput(input.toLowerCase()).split(" "), filteredWords);
-    for (int i = 0; i < words.length; i++) {
-      System.out.println(words[i]);
+  public static void watchUserInput(String input) {
+    switch (inputType) {
+      case 1:
+        inputType1(input);
+        break;
+      case 2:
+        inputType2(input);
+        break;
+      default: 
+        inputType0(input);
     }
+  }
+
+
+  private static void inputType0(String Input) {
+    String[] words = filterStringArray(cleanInput(Input.toLowerCase()).split(" "), filteredWords);
+    
     int phraseNum = -1;
     int wordNum = -1;
     int wordsInPhrase = -1;
@@ -101,8 +117,24 @@ public class InputWatcher {
     if (phraseNum < 0 || wordNum < 0 || wordsInPhrase < 0) return;
 
     /// Run the code for each input
-    runInputType(getAction(phraseNum), words, wordNum, wordsInPhrase, view);
+    runInputType(getAction(phraseNum), words, wordNum, wordsInPhrase);
+  }
 
+  private static void inputType1(String Input) {
+    Dialogue.run(Input);
+  }
+
+  private static void inputType2(String Input) {
+    /// Check if player is trying to use an item
+    String[] words = filterStringArray(cleanInput(Input.toLowerCase()).split(" "), filteredWords);
+    Object[] results = searchField(phrases[4], words);
+    if ((boolean)results[0]) {
+      /// Use the item
+      runInputType(getAction(4), words, (int)results[1], (int)results[2]);
+    } else {
+      /// Call the encounter class to manage the battle
+      
+    }
   }
 
   /**
@@ -113,11 +145,11 @@ public class InputWatcher {
    * @param wordsInPhrase Num of words in the phrase
    * @param view Where output is printed
    */
-  private static void runInputType(Actions action, String[] words, int wordNum, int wordsInPhrase, ViewController view) {
+  private static void runInputType(Actions action, String[] words, int wordNum, int wordsInPhrase) {
     
     switch (action) {
       case MOVE:
-        view.sendText("You moved to a new area!");
+        Move.newLocation(Action.findWordAfter(words, wordNum, wordsInPhrase));
         break;
       case OBSERVE:
         Observe.find(Action.findWordAfter(words, wordNum, wordsInPhrase));
@@ -129,15 +161,13 @@ public class InputWatcher {
         Inventory.retrieve(Action.findWordAfter(words, wordNum, wordsInPhrase));
         break;
       case TRIGGER:
-        System.out.println(wordNum + " " + wordsInPhrase);
-        view.sendText("You grabbed " + Action.findWordAfter(words, wordNum, wordsInPhrase) + "!");
+        Trigger.item(Action.findWordAfter(words, wordNum, wordsInPhrase));
         break;
       case DIALOGUE:
-        view.sendText(new String[] {"You talked to a subject!", "Very kind of you."});
+        Dialogue.newDialog(Action.findWordAfter(words, wordNum, wordsInPhrase));
         break;
       case ENCOUNTER:
         System.out.println(wordNum + " " + wordsInPhrase);
-        view.sendText("You attacked " + Action.findWordAfter(words, wordNum, wordsInPhrase) + "!");
         break;
       case ONE:
         System.out.println("one");
@@ -152,7 +182,7 @@ public class InputWatcher {
         System.out.println("four");
         break;
       default: 
-        view.sendText("You stare ahead blankly with confusion...");
+        /// TBD
     }
   }
 
@@ -291,10 +321,15 @@ public class InputWatcher {
     for (int i = 0; i < instances.size(); i++) {
       String match = instances.get(i).getName().replace("_", " ");
       if (input.contains(match)) {
-        input.replace(match, instances.get(i).getName());
+        input = input.replace(match, instances.get(i).getName());
+        System.out.println(input);
       }
     }
     return input;
+  }
+
+  public static void changeInput(int type) {
+    inputType = type;
   }
 
 }

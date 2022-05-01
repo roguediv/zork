@@ -16,7 +16,7 @@ public class InstanceCollection<T extends Instance> extends ArrayList<T> {
         return obj;
       }
     }
-    return this.get(0);
+    return null;
   }
   
 }

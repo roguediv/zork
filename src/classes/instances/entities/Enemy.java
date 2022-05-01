@@ -3,7 +3,7 @@ package src.classes.instances.entities;
 /**
  * Class the represents enemy
  */
-public class Enemy<T> extends Entity{
+public class Enemy<T> extends AI {
 
   /**
    * Constructor for enemy

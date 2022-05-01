@@ -2,12 +2,12 @@ package src.classes.managers.actions;
 
 import src.classes.instances.items.Item;
 import src.classes.instances.locations.environments.Environment;
-import src.classes.managers.MasterMethods;
 import src.classes.instances.entities.*;
 
 public class Observe extends Action {
 
   public static void find(String Word) {
+    start();
     switch (findObservationType(Word)) {
       case 0: 
         rooms();break;
@@ -16,16 +16,18 @@ public class Observe extends Action {
       case 2: 
         items();break;
       default:
-        view.sendText("You aren't quite sure what you're looking for...");
+        rooms();addSpace();entities();addSpace();items();
     }
+    end();
   }
 
   private static int findObservationType(String word) {
+    if (word == null) return -1;
     String[][] types = {
       // 0 = look in environment for doors
-      {"places", "doors", "areas", "paths", "rooms", "room"},
+      {"places", "doors", "areas", "paths", "rooms", "room", "location", "locations"},
       // 1 = look in environment for people
-      {"people", "peasents", "others", "entties", "entitys"},
+      {"people", "peasents", "others", "entities", "entitys"},
       // 2 = look in environment for items
       {"items", "item", "stuff"},
     };
@@ -42,38 +44,36 @@ public class Observe extends Action {
   }
 
   private static void rooms() {
-    Environment location = player.getLocation();
-    view.sendText("You look around you for places you can visit...");
+    addText("You are currently in the area: " + displayName(location.getName()) + ".");
+    addText("You look around you for places you can visit...");
     int i = 0;
     for (Environment room : location.getRooms()) {
-      view.sendText(room.getName());
+      addText("- " + displayName(room.getName()));
       i++;
     }
-    if (i == 0) view.sendText("Looks like this is a dead end.");
+    if (i == 0) addText("Looks like this is a dead end.");
   }
 
   private static void entities() {
     Environment location = player.getLocation();
-    view.sendText("You look around you for people...");
+    addText("You look around you for people...");
     int i = 0;
     for (Entity entity : location.getEntities()) {
-      view.sendText(entity.getName());
+      addText("- " + displayName(entity.getName()));
       i++;
     }
-    if (i == 0) view.sendText("There is no one around.");
+    if (i == 0) addText("You don't see any people.");
   }
 
   private static void items() {
     Environment location = player.getLocation();
-    //view.sendText("You look around for items...");
+    addText("You look around for items...");
     int i = 0;
     for (Item item : location.getItems()) {
-      System.out.println(item.getName());
-      view.sendText(item.getName().replace("_", " "));
+      addText("- " + displayName(item.getName()));
       i++;
     }
-    
-    if (i == 0) view.sendText("There were no items to find.");
+    if (i == 0) addText("You don't see any items.");
   }
 
 }

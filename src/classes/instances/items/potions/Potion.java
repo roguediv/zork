@@ -1,5 +1,7 @@
 package src.classes.instances.items.potions;
 
+import src.classes.instances.entities.Entity;
+
 import src.classes.instances.items.Item;
 
 /**
@@ -21,22 +23,28 @@ public abstract class Potion extends Item {
    * health from the potion class.
    */
 
-  public Potion(String name, double value) {
+   protected double points;  
+
+  public Potion(String Name, double Value, Double Points) {
     /**
      * Main constructor of the potion item.
      * 
      * 
      */
-    super(name, value);
+    super(Name, Value);
+    points = Points;
   }
 
   @Override
-  public void useItem() {
-    // Runs code for every potion that is used. 
-
-    super.useItem(); // Remove the item from player inv
+  public void useItem(Entity Entity) {
+    super.useItem(Entity); // Remove the item from player inv
 
     // Code that every potion runs when using a potion...
+
+  }
+
+  public double getPoints() {
+    return points;
   }
 
 }

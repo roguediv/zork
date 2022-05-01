@@ -21,7 +21,14 @@ public abstract class Entity extends Instance {
   private double maxHealth = 100.00;
 
   // Variable for player's health
-  private double health = 100.00;
+  protected double health = 100.00;
+
+  protected double maxStamina = 100;
+
+  protected double stamina = 100;
+
+  protected double critChance = 12;
+  protected double defaultCritChance = 12;
 
   private Environment location;
 
@@ -77,9 +84,53 @@ public abstract class Entity extends Instance {
     health = health > maxHealth ? maxHealth : health;
   }
 
-  public void damange(double Health) {
+  public void damage(double Health) {
     health -= Health;
     if (health <= 0) die();
+  }
+
+  public void riseStamina(double Value){
+    stamina += Value;
+    stamina = stamina > maxStamina ? maxStamina : stamina;
+  }
+
+  /**
+   * Lowers the stamina of the entity
+   * If stamina is less than zero, 
+   * entity is damaged by half of the negative stamina value
+   * Stamina is set back to zero
+   * @param Value How much stamina is lowered
+   */
+  public void lowerStamina(double Value) {
+    stamina -= Value;
+    if (stamina < 0) {
+      damage((stamina * -1) / 2);
+      stamina = 0;
+    }
+  }
+
+  /**
+   * Get the crit chance
+   * @return
+   */
+  public double getCritChance() {
+    return critChance;
+  }
+
+  /**
+   * Increases crit chance
+   * @param Num by this number
+   */
+  public void increaseCritChance(double Num) {
+    critChance += Num;
+    critChance = critChance > 51 ? 50 : critChance;
+  }
+
+  /**
+   * Resets the critchance back to it's standard
+   */
+  public void resetCritChance() {
+    critChance = defaultCritChance;
   }
   
   /**
@@ -91,11 +142,20 @@ public abstract class Entity extends Instance {
   }
 
   /**
-   * Money setter
-   * @param money
+   * Spend an entity's money
+   * @param Money The money being taken from the entity
+   * @return True if purchase was successful 
    */
-  public void setMoney(double money) {
-    this.money = money;
+  public boolean spendMoney(double Money) {
+    if (money > Money) {
+      money -= Money;
+      return true;
+    }
+    return false;
+  }
+
+  public void payMoney(double Money) {
+    money += Money;
   }
 
   public Environment getLocation() {return location;}
@@ -103,13 +163,26 @@ public abstract class Entity extends Instance {
 
   public InstanceCollection<Item> getInventory() {return inventory;}
   public void addInventory(Item Item) {inventory.add(Item);}
-  public void remInventory(String Name) {inventory.remove(inventory.getInstance(Name));}
+  public void removeInventory(String Name) {inventory.remove(inventory.getInstance(Name));}
 
+  public void dequipItem() {
+    if (primary != null) {
+      addInventory(primary);
+      primary = null;
+    }
+  }
+  public void dequipItem(int Type) {
+    if (outfit[Type] != null) {
+      addInventory(outfit[Type]);
+      outfit[Type] = null;
+    }
+  }
   public void equipItem(Weapon item) {
+    dequipItem();
     primary = item;
   }
-
   public void equipItem(Armor item) {
+    dequipItem(item.getType());
     outfit[item.getType()] = item;
   }
 

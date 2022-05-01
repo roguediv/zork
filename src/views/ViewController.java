@@ -93,10 +93,10 @@ public class ViewController {
     new VSpacer(gap, stkContent.view);
     Grid grdQuickActions = new Grid(1, 4, gap, gap, stkContent.view);
     numButtons = new Button[] {
-      new Button("1", grdQuickActions.view, e -> sendText("1 Pressed")),
-      new Button("2", grdQuickActions.view, e -> sendText("2 Pressed")),
-      new Button("3", grdQuickActions.view, e -> sendText("3 Pressed")),
-      new Button("4", grdQuickActions.view, e -> sendText("4 Pressed"))
+      new Button("1", grdQuickActions.view, e -> onEnter("1")),
+      new Button("2", grdQuickActions.view, e -> onEnter("2")),
+      new Button("3", grdQuickActions.view, e -> onEnter("3")),
+      new Button("4", grdQuickActions.view, e -> onEnter("4"))
     };
     new VSpacer(padding, stkContent.view);
 
@@ -130,7 +130,15 @@ public class ViewController {
    * Code that runs upon pressing enter key or button
    */
   private void onEnter() {
-    InputWatcher.watchUserInput(txtInput.view.getText(), this);
+    InputWatcher.watchUserInput(txtInput.view.getText());
+    txtInput.setText("");
+  }
+  /**
+   * Runs on enter code with a given string as input
+   * @param Input The input
+   */
+  private void onEnter(String Input) {
+    InputWatcher.watchUserInput(Input);
     txtInput.setText("");
   }
 
@@ -243,12 +251,13 @@ public class ViewController {
       int index2 = 0;
       List<String> strings = Strings;
       String loadString = "";
-      Label lblNewLn = new Label("<html><p>"+loadString+"</p></html>", stkText.view);;
+      Label lblNewLn = new Label("<html><p>"+loadString+"</p></html>", stkText.view);
+      boolean isWaiting = false;
+      int waitTime = 16;
+      int waiting = 0;
       @Override
       public void actionPerformed(ActionEvent e) {
-        boolean isWaiting = false;
-        int waitTime = 16;
-        int waiting = 0;
+
         if (!isWaiting) {
           loadString = loadString + String.valueOf(strings.get(index1).charAt(index2));
           lblNewLn.setText("<html><p>"+loadString+"</p></html>");
