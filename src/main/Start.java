@@ -1,15 +1,20 @@
 package src.main;
 
 import src.classes.instances.entities.*;
+import src.classes.instances.items.weapons.SharpObject;
+import src.classes.instances.items.weapons.Weapon;
 /// Project Imports:
 //import src.classes.items.weapons.Weapon;
 import src.classes.managers.MasterMethods;
+import src.classes.managers.instances.ItemManager;
 import src.views.*;
-import src.classes.instances.locations.environments.OverWorld;
+import src.classes.instances.locations.environments.Overworld;
 
 
 
 public class Start {
+
+  private static ItemManager im = ItemManager.getItemManager();
 
   public static void startGame(ViewController view) {
     printStart(view);
@@ -60,10 +65,12 @@ public class Start {
    * Set up method creates rooms, weapons, characters, assigns weapons to merchants, bounties to contracters.
    */
   private static Player initializePlayer(){
-    //Weapon dagger = new Weapon(39.99, "Dagger");
+    im.createItem(new SharpObject("Dagger", 39.99, 10.00));
     // Creating player
     Player player = Player.getInstance();
-    player.setLocation(OverWorld.getOverWorld());
+    player.inventory.add(im.getItem("Dagger"));
+    player.equipItem((Weapon)player.getInventory().getInstance("Dagger"));
+    player.setLocation(Overworld.getOverWorld());
     return player;
   }
 

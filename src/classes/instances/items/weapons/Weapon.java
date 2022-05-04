@@ -18,14 +18,14 @@ public abstract class Weapon extends Item{
   /**
   * Gets damage
   */
-  public double GetDamage(){
+  public double getDamage(){
     return this.damage;
   }
 
   /**
   * Sets damage
   */
-  public void SetDamage(double d){
+  public void setDamage(double d){
     this.damage = d;
   }
     
