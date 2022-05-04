@@ -23,16 +23,27 @@ public abstract class Potion extends Item {
    * health from the potion class.
    */
 
-   protected double points;  
+  private double points;  
 
-  public Potion(String Name, double Value, Double Points) {
+  private String type;
+
+  public Potion(String name, double value, Double points) {
     /**
      * Main constructor of the potion item.
      * 
      * 
      */
-    super(Name, Value);
-    points = Points;
+    super(name, value);
+    this.points = points;
+    this.setType(type);
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   @Override

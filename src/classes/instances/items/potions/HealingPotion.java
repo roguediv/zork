@@ -10,6 +10,6 @@ public class HealingPotion extends Potion{
   @Override
   public void useItem(Entity Entity){
     super.useItem(Entity);
-    Entity.heal(points);
+    Entity.heal(getPoints());
   }
 }
