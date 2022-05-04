@@ -3,14 +3,14 @@ package src.classes.instances.locations.environments;
 import src.classes.instances.locations.environments.overworld_environments.*;
 import src.classes.managers.instances.*;
 
-public class OverWorld extends Environment {
+public class Overworld extends Environment {
 
-  private static OverWorld overworld = new OverWorld("castle");
+  private static Overworld overworld = new Overworld("castle");
 
   // Rooms
   // Entrance, courtyard, tavern, market, castle(leads to another environment)
 
-  private OverWorld(String name) {
+  private Overworld(String name) {
     super(name, new String[] {"test"});
     addRoom(new Shops("shopping_district", this));
     addRoom(new Palace("palace", this));
@@ -25,7 +25,7 @@ public class OverWorld extends Environment {
     
   }
 
-  public static OverWorld getOverWorld() {
+  public static Overworld getOverWorld() {
     return overworld;
   }
 

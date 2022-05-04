@@ -1,7 +1,7 @@
 package src.classes.managers.instances;
 
 import src.classes.instances.locations.environments.Environment;
-import src.classes.instances.locations.environments.OverWorld;
+import src.classes.instances.locations.environments.Overworld;
 
 public class LocationManager {
   private static final LocationManager locationManager = new LocationManager();
@@ -9,7 +9,7 @@ public class LocationManager {
   private InstanceCollection<Environment> environments = new InstanceCollection<Environment>();
 
   private LocationManager() {
-    OverWorld world = OverWorld.getOverWorld();
+    Overworld world = Overworld.getOverWorld();
   }
 
   public static LocationManager getLocationManager() {
