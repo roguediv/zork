@@ -33,6 +33,8 @@ public class Player extends Entity
   protected void die() {
     super.die();
     // Display death messages
+    // Send player to sewers
+    // Take away gold
   }
 
 }

@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.Collections;
 
 /// Internal Imports.
-import src.views.ViewController;
 import src.classes.instances.Instance;
 import src.classes.instances.entities.Player;
 import src.classes.managers.instances.InstanceCollection;
@@ -53,7 +52,7 @@ public class InputWatcher {
     /// Phrases for retrieving an item
     {"retrieve", "pick up", "take", "get", "grab"},
     /// phrases for triggering an item
-    {"use", "trigger", "activate", "operate", "equip", "hold", "put on"},
+    {"use", "trigger", "activate", "operate", "equip", "hold", "put on", "change weapon"},
     /// phrases for speaking with AI
     {"speak with", "talk to", "speak", "talk", "converse", "ask"},
     /// phrases for beginning an encounter with an AI
@@ -73,7 +72,7 @@ public class InputWatcher {
    * removed from the input.
    */
   private static String[] filteredWords = {
-    "a", "i", "the", "at", "for", ""
+    "a", "i", "the", "at", "for", "to", ""
   };
 
   /**
@@ -94,13 +93,17 @@ public class InputWatcher {
     }
   }
 
-
+  /**
+   * This runs when user is not in conversation or dialogue
+   * @param Input Text the user sends
+   */
   private static void inputType0(String Input) {
+    /// Prepare the words array for assessment
     String[] words = filterStringArray(cleanInput(Input.toLowerCase()).split(" "), filteredWords);
     
-    int phraseNum = -1;
-    int wordNum = -1;
-    int wordsInPhrase = -1;
+    int phraseNum = -1; // What action the user is taking
+    int wordNum = -1; // What position in the array is the phrase
+    int wordsInPhrase = -1; // How many words are in the phrase
     
     /// Search through every item
     for (int i = 0; i < phrases.length; i++) {
@@ -120,10 +123,18 @@ public class InputWatcher {
     runInputType(getAction(phraseNum), words, wordNum, wordsInPhrase);
   }
 
+  /**
+   * Runs whenever the user is in dialogue
+   * @param Input User input
+   */
   private static void inputType1(String Input) {
     Dialogue.run(Input);
   }
 
+  /**
+   * Runs whenever the user is in an encounter
+   * @param Input User input
+   */
   private static void inputType2(String Input) {
     /// Check if player is trying to use an item
     String[] words = filterStringArray(cleanInput(Input.toLowerCase()).split(" "), filteredWords);
@@ -133,7 +144,7 @@ public class InputWatcher {
       runInputType(getAction(4), words, (int)results[1], (int)results[2]);
     } else {
       /// Call the encounter class to manage the battle
-      
+
     }
   }
 
@@ -322,7 +333,6 @@ public class InputWatcher {
       String match = instances.get(i).getName().replace("_", " ");
       if (input.contains(match)) {
         input = input.replace(match, instances.get(i).getName());
-        System.out.println(input);
       }
     }
     return input;

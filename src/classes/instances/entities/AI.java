@@ -5,9 +5,9 @@ public class AI extends Entity {
   protected String[][][][] dialogue = {
     {
       {
-        {"Hello, I'm a person..."},
-        {"I are human."},
-        {"I'm a part of the human species."}
+        {"Hello, I'm a person...", "how are you doing today?"},
+        {"I are human.", "oh yeah..."},
+        {"I'm a part of the human species.", "It is good."}
       },
       {
         {"I see that."},
@@ -64,6 +64,17 @@ public class AI extends Entity {
     }
   };
 
+  public String[][][][] getDialogue() {return dialogue;}
+  public int[][][] getDialogueProperties() {return dialogueProperties;}
+
+  public void changeDialog(String[][][] String, int ArrayNum) {
+    dialogue[ArrayNum] = String;
+  }
+
+  public void changeProperties(int[][] Change, int ArrayNum) {
+    dialogueProperties[ArrayNum] = Change;
+  }
+
   /// Mark - Encounter
 
   protected int[] movePercentage = {
@@ -71,13 +82,13 @@ public class AI extends Entity {
   };
 
   protected String[][] fightLines = {
-    {"Why would you do this?"}
+    {"Why would you do this?"},
+    {""},
+    {"I'm getting out of here! You're crazy!"}
   };
 
   public AI(String Name) {
     super(Name);
   }
 
-  public String[][][][] getDialogue() {return dialogue;}
-  public int[][][] getDialogueProperties() {return dialogueProperties;}
 }

@@ -12,6 +12,7 @@ public class Dialogue extends Action {
   }
 
   public static void run(String input) {
+    start();
     dialogueController.runDialogue(input);
   }
 

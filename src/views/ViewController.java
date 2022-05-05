@@ -283,7 +283,6 @@ public class ViewController {
       }
     });
     timer.start();
-
   }
 
   private void reload() {

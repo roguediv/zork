@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import src.classes.instances.items.Item;
 import src.classes.instances.items.armor.Armor;
 import src.classes.instances.items.potions.Potion;
+import src.classes.instances.items.weapons.BluntObject;
 import src.classes.instances.items.weapons.Weapon;
 import java.util.Random;
 
@@ -64,6 +65,14 @@ public class MasterMethods {
     } catch(Exception e) {}
 
     return rtn;
+  }
+
+  public static Weapon getWeapon(Item Item) {
+    Weapon rtn = new BluntObject("null", 0, 0);
+    try {
+      rtn = (Weapon)Item;
+      return rtn;
+    } catch(Exception e) {return rtn;}
   }
 
   /**
