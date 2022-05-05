@@ -14,8 +14,16 @@ public class Armor extends Item {
 
   public Armor(String Name, double Price,  double Defense, int Type) {
     super(Name, Price);
-    defense = Defense;
+    setDefense(Defense);
     type = Type;
+  }
+
+  public double getDefense() {
+    return defense;
+  }
+
+  public void setDefense(double defense) {
+    this.defense = defense;
   }
 
   public int getType() {

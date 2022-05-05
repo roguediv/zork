@@ -138,13 +138,14 @@ public class InputWatcher {
   private static void inputType2(String Input) {
     /// Check if player is trying to use an item
     String[] words = filterStringArray(cleanInput(Input.toLowerCase()).split(" "), filteredWords);
-    Object[] results = searchField(phrases[4], words);
+    Object[] results = searchField(phrases[5], words);
     if ((boolean)results[0]) {
       /// Use the item
-      runInputType(getAction(4), words, (int)results[1], (int)results[2]);
+      runInputType(getAction(5), words, (int)results[1], (int)results[2]);
+      Encounter.RunEncounter("-1");
     } else {
       /// Call the encounter class to manage the battle
-
+      Encounter.RunEncounter(Input);
     }
   }
 
@@ -178,7 +179,7 @@ public class InputWatcher {
         Dialogue.newDialog(Action.findWordAfter(words, wordNum, wordsInPhrase));
         break;
       case ENCOUNTER:
-        System.out.println(wordNum + " " + wordsInPhrase);
+        Encounter.StartEncounter(Action.findWordAfter(words, wordNum, wordsInPhrase));
         break;
       case ONE:
         System.out.println("one");

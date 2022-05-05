@@ -18,7 +18,7 @@ public abstract class Entity extends Instance {
   private double money = 0;
 
   // Players max health
-  private double maxHealth = 100.00;
+  private double maxHealth;
 
   // Variable for player's health
   protected double health = 100.00;
@@ -36,7 +36,7 @@ public abstract class Entity extends Instance {
   // This is public for easy of looping through, adding items, using items and removing items.
   public InstanceCollection<Item> inventory = new InstanceCollection<Item>();
 
-  public Item primary;
+  public Weapon primary;
 
   public Armor[] outfit = {
     new Armor("empty_shoes", 0, 0, 0),
@@ -51,6 +51,7 @@ public abstract class Entity extends Instance {
   */
   public Entity(String name){
     super(name);
+    this.maxHealth = 100.00;
   }
 
   /**
@@ -79,13 +80,13 @@ public abstract class Entity extends Instance {
    * Health setter
    * @param health
    */
-  public void heal(double Health){
-    health += Health;
+  public void heal(double amount){
+    health += amount;
     health = health > maxHealth ? maxHealth : health;
   }
 
-  public void damage(double Health) {
-    health -= Health;
+  public void damage(double amount) {
+    health -= amount;
     if (health <= 0) die();
   }
 
@@ -187,4 +188,8 @@ public abstract class Entity extends Instance {
   }
 
   protected void die() {}
+
+  public double getMaxHealth(){
+    return this.maxHealth;
+  }
 }
