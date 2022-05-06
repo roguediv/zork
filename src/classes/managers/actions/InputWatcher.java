@@ -33,7 +33,7 @@ public class InputWatcher {
    */
   private static enum Actions {
     MOVE, OBSERVE, INVENTORY, RETRIEVE, TRIGGER, DIALOGUE,  
-    ENCOUNTER, ONE, TWO, THREE, FOUR, NOACT;
+    ENCOUNTER, ONE, TWO, THREE, FOUR, HELP, NOACT;
   }
 
   /**
@@ -65,6 +65,8 @@ public class InputWatcher {
     {"3", "three", "third"},
     /// Encounter "4" commands
     {"4", "four", "fourth"},
+    // Help
+    {"help"}
   };
 
   /**
@@ -193,6 +195,8 @@ public class InputWatcher {
       case FOUR:
         System.out.println("four");
         break;
+      case HELP:
+        Help.displayControls();
       default: 
         /// TBD
     }
@@ -215,6 +219,7 @@ public class InputWatcher {
     action = Actions.TWO.ordinal() == i ? Actions.TWO : action;
     action = Actions.THREE.ordinal() == i ? Actions.THREE : action;
     action = Actions.FOUR.ordinal() == i ? Actions.FOUR : action;
+    action = Actions.HELP.ordinal() == i ? Actions.HELP : action;
     return  action;
   }
 
