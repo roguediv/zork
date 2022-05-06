@@ -32,6 +32,6 @@ public abstract class Item extends Instance {
     // Code that every item runs when using an item...
     // e.g: make the item disappear. 
     Entity.removeInventory(this.getName());
-    itemManager.removeItem(this.getName());
+    //itemManager.removeItem(this.getName());
   }
 }
