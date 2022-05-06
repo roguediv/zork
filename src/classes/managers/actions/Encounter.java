@@ -7,6 +7,8 @@ import src.classes.instances.items.potions.HealingPotion;
 import src.classes.instances.items.armor.Armor;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import src.classes.instances.entities.AI;
 
@@ -53,52 +55,54 @@ public class Encounter extends Action {
   }
 
   // Takes battle moves input from InputWatcher
-  public static void RunEncounter(String input){
-    start();
-    // i is the input number
+  public static void runEncounter(String Input){
     int i = 0;
-    try{
-      i = Integer.parseInt(input);
-      switch(i){
-        // Case if item is used or weapon is swapped. Skips player's turn
-        case -1:
+    try {
+      i = Integer.parseInt(Input);
+    } catch (Exception e) {}
+    if (i > -1) start();
+    switch(i){
+      // Case if item is used or weapon is swapped. Skips player's turn
+      case -2:
+        addSpace();
+        PickMove();
+        break;
+      case -1:
+        addSpace();
+        EnemyMove(defensiveBuff);
+        break;
+      // Case for a normal attack.
+      case 1: 
+        playerAttack();
+        checkHealth();
+        if(battleActive)
           EnemyMove(defensiveBuff);
-          break;
-        // Case for a normal attack.
-        case 1: 
-          PlayerAttack();
-          CheckHealth();
+        break;
+      // Case for a defensive move.
+      case 2:
+        // Don't want over buffing
+        if(defensiveBuff < 75.00){
+          defensiveMove();
+          checkHealth();
           if(battleActive)
             EnemyMove(defensiveBuff);
-          break;
-        // Case for a defensive move.
-        case 2:
-          // Don't want over buffing
-          if(defensiveBuff < 75.00){
-            DefensiveMove();
-            CheckHealth();
-            if(battleActive)
-              EnemyMove(defensiveBuff);
-          }
-          else{
-            addText("Defense can't be buffed anymore");
-            addText("Try using '1' for an attack, '2' for a defensive buff, and '3' for a reckless attack");
-          }
-          break;
-        case 3:
-          RecklessAttack();
-          CheckHealth();
-          if(battleActive)
-            EnemyMove(defensiveBuff);
-          break;
-        default:
-          break;
-      }
+        }
+        else{
+          addText("Defense can't be buffed anymore");
+          addText("Try using '1' for an attack, '2' for a defensive buff, and '3' for a reckless attack");
+        }
+        break;
+      case 3:
+        recklessAttack();
+        checkHealth();
+        if(battleActive)
+          EnemyMove(defensiveBuff);
+        break;
+      default:
+        addText("Move " + Input + " could not be found.");
+        addText("Try using '1' for an attack, '2' for a defensive buff, and '3' for a reckless attack");
     }
-    catch(Exception e){
-      addText("Move " + input + " could not be found.");
-      addText("Try using '1' for an attack, '2' for a defensive buff, and '3' for a reckless attack");
-    }
+
     end();
   }
 
@@ -134,10 +138,10 @@ public class Encounter extends Action {
       enemy.inventory.get(location).useItem(enemy);
     }
     else{
-      EnemyAttack(defenseBuff);
+      enemyAttack(defenseBuff);
     }
-    DisplayHealth();
-    CheckHealth();
+    displayHealth();
+    checkHealth();
     if(battleActive)
       PickMove();
   }
@@ -145,30 +149,30 @@ public class Encounter extends Action {
   /**
    * Logic to handle a win
    */
-  private static void DisplayWin(){
+  private static void displayWin(){
     addText("You win!");
     enemy.die();
-    EndEncounter();
+    endEncounter();
   }
 
   /**
    * Logic to handle lose
    * @return battleActive which is a boolean
    */
-  private static void DisplayLose(){
+  private static void displayLose(){
     addText("You have died.");
-    EndEncounter();
+    endEncounter();
     player.die();
   }
 
-  private static Boolean CheckHealth(){
+  private static Boolean checkHealth(){
     if(player.getHealth() <= 0){
       battleActive = false;
-      DisplayLose();
+      displayLose();
     }
     else if(enemy.getHealth() <= 0){
       battleActive = false;
-      DisplayWin();
+      displayWin();
     }
     return battleActive;
   }
@@ -176,7 +180,7 @@ public class Encounter extends Action {
   /**
    * Display's health of both players
    */
-  public static void DisplayHealth(){
+  public static void displayHealth(){
     addText("Your health is " + decFormat.format(player.getHealth()));
     addText("The enemies health is " + decFormat.format(enemy.getHealth()));
   }
@@ -185,15 +189,18 @@ public class Encounter extends Action {
    * Enemy's attack - enemy can only basic attack
    * @param defenseBuff player's current defensive buff;
    */
-  public static void EnemyAttack(double defenseBuff){
+  public static void enemyAttack(double defenseBuff){
     // Gathering the total armor of the player
     double TotalArmor = 0.00 + defenseBuff;
     for(int i = 0; i < player.outfit.length; i++){
       TotalArmor += player.outfit[i].getDefense();
     }
 
+    // enemyDamage calc, ensure that enemy has a primary weapon. If not, default 1
+    double enemyDamage = enemy.primary != null ? enemy.primary.getDamage() : 1;
     // Damaging the player the damage minus what the armor takes away.
-    double damageDone = enemy.primary.getDamage() - (enemy.primary.getDamage() * TotalArmor * 0.01);
+    double damageDone = enemyDamage - (enemyDamage * TotalArmor * 0.01);
+    
     player.damage(damageDone);
 
     addText(enemy.getName() + " attacked and you took " + decFormat.format(damageDone) + ".");
@@ -202,7 +209,7 @@ public class Encounter extends Action {
   /**
    * Defensive buff, increases player's defense by 5%, also resets reckless attack counter
    */
-  public static void DefensiveMove(){
+  public static void defensiveMove(){
     // Increasing defensive buff by 5% and stacking on past buffs.
     defensiveBuff = 5 + (defensiveBuff * 1.05);
     addText("Defense has been buffed.");
@@ -214,7 +221,7 @@ public class Encounter extends Action {
   /**
    * Reckless attack - does 1.5 times damage but at the becomes less effective and deals more damage to self each use
    */
-  public static void RecklessAttack(){
+  public static void recklessAttack(){
     try{
       recklessAttackCounter++;
       // Player takes 20 percent of base weapon damage time the number of times reckless attack has been used.
@@ -241,7 +248,7 @@ public class Encounter extends Action {
   /**
    * Basic player attack, does damage of weapon minus enemies armour.
    */
-  public static void PlayerAttack(){
+  public static void playerAttack(){
     try{
     // Gathering the total armor of the enemy
     double TotalArmor = 0.00;
@@ -262,7 +269,7 @@ public class Encounter extends Action {
   /**
    * Changes input type back to story type
    */
-  public static void EndEncounter(){
+  public static void endEncounter(){
     InputWatcher.changeInput(0);
   }
 }

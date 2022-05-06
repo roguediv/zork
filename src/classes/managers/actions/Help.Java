@@ -1,8 +1,5 @@
 package src.classes.managers.actions;
 
-import src.classes.instances.locations.environments.Environment;
-import src.classes.managers.instances.InstanceCollection;
-
 public class Help extends Action {
 
   public static void displayControls() {
@@ -26,4 +23,11 @@ public class Help extends Action {
     addText(" ");
     end();
   }
+
+  public static void notFound() {
+    start();
+    addText("The wind blows and there is silence (that is not a valid command, type 'help' if you're confused).");
+    end();
+  }
+
 }

@@ -1,12 +1,7 @@
 package src.classes.managers.instances;
-import java.util.List;
 
-import src.classes.instances.items.weapons.Weapon;
-
-import java.util.ArrayList;
 import src.classes.instances.items.weapons.*;
 import src.classes.instances.items.Item;
-import src.classes.instances.items.Quest;
 import src.classes.instances.items.potions.*;
 
 public class ItemManager {
@@ -28,15 +23,40 @@ public class ItemManager {
     createItem(new HealingPotion("basic_healing_potion_2", 80, 50));
   }
 
+  /**
+   * Get singleton class
+   * @return class
+   */
   public static ItemManager getItemManager() {return itemManager;}
 
+  /**
+   * Get an item from class
+   * @param Name The name to be searched for
+   * @return
+   */
   public Item getItem(String Name) {return items.getInstance(Name);}
 
+  /**
+   * Create an item
+   * @param Item The item to be created
+   */
   public void createItem(Item Item) {
     if (instanceManager.createInstance(Item)) 
       items.add(Item);
   }
 
+  /**
+   * Remove an item using a name
+   * @param Name String to be found
+   */
+  public void removeItem(String Name) {
+    instanceManager.removeInstance(items.getInstance(Name));
+    items.remove(items.getInstance(Name));
+  }
+  /**
+   * Remove an item using object
+   * @param Item The object to be removed
+   */
   public void removeItem(Item Item) {
     instanceManager.removeInstance(Item);
     items.remove(Item);

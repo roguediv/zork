@@ -5,6 +5,9 @@ import src.classes.managers.instances.InstanceCollection;
 
 public class Inventory extends Action {
 
+  /**
+   * Lists out the user's inventory
+   */
   public static void displayInventory() {
     start();
     InstanceCollection<Item> inv = player.getInventory();
@@ -13,9 +16,16 @@ public class Inventory extends Action {
       addText("- "+item.getName().replace("_", " "));i++;
     }
     if (i == 0) addText("You have nothing in your Inventory.");
-    end();
+    if (InputWatcher.getInputType() == 0) {
+      end();
+    }
+    
   }
 
+  /**
+   * 
+   * @param Name
+   */
   public static void retrieve(String Name) {
     start();
     if (Name == null) {

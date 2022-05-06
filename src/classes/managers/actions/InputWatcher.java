@@ -11,6 +11,7 @@ import java.util.Collections;
 import src.classes.instances.Instance;
 import src.classes.instances.entities.Player;
 import src.classes.managers.instances.InstanceCollection;
+import src.views.ViewController;
 
 /**
  * The <code>InputWatcher</code> object contains the intelligence 
@@ -33,7 +34,7 @@ public class InputWatcher {
    */
   private static enum Actions {
     MOVE, OBSERVE, INVENTORY, RETRIEVE, TRIGGER, DIALOGUE,  
-    ENCOUNTER, ONE, TWO, THREE, FOUR, HELP, NOACT;
+    ENCOUNTER, HELP, NOACT;
   }
 
   /**
@@ -56,17 +57,9 @@ public class InputWatcher {
     /// phrases for speaking with AI
     {"speak with", "talk to", "speak", "talk", "converse", "ask"},
     /// phrases for beginning an encounter with an AI
-    {"attack", "fight", "assassinate", "assult", "kill", "murder", },
-    /// Encounter "1" commands
-    {"1", "one", "first"},
-    /// Encounter "2" commands
-    {"2", "two", "second"},
-    /// Encounter "3" commands
-    {"3", "three", "third"},
-    /// Encounter "4" commands
-    {"4", "four", "fourth"},
+    {"attack", "fight", "assassinate", "assult", "kill", "murder", "battle"},
     // Help
-    {"help", "controls"}
+    {"help", "controls", "hint"}
   };
 
   /**
@@ -140,14 +133,19 @@ public class InputWatcher {
   private static void inputType2(String Input) {
     /// Check if player is trying to use an item
     String[] words = filterStringArray(cleanInput(Input.toLowerCase()).split(" "), filteredWords);
-    Object[] results = searchField(phrases[5], words);
-    if ((boolean)results[0]) {
+    Object[] results1 = searchField(phrases[2], words);
+    Object[] results2 = searchField(phrases[4], words);
+    if ((boolean)results1[0]) {
       /// Use the item or swap primary weapons
-      runInputType(getAction(5), words, (int)results[1], (int)results[2]);
-      Encounter.RunEncounter("-1");
+      runInputType(getAction(2), words, (int)results1[1], (int)results1[2]);
+      Encounter.runEncounter("-2");
+    } else if ((boolean)results2[0]) {
+      /// Use the item or swap primary weapons
+      runInputType(getAction(4), words, (int)results2[1], (int)results2[2]);
+      Encounter.runEncounter("-1");
     } else {
       /// Calls the encounter class to pick a move/run enemy move.
-      Encounter.RunEncounter(Input);
+      Encounter.runEncounter(Input);
     }
   }
 
@@ -183,22 +181,11 @@ public class InputWatcher {
       case ENCOUNTER:
         Encounter.StartEncounter(Action.findWordAfter(words, wordNum, wordsInPhrase));
         break;
-      case ONE:
-        System.out.println("one");
-        break;
-      case TWO:
-        System.out.println("two");
-        break;
-      case THREE:
-        System.out.println("three");
-        break;
-      case FOUR:
-        System.out.println("four");
-        break;
       case HELP:
         Help.displayControls();
+        break;
       default: 
-        /// TBD
+        Help.notFound();
     }
   }
 
@@ -215,10 +202,6 @@ public class InputWatcher {
     action = Actions.TRIGGER.ordinal() == i ? Actions.TRIGGER : action;
     action = Actions.DIALOGUE.ordinal() == i ? Actions.DIALOGUE : action;
     action = Actions.ENCOUNTER.ordinal() == i ? Actions.ENCOUNTER : action;
-    action = Actions.ONE.ordinal() == i ? Actions.ONE : action;
-    action = Actions.TWO.ordinal() == i ? Actions.TWO : action;
-    action = Actions.THREE.ordinal() == i ? Actions.THREE : action;
-    action = Actions.FOUR.ordinal() == i ? Actions.FOUR : action;
     action = Actions.HELP.ordinal() == i ? Actions.HELP : action;
     return  action;
   }
@@ -344,8 +327,16 @@ public class InputWatcher {
     return input;
   }
 
-  public static void changeInput(int type) {
-    inputType = type;
-  }
+  /**
+   * Change the input type of the class
+   * @param type New input type
+   */
+  public static void changeInput(int type) {inputType = type;}
+
+  /**
+   * Get the input type of the class
+   * @return The current input type
+   */
+  public static int getInputType() {return inputType;}
 
 }

@@ -13,7 +13,7 @@ public abstract class Action {
   protected static Player player = Player.getInstance();
   protected static Environment location = player.getLocation();
   protected static ViewController view = ViewController.getViewController();
-  private static List<String> strings = new ArrayList<String>();
+  private static ArrayList<String> strings = new ArrayList<String>();
   public static String findWordAfter(String[] words, int phraseStart, int phraseWordNum) {
     if (words.length <= phraseStart + phraseWordNum) return null;
     return words[phraseStart + phraseWordNum];
@@ -29,6 +29,7 @@ public abstract class Action {
     }
   }
   protected static void addSpace() {addText("|");}
+  protected static ArrayList<String> getStrings() {return strings;}
   protected static void end() {view.sendText(strings);}
   protected static String displayName(String string) {return MasterMethods.displayName(string);}
   protected static int getItemType(Item Item) {return MasterMethods.getItemType(Item);}

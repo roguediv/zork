@@ -6,6 +6,10 @@ import src.classes.instances.items.potions.*;
 import src.classes.instances.items.weapons.*;
 
 public class Trigger extends Action {
+  /**
+   * Equips, dequips, and uses item based on word
+   * @param Word The item being searched for
+   */
   public static void item(String Word) {
     start();
     Item item = player.getInventory().getInstance(Word);
