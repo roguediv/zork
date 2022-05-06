@@ -33,7 +33,7 @@ public class InputWatcher {
    */
   private static enum Actions {
     MOVE, OBSERVE, INVENTORY, RETRIEVE, TRIGGER, DIALOGUE,  
-    ENCOUNTER, ONE, TWO, THREE, FOUR, NOACT;
+    ENCOUNTER, ONE, TWO, THREE, FOUR, HELP, NOACT;
   }
 
   /**
@@ -44,7 +44,7 @@ public class InputWatcher {
    */
   private static String[][] phrases = {
     /// phrases for traversing the world
-    {"go to", "enter", "through", "move to", "location", "go"},
+    {"go to", "enter", "through", "move", "location", "go"},
     /// phrases for viewing the world
     {"look at", "look", "observe", "view", "find", },
     /// phrases for viewing inventory
@@ -65,6 +65,8 @@ public class InputWatcher {
     {"3", "three", "third"},
     /// Encounter "4" commands
     {"4", "four", "fourth"},
+    // Help
+    {"help", "controls"}
   };
 
   /**
@@ -140,11 +142,11 @@ public class InputWatcher {
     String[] words = filterStringArray(cleanInput(Input.toLowerCase()).split(" "), filteredWords);
     Object[] results = searchField(phrases[5], words);
     if ((boolean)results[0]) {
-      /// Use the item
+      /// Use the item or swap primary weapons
       runInputType(getAction(5), words, (int)results[1], (int)results[2]);
       Encounter.RunEncounter("-1");
     } else {
-      /// Call the encounter class to manage the battle
+      /// Calls the encounter class to pick a move/run enemy move.
       Encounter.RunEncounter(Input);
     }
   }
@@ -193,6 +195,8 @@ public class InputWatcher {
       case FOUR:
         System.out.println("four");
         break;
+      case HELP:
+        Help.displayControls();
       default: 
         /// TBD
     }
@@ -215,6 +219,7 @@ public class InputWatcher {
     action = Actions.TWO.ordinal() == i ? Actions.TWO : action;
     action = Actions.THREE.ordinal() == i ? Actions.THREE : action;
     action = Actions.FOUR.ordinal() == i ? Actions.FOUR : action;
+    action = Actions.HELP.ordinal() == i ? Actions.HELP : action;
     return  action;
   }
 

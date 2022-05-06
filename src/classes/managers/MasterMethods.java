@@ -62,7 +62,7 @@ public class MasterMethods {
     try {
       Potion item = (Potion)Item;
       rtn = 3;
-    } catch(Exception e) {}
+    } catch(Exception e) {System.out.println("test");}
 
     return rtn;
   }
