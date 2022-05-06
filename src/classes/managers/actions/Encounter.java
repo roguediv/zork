@@ -53,13 +53,13 @@ public class Encounter extends Action {
       case -1:
         EnemyMove();
       case 1: 
-        
-      case 2:
-        
-      case 3:
         PlayerAttack();
         EnemyMove();
         break;
+      case 2:
+        
+      case 3:
+
       default:
     }
     end();
@@ -94,8 +94,16 @@ public class Encounter extends Action {
       EnemyAttack();
     }
     DisplayHealth();
+    if(player.getHealth() > 0 && enemy.getHealth() <= 0){
+      DisplayWin();
+    }
     PickMove();
   }
+  private static void DisplayWin(){
+    addText("You win!");
+    EndEncounter();
+  }
+
   public static void DisplayHealth(){
     addText("Your health is " + player.getHealth());
     addText("The enemies health is " + enemy.getHealth());
@@ -133,7 +141,7 @@ public class Encounter extends Action {
     }
   }
 
-  public void EndEncoutner(){
+  public static void EndEncounter(){
     InputWatcher.changeInput(0);
   }
 }

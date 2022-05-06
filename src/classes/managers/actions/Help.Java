@@ -1,3 +1,5 @@
+package src.classes.managers.actions;
+
 import src.classes.instances.locations.environments.Environment;
 import src.classes.managers.instances.InstanceCollection;
 
@@ -5,19 +7,23 @@ public class Help extends Action {
 
   public static void displayControls() {
     start();
-    add("Out of battle controls:");
-    add("'Look around' to look around");
-    add("'Move to {room name}' to move around");
-    add("'Attack {enemy name}' to attack");
-    add("'Talk to {character name}' to talk to a character");
-    add("'Pick up {potion name}' to pick up potion")
-    add("'Swap to {weapon/armor name}' to swap primary weapon/armor");
-    add("'Inventory' to view inventory");
-    add("In battle controls:");
-    add("'Swap to {weapon/armor name}' to swap primary weapon/armor");
-    add("'Use potion {potion name}' to use a potion");
-    add("'one' or button one for main attack");
-    add("'two' or button three for defensive move");
-    add("'three' or button three for dangerous attack");
+    addText("");
+    addText("Out of battle controls:");
+    addText("-'Look around' to look around");
+    addText("-'Move to {room name}' to move around");
+    addText("-'Attack {enemy name}' to attack");
+    addText("-'Talk to {character name}' to talk to a character");
+    addText("-'Pick up {potion name}' to pick up potion");
+    addText("-'Swap to {weapon/armor name}' to swap primary weapon/armor");
+    addText("-'Inventory' to view inventory");
+    addText("|");
+    addText("In battle controls:");
+    addText("-'Swap to {weapon/armor name}' to swap primary weapon/armor");
+    addText("-'Use potion {potion name}' to use a potion");
+    addText("-'one' or button one for main attack");
+    addText("-'two' or button three for defensive move");
+    addText("-'three' or button three for dangerous attack");
+    addText("");
     end();
   }
+}
