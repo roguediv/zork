@@ -30,7 +30,7 @@ public class Player extends Entity
   public void setGameState(int GameState) {gameState = GameState;}
 
   @Override
-  protected void die() {
+  public void die() {
     super.die();
     // Display death messages
     // Send player to sewers

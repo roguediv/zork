@@ -66,7 +66,7 @@ public class InputWatcher {
     /// Encounter "4" commands
     {"4", "four", "fourth"},
     // Help
-    {"help"}
+    {"help", "controls"}
   };
 
   /**

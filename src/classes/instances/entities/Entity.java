@@ -187,7 +187,7 @@ public abstract class Entity extends Instance {
     outfit[item.getType()] = item;
   }
 
-  protected void die() {}
+  public void die() {}
 
   public double getMaxHealth(){
     return this.maxHealth;

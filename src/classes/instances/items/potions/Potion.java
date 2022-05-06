@@ -49,7 +49,7 @@ public abstract class Potion extends Item {
   @Override
   public void useItem(Entity Entity) {
     super.useItem(Entity); // Remove the item from player inv
-
+    Entity.heal(points);
     // Code that every potion runs when using a potion...
 
   }

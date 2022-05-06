@@ -18,6 +18,8 @@ import src.classes.instances.entities.AI;
 public class Encounter extends Action {
 
   private static Entity enemy;
+
+  private static Boolean battleActive = true;
   private static double defensiveBuff = 0.00;
   // Counting reckless attacks in a row.
   private static int recklessAttackCounter = 0;
@@ -33,7 +35,7 @@ public class Encounter extends Action {
     // Resetting defensive buff
     defensiveBuff = 0.00;
     // Reckless attack counter
-    recklessAttackCounter = 1;
+    recklessAttackCounter = 0;
     // This is changing the input to receive battle related input from player
     InputWatcher.changeInput(2);
     // Here we are getting the entity we are battling and assigning the enemy variable.
@@ -65,14 +67,18 @@ public class Encounter extends Action {
         // Case for a normal attack.
         case 1: 
           PlayerAttack();
-          EnemyMove(defensiveBuff);
+          CheckHealth();
+          if(battleActive)
+            EnemyMove(defensiveBuff);
           break;
         // Case for a defensive move.
         case 2:
           // Don't want over buffing
           if(defensiveBuff < 75.00){
             DefensiveMove();
-            EnemyMove(defensiveBuff);
+            CheckHealth();
+            if(battleActive)
+              EnemyMove(defensiveBuff);
           }
           else{
             addText("Defense can't be buffed anymore");
@@ -81,7 +87,9 @@ public class Encounter extends Action {
           break;
         case 3:
           RecklessAttack();
-          EnemyMove(defensiveBuff);
+          CheckHealth();
+          if(battleActive)
+            EnemyMove(defensiveBuff);
           break;
         default:
           break;
@@ -98,7 +106,7 @@ public class Encounter extends Action {
    * Displays move options.
    */
   public static void PickMove(){
-    addText("");
+    addText(" ");
     addText("What move would you like to make?");
     addText("-'Swap to {weapon name}'");
     addText("-'Use {potion name}'");
@@ -129,10 +137,9 @@ public class Encounter extends Action {
       EnemyAttack(defenseBuff);
     }
     DisplayHealth();
-    if(player.getHealth() > 0 && enemy.getHealth() <= 0){
-      DisplayWin();
-    }
-    PickMove();
+    CheckHealth();
+    if(battleActive)
+      PickMove();
   }
   
   /**
@@ -140,7 +147,30 @@ public class Encounter extends Action {
    */
   private static void DisplayWin(){
     addText("You win!");
+    enemy.die();
     EndEncounter();
+  }
+
+  /**
+   * Logic to handle lose
+   * @return battleActive which is a boolean
+   */
+  private static void DisplayLose(){
+    addText("You have died.");
+    EndEncounter();
+    player.die();
+  }
+
+  private static Boolean CheckHealth(){
+    if(player.getHealth() <= 0){
+      battleActive = false;
+      DisplayLose();
+    }
+    else if(enemy.getHealth() <= 0){
+      battleActive = false;
+      DisplayWin();
+    }
+    return battleActive;
   }
 
   /**
@@ -163,10 +193,10 @@ public class Encounter extends Action {
     }
 
     // Damaging the player the damage minus what the armor takes away.
-    double damageDone = enemy.primary.getDamage() - (enemy.primary.getDamage() * TotalArmor);
+    double damageDone = enemy.primary.getDamage() - (enemy.primary.getDamage() * TotalArmor * 0.01);
     player.damage(damageDone);
 
-    addText(enemy.getName() + "attacked and you took " + decFormat.format(damageDone) + ".");
+    addText(enemy.getName() + " attacked and you took " + decFormat.format(damageDone) + ".");
   }
 
   /**
@@ -187,8 +217,9 @@ public class Encounter extends Action {
   public static void RecklessAttack(){
     try{
       recklessAttackCounter++;
-      // Player takes 2.5 times the number of times reckless attack has been used, counter resets to 0 when defensive move is used.
-      double recklessDamage = 2.50 * recklessAttackCounter;
+      // Player takes 20 percent of base weapon damage time the number of times reckless attack has been used.
+      // The counter resets to 0 when defensive move is used.
+      double recklessDamage = (0.2 * player.primary.getDamage()) * recklessAttackCounter;
       // Gathering the total armor of the enemy
       double TotalArmor = 0.00;
       for(int i = 0; i < enemy.outfit.length; i++){
@@ -196,7 +227,7 @@ public class Encounter extends Action {
       }
   
       // Damaging the enemy the damage minus what the armor takes away. Damage also has reckless attack included.
-      double damageDone = player.primary.getDamage() - (player.primary.getDamage() * TotalArmor) * (1.6 - (recklessAttackCounter * 0.1));
+      double damageDone = (player.primary.getDamage() * (1.6 - (recklessAttackCounter * 0.1))- (player.primary.getDamage() * (TotalArmor * 0.01)));
       enemy.damage(damageDone);
       player.damage(recklessDamage);
   
