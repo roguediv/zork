@@ -4,6 +4,7 @@ import src.classes.instances.items.Item;
 import src.classes.instances.items.armor.Armor;
 import src.classes.instances.items.potions.*;
 import src.classes.instances.items.weapons.*;
+import src.classes.managers.MasterMethods;
 
 public class Trigger extends Action {
   /**
@@ -32,7 +33,7 @@ public class Trigger extends Action {
         double health1 = player.getHealth();
         potion.useItem(player);
         double health2 = player.getHealth();
-        addText("You used the " + displayName(potion.getName()) + " and it restored " + (health2 - health1) + " points of health.");
+        addText("You used the " + displayName(potion.getName()) + " and it restored " + MasterMethods.Round(health2 - health1) + " points of health.");
         break;
     }
     end();

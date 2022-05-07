@@ -13,8 +13,10 @@ public class Inventory extends Action {
     InstanceCollection<Item> inv = player.getInventory();
     int i = 0;
     for (Item item : inv) {
-      addText("- "+item.getName().replace("_", " "));i++;
+      addText("- "+displayName(item.getName().replace("_", " ")));
+      i++;
     }
+    addText("-Money: " + player.getMoney());
     if (i == 0) addText("You have nothing in your Inventory.");
     if (InputWatcher.getInputType() == 0) {
       end();

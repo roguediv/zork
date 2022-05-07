@@ -5,6 +5,7 @@ import java.util.List;
 import src.classes.instances.items.armor.Armor;
 import src.classes.instances.items.weapons.Weapon;
 import src.classes.instances.locations.environments.Environment;
+import src.classes.managers.instances.EntityManager;
 import src.classes.managers.instances.InstanceCollection;
 import src.classes.instances.Instance;
 import src.classes.instances.items.Item;
@@ -58,9 +59,10 @@ public abstract class Entity extends Instance {
   * Constructor for character class
   * @param name character's name
   */
-  public Entity(String Name, double Health){
+  public Entity(String Name, double Health, double money){
     super(Name);
     this.health = Health;
+    this.money = money;
     this.maxHealth = Health;
   }
 
@@ -143,6 +145,14 @@ public abstract class Entity extends Instance {
   }
 
   /**
+   * 
+   * @param Money
+   * @return
+   */
+  public void setMoney(double money){
+    this.money = money;
+  }
+  /**
    * Spend an entity's money
    * @param Money The money being taken from the entity
    * @return True if purchase was successful 
@@ -187,7 +197,15 @@ public abstract class Entity extends Instance {
     outfit[item.getType()] = item;
   }
 
-  public void die() {}
+  public void die() {
+    try{
+      EntityManager.getEntityManager().removeEntity(this.getName());
+      this.location.removeEntity(this.getName());
+    }
+    catch(Exception e){
+      System.out.println(e.toString());
+    }
+  }
 
   public double getMaxHealth(){
     return this.maxHealth;

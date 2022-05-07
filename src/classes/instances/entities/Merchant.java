@@ -11,8 +11,8 @@ public class Merchant<T> extends AI {
   private InstanceCollection<Item> shop = new InstanceCollection<Item>();
 
   // Merchant constructor
-  public Merchant(String name){
-    super(name);
+  public Merchant(String name, double health, double money){
+    super(name, health, money);
   }
 
   public void addItem(Item Item) {

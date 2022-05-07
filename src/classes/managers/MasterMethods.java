@@ -8,9 +8,13 @@ import src.classes.instances.items.potions.Potion;
 import src.classes.instances.items.weapons.BluntObject;
 import src.classes.instances.items.weapons.Weapon;
 import java.util.Random;
+import java.text.DecimalFormat;
 
 public class MasterMethods {
   private static MasterMethods methods = null;
+
+  // For formatting output
+  private static DecimalFormat decFormat = new DecimalFormat("#.##");
 
   private MasterMethods() {
 
@@ -84,6 +88,15 @@ public class MasterMethods {
     Random rand = new Random();
     if ((rand.nextInt(100) + 1) <= Percentage) return true;
     return false;
+  }
+
+  /**
+   * A master method for rounding numbers to second decimal place
+   * @param num
+   * @return
+   */
+  public static String Round(double num){
+    return decFormat.format(num);
   }
 
 }

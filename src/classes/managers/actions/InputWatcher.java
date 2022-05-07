@@ -34,7 +34,7 @@ public class InputWatcher {
    */
   private static enum Actions {
     MOVE, OBSERVE, INVENTORY, RETRIEVE, TRIGGER, DIALOGUE,  
-    ENCOUNTER, HELP, NOACT;
+    ENCOUNTER, HELP, DISPLAYQUEST, ACCEPT, NOACT;
   }
 
   /**
@@ -59,7 +59,11 @@ public class InputWatcher {
     /// phrases for beginning an encounter with an AI
     {"attack", "fight", "assassinate", "assult", "kill", "murder", "battle"},
     // Help
-    {"help", "controls", "hint"}
+    {"help", "controls", "hint"},
+    // Bounty
+    {"bounty", "quest", "goal", "mission"},
+    // Accepting bounty
+    {"accept target"}
   };
 
   /**
@@ -184,6 +188,12 @@ public class InputWatcher {
       case HELP:
         Help.displayControls();
         break;
+      case DISPLAYQUEST:
+        DisplayQuest.displayQuest();
+        break;
+      case ACCEPT:
+        AcceptBounty.acceptBounty(Action.findWordAfter(words, wordNum, wordsInPhrase));
+        break;
       default: 
         Help.notFound();
     }
@@ -203,6 +213,8 @@ public class InputWatcher {
     action = Actions.DIALOGUE.ordinal() == i ? Actions.DIALOGUE : action;
     action = Actions.ENCOUNTER.ordinal() == i ? Actions.ENCOUNTER : action;
     action = Actions.HELP.ordinal() == i ? Actions.HELP : action;
+    action = Actions.DISPLAYQUEST.ordinal() == i ? Actions.DISPLAYQUEST : action;
+    action = Actions.ACCEPT.ordinal() == i ? Actions.ACCEPT : action;
     return  action;
   }
 

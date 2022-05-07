@@ -11,8 +11,8 @@ public class Enemy extends AI {
    * @param weapon - weapon they are carrying
    * @param health - health of enemy
    */
-  public Enemy(String name, double health){
-    super(name);
+  public Enemy(String name, double health, double money){
+    super(name, 100.00, 50.0);
   }
 
 }

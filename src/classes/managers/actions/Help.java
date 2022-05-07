@@ -13,13 +13,17 @@ public class Help extends Action {
     addText("-'Pick up {potion name}' to pick up potion");
     addText("-'Swap to {weapon/armor name}' to swap primary weapon/armor");
     addText("-'Inventory' to view inventory");
+    addText("-'Bounty' to view current bounty");
+    addText("-'Accept Bounty {bounty name}' to accept a bounty");
+    addText("-'Buy {item name}' to buy an item");
     addText("|");
     addText("In battle controls:");
     addText("-'Swap to {weapon/armor name}' to swap primary weapon/armor");
     addText("-'Use potion {potion name}' to use a potion");
-    addText("-'one' or button one for main attack");
-    addText("-'two' or button three for defensive move");
-    addText("-'three' or button three for dangerous attack");
+    addText("-'1' or button one for main attack");
+    addText("-'2' or button three for defensive move");
+    addText("-'3' or button three for reckless attack");
+    addText("-'4' or button three for to flee");
     addText(" ");
     end();
   }
