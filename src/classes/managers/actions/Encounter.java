@@ -172,6 +172,7 @@ public class Encounter extends Action {
       addText("You now have " + player.getMoney() + " gold.");
       if(player.getQuest().getEnemy().getName() == enemy.getName()){
         addText("Congrats you killed " + displayName(enemy.getName()) + " talk to Wulfstan to claim reward");
+        player.getQuest().setCompleted(true);
       }
     }
     catch(Exception e){}

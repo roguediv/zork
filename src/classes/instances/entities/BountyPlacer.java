@@ -14,7 +14,7 @@ public class BountyPlacer extends Entity {
 
   private BountyPlacer() {
     // Passing nothing as it's singleton, name will be set after
-    super("Wulfstan");
+    super("Wulfstan", 200.00, 2500.00);
   }
     
   public static BountyPlacer getInstance() {
@@ -27,6 +27,10 @@ public class BountyPlacer extends Entity {
 
   public void addQuest(Quest Quest) {
     quests.add(Quest);
+  }
+
+  public InstanceCollection<Quest> getQuests(){
+    return quests;
   }
 
 }

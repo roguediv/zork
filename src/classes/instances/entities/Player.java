@@ -21,7 +21,7 @@ public class Player extends Entity
   private int gameState = 0;
 
   // The quest the player current has
-  private Quest quest;
+  private Quest quest = null;
 
   private Player() {
     super("");

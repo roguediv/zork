@@ -8,6 +8,7 @@ import src.classes.instances.entities.Enemy;
 public class Quest extends Item {
 
   private Enemy enemy;
+  private Boolean completed;
   /**
    * Creates bounty using the reward and the target
    * @param reward
@@ -17,6 +18,13 @@ public class Quest extends Item {
     super(Enemy.getName()+"_bounty", Reward);
     if (Enemy == null) System.out.println("Enemy is null for quest.");
     setEnemy(Enemy);
+  }
+  
+  public Boolean getCompleted() {
+    return completed;
+  }
+  public void setCompleted(Boolean completed) {
+    this.completed = completed;
   }
   /**
    * Get's enemy

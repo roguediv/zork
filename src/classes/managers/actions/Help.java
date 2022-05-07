@@ -14,6 +14,8 @@ public class Help extends Action {
     addText("-'Swap to {weapon/armor name}' to swap primary weapon/armor");
     addText("-'Inventory' to view inventory");
     addText("-'Bounty' to view current bounty");
+    addText("-'Accept Bounty {bounty name}' to accept a bounty");
+    addText("-'Buy {item name}' to buy an item");
     addText("|");
     addText("In battle controls:");
     addText("-'Swap to {weapon/armor name}' to swap primary weapon/armor");

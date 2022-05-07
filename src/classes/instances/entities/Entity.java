@@ -198,7 +198,13 @@ public abstract class Entity extends Instance {
   }
 
   public void die() {
-    EntityManager.getEntityManager().removeEntity(this);
+    try{
+      EntityManager.getEntityManager().removeEntity(this.getName());
+      this.location.removeEntity(this.getName());
+    }
+    catch(Exception e){
+      System.out.println(e.toString());
+    }
   }
 
   public double getMaxHealth(){
