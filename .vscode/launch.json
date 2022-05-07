@@ -9,6 +9,13 @@
             "name": "Launch Application",
             "request": "launch",
             "mainClass": "src.main.Application",
+            "projectName": "zork_4fe5d8a2"
+        },
+        {
+            "type": "java",
+            "name": "Launch Application",
+            "request": "launch",
+            "mainClass": "src.main.Application",
             "projectName": "zork_222d5eae"
         },
         {

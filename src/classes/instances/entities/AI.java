@@ -87,8 +87,8 @@ public class AI extends Entity {
     {"I'm getting out of here! You're crazy!"}
   };
 
-  public AI(String Name) {
-    super(Name);
+  public AI(String Name, double Health, double money) {
+    super(Name, Health, money);
   }
 
 }

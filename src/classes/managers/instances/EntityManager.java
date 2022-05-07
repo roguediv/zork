@@ -26,11 +26,11 @@ public class EntityManager {
    */
   private EntityManager() {
     // Creating enemies
-    createEntity(new Enemy("grunt", 50.00));
-    createEntity(new Enemy("edrik", 100.00));
-    createEntity(new Enemy("king_ethelred", 250.00));
-    createEntity(new Peasant("james"));
-    createEntity(new Merchant("john"));
+    createEntity(new Enemy("grunt", 50.00, 20.00));
+    createEntity(new Enemy("edrik", 100.00, 50.00));
+    createEntity(new Enemy("king_ethelred", 250.00, 200.00));
+    createEntity(new Peasant("james", 50.00, 10.00));
+    createEntity(new Merchant("john", 50.00, 10.00));
   }
 
   /**

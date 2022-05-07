@@ -6,11 +6,11 @@ public class Peasant extends AI {
 
   /**
    * Constructor
-   * @param info - information the peasant holds
    * @param name
    */
-  public Peasant(String name){
-    super(name);
+  // Peasant Constructor
+  public Peasant(String name, double health, double money){
+    super(name, health, money);
   }
 
 }

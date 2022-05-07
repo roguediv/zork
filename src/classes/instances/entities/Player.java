@@ -1,6 +1,9 @@
 package src.classes.instances.entities;
 import java.util.List;
 
+import src.classes.instances.items.Quest;
+import src.classes.instances.locations.environments.Overworld;
+
 /**
  * player class that represents the main player
  */
@@ -17,8 +20,27 @@ public class Player extends Entity
    */
   private int gameState = 0;
 
+  // The quest the player current has
+  private Quest quest;
+
   private Player() {
     super("");
+  }
+
+  /**
+   * get's quest
+   * @return
+   */
+  public Quest getQuest() {
+    return quest;
+  }
+
+  /**
+   * sets quest
+   * @param quest
+   */
+  public void setQuest(Quest quest) {
+    this.quest = quest;
   }
 
   public static Player getInstance() {
@@ -32,8 +54,8 @@ public class Player extends Entity
   @Override
   public void die() {
     super.die();
-    // Display death messages
-    // Send player to sewers
+    mainPlayer.setLocation(Overworld.getOverWorld());
+    mainPlayer.setMoney(mainPlayer.getMoney() / 2);
     // Take away gold
   }
 

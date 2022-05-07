@@ -1,16 +1,12 @@
 package src.classes.managers.actions;
 
-import src.classes.instances.entities.Enemy;
+// Internal imports
 import src.classes.instances.entities.Entity;
-import src.classes.instances.entities.Player;
 import src.classes.instances.items.potions.HealingPotion;
-import src.classes.instances.items.armor.Armor;
-
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-
+import src.classes.managers.MasterMethods;
 import src.classes.instances.entities.AI;
+
+// External imports
 
 /**
  * The combat system, takes a player and an enemy player.
@@ -25,8 +21,6 @@ public class Encounter extends Action {
   private static double defensiveBuff = 0.00;
   // Counting reckless attacks in a row.
   private static int recklessAttackCounter = 0;
-  // For formatting output
-  private static DecimalFormat decFormat = new DecimalFormat("#.##");
   /**
    * Starts encounter or battle
    * @param str the name of the enemy we are fighting
@@ -45,11 +39,14 @@ public class Encounter extends Action {
     try{
       // Cast to AI to implement battle lines
       enemy = (AI)e;
+      addSpace();
+      addText("Battle with " + displayName(enemy.getName()) + " has begun.");
+      PickMove();
     } 
     catch(Exception exec){
       addText(displayName(e.getName()) + " is not able to battle");
+      endEncounter();
     }
-    PickMove();
     // Ends text input to our view controller
     end();
   }
@@ -60,7 +57,7 @@ public class Encounter extends Action {
     try {
       i = Integer.parseInt(Input);
     } catch (Exception e) {}
-    if (i > -1) start();
+    start();
     switch(i){
       // Case if item is used or weapon is swapped. Skips player's turn
       case -2:
@@ -80,27 +77,44 @@ public class Encounter extends Action {
         break;
       // Case for a defensive move.
       case 2:
-        // Don't want over buffing
-        if(defensiveBuff < 75.00){
+        // Gathering the total armor of the player
+        double totalArmor = 0.00 + defensiveBuff;
+        for(int j = 0; j < player.outfit.length; j++){
+          totalArmor += player.outfit[j].getDefense();
+        }
+        // Don't want over buffing to immunity
+        if(totalArmor < 75.00){
           defensiveMove();
           checkHealth();
+          // Calls enemy move if battle is active
           if(battleActive)
             EnemyMove(defensiveBuff);
         }
         else{
           addText("Defense can't be buffed anymore");
-          addText("Try using '1' for an attack, '2' for a defensive buff, and '3' for a reckless attack");
+          PickMove();
         }
         break;
       case 3:
+        // Calls reckless attack
         recklessAttack();
+        // Checks if health is above 0 and adjust battleActive accordingly
         checkHealth();
+        // If battle is still going the enemy makes a move
         if(battleActive)
           EnemyMove(defensiveBuff);
         break;
+      case 4:
+        if(MasterMethods.getChance(50.00)){
+          flee();
+        }
+        else{
+          EnemyMove(defensiveBuff);
+        }
+        break;
       default:
         addText("Move " + Input + " could not be found.");
-        addText("Try using '1' for an attack, '2' for a defensive buff, and '3' for a reckless attack");
+        PickMove();
     }
 
     end();
@@ -110,13 +124,14 @@ public class Encounter extends Action {
    * Displays move options.
    */
   public static void PickMove(){
-    addText(" ");
+    addSpace();
     addText("What move would you like to make?");
     addText("-'Swap to {weapon name}'");
     addText("-'Use {potion name}'");
     addText("-'1' for basic attack");
     addText("-'2' for defensive move");
     addText("-'3' for reckless attack");
+    addText("-'4' to attempt to flee");
   }
   
   /**
@@ -151,6 +166,15 @@ public class Encounter extends Action {
    */
   private static void displayWin(){
     addText("You win!");
+    try{
+      player.payMoney(enemy.getMoney());
+      addText("You killed " + displayName(enemy.getName()) + " and found " + enemy.getMoney() + " gold.");
+      addText("You now have " + player.getMoney() + " gold.");
+      if(player.getQuest().getEnemy().getName() == enemy.getName()){
+        addText("Congrats you killed " + displayName(enemy.getName()) + " talk to Wulfstan to claim reward");
+      }
+    }
+    catch(Exception e){}
     enemy.die();
     endEncounter();
   }
@@ -160,7 +184,11 @@ public class Encounter extends Action {
    * @return battleActive which is a boolean
    */
   private static void displayLose(){
+
     addText("You have died.");
+    addText("You have been set to the starting place.");
+    addText("You will keep your inventory and bounty, but you will lose half your money");
+    addText("You lost " + player.getMoney()/2 + " gold.");
     endEncounter();
     player.die();
   }
@@ -181,8 +209,8 @@ public class Encounter extends Action {
    * Display's health of both players
    */
   public static void displayHealth(){
-    addText("Your health is " + decFormat.format(player.getHealth()));
-    addText("The enemies health is " + decFormat.format(enemy.getHealth()));
+    addText("Your health is " + MasterMethods.Round(player.getHealth()));
+    addText("The enemies health is " + MasterMethods.Round(enemy.getHealth()));
   }
 
   /**
@@ -203,19 +231,27 @@ public class Encounter extends Action {
     
     player.damage(damageDone);
 
-    addText(enemy.getName() + " attacked and you took " + decFormat.format(damageDone) + ".");
+    addText(displayName(enemy.getName()) + " attacked and you took " + MasterMethods.Round(damageDone) + ".");
   }
 
   /**
-   * Defensive buff, increases player's defense by 5%, also resets reckless attack counter
+   * Defensive buff, increases player's defense by 6%, also resets reckless attack counter
    */
   public static void defensiveMove(){
-    // Increasing defensive buff by 5% and stacking on past buffs.
-    defensiveBuff = 5 + (defensiveBuff * 1.05);
+    // Increasing defensive buff by 6% and stacking on past buffs.
+    defensiveBuff = 6 + (defensiveBuff * 1.06);
     addText("Defense has been buffed.");
-    addText("Your defense buff is now " + decFormat.format(defensiveBuff));
+    addText("Your defense buff is now " + MasterMethods.Round(defensiveBuff) + "%");
     // Resetting reckless attack counters
     recklessAttackCounter = 0;
+  }
+  /**
+   * Allows you to escape from battle.
+   */
+  public static void flee(){
+    addText("You have successfully fled");
+    addText(displayName(enemy.getName()) + ": I knew you were scared");
+    endEncounter();
   }
 
   /**
@@ -238,7 +274,7 @@ public class Encounter extends Action {
       enemy.damage(damageDone);
       player.damage(recklessDamage);
   
-      addText("You attacked and you did " + decFormat.format(damageDone) + ", but took " + decFormat.format(recklessDamage) + " damage");
+      addText("You attacked and you did " + MasterMethods.Round(damageDone) + ", but took " + MasterMethods.Round(recklessDamage) + " damage");
     }
       catch(Exception e){
         addText("You don't have a weapon equipped.");
@@ -260,7 +296,7 @@ public class Encounter extends Action {
     double damageDone = player.primary.getDamage() - (player.primary.getDamage() * TotalArmor);
     enemy.damage(damageDone);
 
-    addText("You attacked and you did " + decFormat.format(damageDone) + ".");}
+    addText("You attacked and you did " + MasterMethods.Round(damageDone) + ".");}
     catch(Exception e){
       addText("You don't have a weapon equipped.");
     }
