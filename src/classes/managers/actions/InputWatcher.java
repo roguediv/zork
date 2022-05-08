@@ -161,12 +161,24 @@ public class InputWatcher {
    * @param Input User input
    */
   private static void inputType3(String Input) {
-    if(Input.toLowerCase() == "exit"){
-      changeInput(0);
-      ViewController.getViewController().sendText("You have left the shop.");
+    String[] filterWords = {"buy", "purchase", "get", "take", "choose", "a", "the"}; // Removes these words from input
+
+    /// Handle if player sends an empty string, then handle if player is trying to leave, then filter out input and send to buy class
+    if (Input.equals("")) {ViewController.getViewController().sendText("Wulfstan: \"Please choose an item to buy.\"");return;}
+    String input = Input.trim().toLowerCase().replace(' ', '_'); // Cleans the input
+    String[] words = input.split("_"); // For input filtering
+
+    if(Input.equals("exit")){ // Player wants to leave
+      changeInput(0); // return to default inputtype
+      ViewController.getViewController().sendText("You have left the shop."); // Tell the player they left
       return;
     }
-    Buy.buyShop(Input.toLowerCase().replace(' ', '_').replace("buy_", ""));
+
+    for (String target : filterWords) for (String word : words) { // Filter out input
+      if (target.equals(word)) input = input.replace(word + "_", ""); // Just to make Tristan angry...
+    }
+    
+    Buy.buyShop(input); // Send to merchant
   }
 
 

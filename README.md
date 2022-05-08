@@ -14,24 +14,21 @@ roguediv/zork is a text-based game similar to Zork that takes place in medieval 
 * Capitalization Camel-case for class and file names
 * Lowercase for foldernames, use _ between words
 
-## TODO List
-### Keyword Recognization - In Progress (Jake)  
-> STARTED: 2022-04-10 | DUE: 2022-04-17
-  * [X] Loop through input to find specific keywords
-  * [X] Remove filler words that don't matter from input 
-  * [X] Create a class for each type of action that can be taken by the player 
-  * [X] Recognize words around action phrases to complete tasks
-  * [ ] Create a class for battle sequences that recognized battles-related keywords and disables the keywords for the overworld
-  * [ ] Create a class for the convesation sequence that recognizes conversation-related keywords and disables the keywords for the overworld and battle sequence
-  * [ ] Create a helper class that manages the sequences of gameplay 
-### Item Classes - In Progress (Tristan)  
-> STARTED: 2022-04-10 | DUE: 2022-04-17
-  * Feel free to write your tasks here, Tristan.  
-### Environment Classes - In Progress (Brian)   
- > STARTED: 2022-04-10 | DUE: 2022-04-17
-  * [ ] Create an abstract Environment class with a list for rooms
-  * [ ] Create an abstract Room class that a player can navigate through
-  * [ ] Create a Places class that holds all the environments of the game
-    * i.e. shop, house1, house2, overworld, castle, etc... 
-    * Set up these environments with rooms; for overworld: castleWalls, housingDistrict, commons, etc...
-  * [ ] Create a helper class that manages how the player moves through environments
+## Expertise
+What each individual created during this project.<br/><br/>
+**Brian**:
+* Location classes 
+* Positioning of entities
+* Overall story<br/><br/>
+**Jacob**:
+* GUI/ViewController
+* Instance Managers
+* Action Classes 
+* InputWatcher<br/><br/>
+**Tristan**:
+* Encounter System
+* Shopping System
+* Quest System
+* Entity Classes
+* Item Classes<br/><br/>
+

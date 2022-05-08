@@ -13,6 +13,7 @@ import src.classes.instances.entities.AI;
  * The combat system, takes a player and an enemy player.
  * Prompts user for options and handles them, basic enemy logic
  * Enemy logic starts with basic attacks, can add using potions if time.
+ * @author Tristan
  */
 public class Encounter extends Action {
 

@@ -5,6 +5,7 @@ import src.classes.instances.items.Item;
 
 /**
  * Class that handles buying items from merchants
+ * @author Tristan
  */
 public class Buy extends Action{
 	
@@ -18,22 +19,21 @@ public class Buy extends Action{
   public static void buyShop(String ItemName){
 		start();
 		Boolean isFound = false;
-		System.out.println("Item name: " + ItemName);
 		for(Item i:merchant.getShop()){
-			System.out.println(i.getName());
 			if(i.getName().equals(ItemName)){
 				isFound = true;
 				if(player.spendMoney(i.getValue())){
 					player.addInventory(i);
 					merchant.removeItem(i);
+					addText("You purchased the " + displayName(i.getName()) + " from " + displayName(merchant.getName()) +".");
+					addText("Wulfstan: \"Alway's a pleasure doing business...\"");
 				}
 				else{
-					addText("You can't afford " + displayName(i.getName()) + ".");
+					addText("Wulfstan: \"You don't have enough money for this " + displayName(i.getName()) + ".\"");
 				}
 			}
 		}
 		if(!isFound) addText(displayName(ItemName) + " is not found.");
-		InputWatcher.changeInput(0);
 		end();
   }
 
@@ -43,4 +43,5 @@ public class Buy extends Action{
 	public static void setMerchant(Merchant Merchant){
 		merchant = Merchant;
 	}
+	
 }
