@@ -12,7 +12,7 @@ public class Enemy extends AI {
    * @param health - health of enemy
    */
   public Enemy(String name, double health, double money){
-    super(name, 100.00, 50.0);
+    super(name, health, money);
   }
 
 }

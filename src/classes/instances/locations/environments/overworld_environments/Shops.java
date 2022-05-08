@@ -15,8 +15,14 @@ public class Shops extends Environment {
     john.addItem(itemManager.getItem("bronze_sword"));
     john.addItem(itemManager.getItem("wood_club"));
     john.addItem(itemManager.getItem("hard_rock"));
-    john.addItem(itemManager.getItem("basic_healing_potion"));
     john.addItem(itemManager.getItem("obsidian_sword"));
+    addEntity(john);
+
+    Merchant johnson = entityManager.getMerchants().getInstance("johnson");
+    addEntity(johnson);
+    johnson.addItem(itemManager.getItem("basic_healing_potion"));
+    johnson.addItem(itemManager.getItem("basic_healing_potion_2"));
+
   
     /// Creating bounty placer and adding bounties
     BountyPlacer wulfstan = BountyPlacer.getInstance();

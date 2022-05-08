@@ -31,6 +31,7 @@ public class EntityManager {
     createEntity(new Enemy("king_ethelred", 250.00, 200.00));
     createEntity(new Peasant("james", 50.00, 10.00));
     createEntity(new Merchant("john", 50.00, 10.00));
+    createEntity(new Merchant("johnson", 50.00, 10.00));
   }
 
   /**

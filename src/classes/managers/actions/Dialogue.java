@@ -1,32 +1,55 @@
 package src.classes.managers.actions;
 
 import src.classes.instances.entities.*;
+import src.classes.instances.items.Item;
+import src.classes.managers.MasterMethods;
 
 public class Dialogue extends Action {
   private static final DialogueController dialogueController = DialogueController.getDialogueController();
 
   public static void newDialog(String name) {
     start();
+    Entity subject = location.getEntities().getInstance(name);
     // If the name entered is Wulfstan then he will either pay you for quests, tell you have a quest active still or let you pick a new quest.
-    System.out.println(name);
     if(name.toLowerCase().equals("wulfstan")){
-      System.out.println("Why");
+      if(player.getLocation().getEntities().getInstance("Wulfstan") != null){
       if(player.getQuest() == null){
         pickQuest();
       }
-      else if(player.getQuest().getCompleted() == true){
+      else if(player.getQuest().getEnemy().getHealth() <= 0.00){
         addText("Wulfstan:\"Wow, you actually killed " + player.getQuest().getName() + "!\"");
-        addText("Wulfstan:\"Well, here is your reward of " + player.getQuest().getPrice() + " \"");
+        addText("Wulfstan:\"Well, here is your reward of " + player.getQuest().getValue() + "\"");
+        player.payMoney(player.getQuest().getValue());
         addText("You now have " + player.getMoney() + " gold.");
         pickQuest();
       }
       else{
         addText("Wulfstan:\"Looks like you still have your hands full with " + player.getQuest().getName() +  "\"");
+        addText("Wulfstan:\"Would you like to exchange it?\"");
+        pickQuest();
       }
       end();
     }
     else{
-      Entity subject = location.getEntities().getInstance(name);
+      addText("Wulfstan is not around.");
+      end();
+    }
+    }
+    else if(MasterMethods.getMerchant(subject) != null){
+      InputWatcher.changeInput(3);
+      Merchant merchant = MasterMethods.getMerchant(subject);
+      Buy.setMerchant(merchant);
+      for(String s: merchant.getShopStartDialog()){
+        addText(s);
+      }
+      System.out.println(merchant.getShop().size());
+      for(Item i: merchant.getShop()){
+        System.out.println("Working: " + i.getName());
+        addText(displayName(i.getName()) + " | Price: " + i.getValue());
+      }
+      end();
+    }
+    else{
       dialogueController.startDialogue(subject);
     }
   }
@@ -41,7 +64,7 @@ public class Dialogue extends Action {
     addText(" ");
     addText("Wulfstan: \"Here for a contract?\"");
     for(int i = 0; i < wulfstan.getQuests().size(); i++){
-      addText("Bounty on: " + wulfstan.getQuests().get(i).getName() + " Reward: " + wulfstan.getQuests().get(i).getPrice());
+      addText("Bounty on: " + wulfstan.getQuests().get(i).getName() + " Reward: " + wulfstan.getQuests().get(i).getValue());
     }
   }
 }

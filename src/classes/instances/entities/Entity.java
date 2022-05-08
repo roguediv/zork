@@ -158,7 +158,7 @@ public abstract class Entity extends Instance {
    * @return True if purchase was successful 
    */
   public boolean spendMoney(double Money) {
-    if (money > Money) {
+    if (money >= Money) {
       money -= Money;
       return true;
     }
@@ -172,7 +172,9 @@ public abstract class Entity extends Instance {
   public Environment getLocation() {return location;}
   public void setLocation(Environment Location) {location = Location;}
 
-  public InstanceCollection<Item> getInventory() {return inventory;}
+  public InstanceCollection<Item> getInventory(){
+    return inventory;
+  }
   public void addInventory(Item Item) {inventory.add(Item);}
   public void removeInventory(String Name) {inventory.remove(inventory.getInstance(Name));}
 
@@ -198,13 +200,6 @@ public abstract class Entity extends Instance {
   }
 
   public void die() {
-    try{
-      EntityManager.getEntityManager().removeEntity(this.getName());
-      this.location.removeEntity(this.getName());
-    }
-    catch(Exception e){
-      System.out.println(e.toString());
-    }
   }
 
   public double getMaxHealth(){

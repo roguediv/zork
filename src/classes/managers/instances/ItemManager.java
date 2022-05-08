@@ -12,9 +12,10 @@ public class ItemManager {
 
   private ItemManager() {
     // All weapons in game
-    createItem(new RangedObject("hard_rock", 2, 20.00));
-    createItem(new BluntObject("wood_club", 10, 15.00));
+    createItem(new RangedObject("hard_rock", 50.00, 11.00));
+    createItem(new BluntObject("wood_club", 100.00, 15.00));
     createItem(new SharpObject("bronze_sword", 100, 32.5));
+    
     // Maybe final boss weapon, might take some balancing
     createItem(new SharpObject("obsidian_sword", 1500, 50.00));
 
