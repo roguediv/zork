@@ -42,11 +42,10 @@ public class Dialogue extends Action {
       for(String s: merchant.getShopStartDialog()){
         addText(s);
       }
-      System.out.println(merchant.getShop().size());
       for(Item i: merchant.getShop()){
-        System.out.println("Working: " + i.getName());
         addText(displayName(i.getName()) + " | Price: " + i.getValue());
       }
+      addText("- 'Exit' Leave Shop");
       end();
     }
     else{

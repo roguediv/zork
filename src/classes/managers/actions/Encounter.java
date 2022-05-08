@@ -30,6 +30,7 @@ public class Encounter extends Action {
   public static void StartEncounter(String str){
     // This is allowing text to be added to view controller
     start();
+    battleActive = true;
     // Resetting defensive buff
     defensiveBuff = 0.00;
     // Reckless attack counter
