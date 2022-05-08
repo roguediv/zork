@@ -63,7 +63,7 @@ public class InputWatcher {
     // Bounty
     {"bounty", "quest", "goal", "mission"},
     // Accepting bounty
-    {"accept target"}
+    {"accept target", "accept"}
   };
 
   /**
@@ -189,6 +189,7 @@ public class InputWatcher {
         Help.displayControls();
         break;
       case DISPLAYQUEST:
+        System.out.println("this is working");
         DisplayQuest.displayQuest();
         break;
       case ACCEPT:

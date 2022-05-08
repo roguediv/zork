@@ -15,7 +15,7 @@ public class Quest extends Item {
    * @param enemy
    */
   public Quest(Enemy Enemy, double Reward){
-    super(Enemy.getName()+"_bounty", Reward);
+    super(Enemy.getName()+"_quest", Reward);
     if (Enemy == null) System.out.println("Enemy is null for quest.");
     setEnemy(Enemy);
   }
