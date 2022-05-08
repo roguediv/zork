@@ -1,5 +1,7 @@
 package src.classes.instances.entities;
 
+import src.classes.instances.locations.environments.Environment;
+
 /**
  * Class the represents enemy
  */
@@ -13,6 +15,9 @@ public class Enemy extends AI {
    */
   public Enemy(String name, double health, double money){
     super(name, health, money);
+  }
+  public Enemy(String name, double health, double money, Environment location){
+    super(name, health, money, location);
   }
 
 }

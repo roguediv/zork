@@ -10,19 +10,7 @@ public class ItemManager {
 
   private InstanceCollection<Item> items = new InstanceCollection<Item>();
 
-  private ItemManager() {
-    // All weapons in game
-    createItem(new RangedObject("hard_rock", 50.00, 11.00));
-    createItem(new BluntObject("wood_club", 100.00, 15.00));
-    createItem(new SharpObject("bronze_sword", 100, 32.5));
-    
-    // Maybe final boss weapon, might take some balancing
-    createItem(new SharpObject("obsidian_sword", 1500, 50.00));
-
-    // All potions in game
-    createItem(new HealingPotion("basic_healing_potion", 40, 30));
-    createItem(new HealingPotion("basic_healing_potion_2", 80, 50));
-  }
+  private ItemManager() {}
 
   /**
    * Get singleton class
@@ -38,12 +26,22 @@ public class ItemManager {
   public Item getItem(String Name) {return items.getInstance(Name);}
 
   /**
+   * Check if item currently exists
+   * @param Item
+   * @return
+   */
+  public boolean hasItem(Item Item) {if (items.contains(Item)) return true; else return false;}
+  public boolean hasItem(String Name) {if (items.getInstance(Name) != null) return true; else return false;}
+
+  /**
    * Create an item
    * @param Item The item to be created
    */
-  public void createItem(Item Item) {
+  public boolean createItem(Item Item) {
     if (instanceManager.createInstance(Item)) 
-      items.add(Item);
+      if (!hasItem(Item))
+        {items.add(Item);return true;}
+    return false;
   }
 
   /**

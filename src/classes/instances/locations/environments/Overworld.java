@@ -36,39 +36,28 @@ public class Overworld extends Environment {
     // entityManager.createEntity(guard = new Enemy<>("Guard", 50));
     // addEntity(entityManager.getEntity("Gu"));
 
-    // This is the process of creating an enemy
-    entityManager.createEntity(new Enemy("Jack", 10.00, 50.00));
-    addEntity(entityManager.getEntity("Jack"));
-    // This is the process of creating a weapon and giving it to the enemy.
-    itemManager.createItem(new SharpObject("Simple Shiv", 10.00, 7.00));
-    entityManager.getEntity("Jack").inventory.add(itemManager.getItem("Simple Shiv"));
-    entityManager.getEntity("Jack").equipItem((Weapon)entityManager.getEntity("Jack").inventory.getInstance("Simple Shiv"));
+    // This is the process of creating an enemy, creating a weapon, and giving it to the enemy.
+    Enemy jack = new Enemy("Jack", 10.00, 50.00, this);
+    SharpObject shiv = new SharpObject("Simple Shiv", 10.00, 7.00);
+    jack.equipNewItem(shiv);
+    // End process
 
-    entityManager.createEntity(new Enemy("Jacob", 100.00, 50.00));
-    addEntity(entityManager.getEntity("Jacob"));
-    itemManager.createItem(new SharpObject("Enemy dag", 0.00, 9.00));
-    entityManager.getEntity("Jacob").inventory.add(itemManager.getItem("Enemy dag"));
-    entityManager.getEntity("Jacob").equipItem((Weapon)entityManager.getEntity("Jacob").inventory.getInstance("Enemy dag"));
+    Enemy jacob = new Enemy("Jacob", 100.00, 50.00, this);
+    SharpObject dagger = new SharpObject("Enemy dag", 0.00, 9.00);
+    if (addEntity(jacob)) jacob.equipNewItem(dagger);
     
     // Creating Quest
     Quest bountyJack = new Quest((Enemy)entityManager.getEntity("Jack"), 200.00);
 
     // Copy and paste this where we want wulfstan the bounty giver
     BountyPlacer wulfstan = BountyPlacer.getInstance();
-    itemManager.createItem(new SharpObject("Danish Dragon Slayer Dagger", 1000.00, 60.00));
-    wulfstan.setMoney(1000.00);
-
+    wulfstan.setLocation(this);
+    wulfstan.equipNewItem(new SharpObject("Danish Dragon Slayer Dagger", 1000.00, 60.00));
     // Adding Quest
     wulfstan.addQuest(bountyJack);
-    
-    entityManager.createEntity(wulfstan);
-    addEntity(entityManager.getEntity("Wulfstan"));
-    wulfstan.addInventory(itemManager.getItem("Danish Dragon Slayer Dagger"));
-    entityManager.getEntity("Wulfstan").equipItem((Weapon)entityManager.getEntity("Wulfstan").inventory.getInstance("Danish Dragon Slayer Dagger"));
 
     addItem(itemManager.getItem("Basic_Healing_Potion"));
     addItem(itemManager.getItem("Basic_Healing_Potion_2"));
-
     
   }
 

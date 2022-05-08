@@ -36,8 +36,19 @@ public abstract class Environment extends Instance{
 
   /// MARK - Instance Management
   public InstanceCollection<Instance> getInstances() {return instances;}
+
+  /**
+   * Add instance to instances within location
+   * @param Instance
+   */
   private void addInstance(Instance Instance) {instances.add(Instance);}
+
+  /**
+   * Remove instance from instances within location
+   * @param Name
+   */
   private void removeInstance(String Name) {instances.remove(instances.getInstance(Name));}
+  private void removeInstance(Instance Instance) {instances.remove(Instance);}
 
   public Environment getSource() {return source;}
 
@@ -47,38 +58,73 @@ public abstract class Environment extends Instance{
     addInstance(Room);
     rooms.add(Room);
   }
-  public void removeRoom(String Name) {
-    Environment room = rooms.getInstance(Name);
-    instances.remove(room);
-    rooms.remove(room);
+
+  public void removeRoom(Environment room) {
+    removeInstance(room);
+    removeRoom(room);
   }
+  public void removeRoom(String Name) {removeRoom(rooms.getInstance(Name));}
 
   /// MARK - Entity Management
   public InstanceCollection<Entity> getEntities() {return entities;}
-  public void addEntity(Entity Entity) {
-    addInstance(Entity);
-    entities.add(Entity);
-  }
-  public void removeEntity(String Name) {
-    Entity entity = entities.getInstance(Name);
-    entities.remove(entity);
-    instances.remove(entity);
+
+  /**
+   * Adds an entity to the list
+   * @param Entity
+   */
+  public boolean addEntity(Entity Entity) {
+    if (entityManager.hasEntity(Entity)) {
+      addInstance(Entity);
+      entities.add(Entity);
+      return true;
+    } else System.out.println("There is no instance of an entity that has been used");
+    return false;
   }
 
+  public boolean hasEntity(Entity Entity) {
+    if (entities.contains(Entity)) return true;
+    return false;
+  }
+
+  /**
+   * Removes the entity from the list
+   * @param entity
+   */
+  public void removeEntity(Entity entity) {
+    removeInstance(entity);
+    entities.remove(entity);
+  }
+  public void removeEntity(String Name) {removeEntity(entities.getInstance(Name));}
+
   /// MARK - Item Managmement
+  /**
+   * Get all items from the items list
+   * @return
+   */
   public InstanceCollection<Item> getItems() {return items;}
-  public void addItem(Item Item) {
-    addInstance(Item);
-    items.add(Item);
+
+  /**
+   * Add an item to the location
+   * @param Item
+   */
+  public boolean addItem(Item Item) {
+    if (itemManager.hasItem(Item)) {
+      addInstance(Item);
+      items.add(Item);
+      return true;
+    } else System.out.println("There is no instance of an item that has been used");
+    return false;
+  }
+
+  public void removeItem(Item Item) {
+    removeInstance(Item);
+    items.remove(Item);
   }
   public void removeItem(String Name) {
     removeInstance(Name);
     items.remove(items.getInstance(Name));
   }
-  public void removeItem(Item item) {
-    instances.remove(item);
-    items.remove(item);
-  }
+
   public Item retrieveItem(String Name) {
     Item item = items.getInstance(Name);
     removeItem(item);

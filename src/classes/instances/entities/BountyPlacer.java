@@ -2,6 +2,7 @@ package src.classes.instances.entities;
 import java.util.List;
 
 import src.classes.instances.items.Quest;
+import src.classes.instances.locations.environments.Overworld;
 import src.classes.managers.instances.InstanceCollection;
 /**
  * The person who gives bounties

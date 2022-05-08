@@ -21,8 +21,9 @@ public class InstanceManager {
   public InstanceCollection<Instance> getInstances() {return instances;}
 
   public boolean createInstance(Instance Instance) {
+    if (instances.contains(Instance)) {return true;}
+    if (Instance == null) return false;
     for (Instance instance : instances ) {
-      
       if (Instance.getName().equals(instance.getName())) {
         System.out.println("Instance: '" + Instance.getName() + "' has another instance of the same name within the game. Could not create.");
         return false;

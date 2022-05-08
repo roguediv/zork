@@ -9,6 +9,7 @@ public abstract class Item extends Instance {
   public Item(String Name, double Value) {
     super(Name);
     value = Value;
+    itemManager.createItem(this);
   }
 
   // Every item will have a price.

@@ -24,15 +24,7 @@ public class EntityManager {
   /**
    * Create starting entities
    */
-  private EntityManager() {
-    // Creating enemies
-    createEntity(new Enemy("grunt", 50.00, 20.00));
-    createEntity(new Enemy("edrik", 100.00, 50.00));
-    createEntity(new Enemy("king_ethelred", 250.00, 200.00));
-    createEntity(new Peasant("james", 50.00, 10.00));
-    createEntity(new Merchant("john", 50.00, 10.00));
-    createEntity(new Merchant("johnson", 50.00, 10.00));
-  }
+  private EntityManager() {}
 
   /**
    * Return singleton class
@@ -52,11 +44,15 @@ public class EntityManager {
    * Should be ran from env classes
    * @param Entity The entity to be created
    */
-  public void createEntity(Entity Entity) {
-    if (instanceManager.createInstance(Entity)) {
-      entities.add(Entity);
-    }
+  public boolean createEntity(Entity Entity) {
+    if (instanceManager.createInstance(Entity)) 
+      if (!hasEntity(Entity))
+        {entities.add(Entity);return true;}
+    return false;
   }
+
+  public boolean hasEntity(String Name) {return hasEntity(entities.getInstance(Name));}
+  public boolean hasEntity(Entity Entity) {if (entities.contains(Entity)) return true; else return false;}
 
     /**
    * Remove entity as object

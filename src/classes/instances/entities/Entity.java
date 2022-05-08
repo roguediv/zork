@@ -7,6 +7,7 @@ import src.classes.instances.items.weapons.Weapon;
 import src.classes.instances.locations.environments.Environment;
 import src.classes.managers.instances.EntityManager;
 import src.classes.managers.instances.InstanceCollection;
+import src.classes.managers.instances.ItemManager;
 import src.classes.instances.Instance;
 import src.classes.instances.items.Item;
 
@@ -14,6 +15,8 @@ import src.classes.instances.items.Item;
  * Abstract character class
  */
 public abstract class Entity extends Instance {
+  protected ItemManager itemManager = ItemManager.getItemManager();
+  protected EntityManager entityManager = EntityManager.getEntityManager();
 
   // Variable for player's money
   private double money = 0;
@@ -53,6 +56,7 @@ public abstract class Entity extends Instance {
   public Entity(String name){
     super(name);
     this.maxHealth = 100.00;
+    entityManager.createEntity(this);
   }
 
   /**
@@ -60,10 +64,10 @@ public abstract class Entity extends Instance {
   * @param name character's name
   */
   public Entity(String Name, double Health, double money){
-    super(Name);
+    this(Name);
     this.health = Health;
-    this.money = money;
     this.maxHealth = Health;
+    this.money = money;
   }
 
   public void give(Item item) {
@@ -175,8 +179,31 @@ public abstract class Entity extends Instance {
   public InstanceCollection<Item> getInventory(){
     return inventory;
   }
-  public void addInventory(Item Item) {inventory.add(Item);}
-  public void removeInventory(String Name) {inventory.remove(inventory.getInstance(Name));}
+  public boolean addInventory(Item Item) {
+    if (itemManager.hasItem(Item)) {
+      inventory.add(Item);
+      return true;
+    } else if (itemManager.createItem(Item)) {
+      inventory.add(Item);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Removes an item from the players inventory
+   * @param item
+   * @return
+   */
+  public boolean removeInventory(Item item) {
+    if (inventory.contains(item)) {
+      inventory.remove(item);
+      return true;
+    }
+    return false;
+
+  }
+  public boolean removeInventory(String Name) {return removeInventory(inventory.getInstance(Name));}
 
   public void dequipItem() {
     if (primary != null) {
@@ -184,19 +211,52 @@ public abstract class Entity extends Instance {
       primary = null;
     }
   }
+
+  /**
+   * Dequip item
+   * @param Type
+   */
   public void dequipItem(int Type) {
     if (outfit[Type] != null) {
       addInventory(outfit[Type]);
       outfit[Type] = null;
     }
   }
-  public void equipItem(Weapon item) {
-    dequipItem();
-    primary = item;
+
+  /**
+   * Equip an item that is in player inventory
+   * @param Item
+   * @return
+   */
+  public boolean equipItem(Weapon Item) {
+    if (removeInventory(Item)) {
+      dequipItem();
+      primary = Item;
+      return true;
+    }
+    return false;
   }
-  public void equipItem(Armor item) {
-    dequipItem(item.getType());
-    outfit[item.getType()] = item;
+  public boolean equipItem(Armor Item) {
+    if (removeInventory(Item)) {
+      dequipItem(Item.getType());
+      outfit[Item.getType()] = Item;
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Equip an item that is not currently in player inventory
+   * @param Item
+   * @return
+   */
+  public boolean equipNewItem(Weapon Item) {
+    addInventory(Item);
+    return equipItem(Item);
+  }
+  public boolean equipNewItem(Armor Item) {
+    addInventory(Item);
+    return equipItem(Item);
   }
 
   public void die() {

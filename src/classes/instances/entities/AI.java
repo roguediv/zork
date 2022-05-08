@@ -1,5 +1,7 @@
 package src.classes.instances.entities;
 
+import javax.tools.DocumentationTool.Location;
+
 import src.classes.instances.locations.environments.Environment;
 
 public class AI extends Entity {
@@ -92,6 +94,10 @@ public class AI extends Entity {
   public AI(String Name, double Health, double money) {
     super(Name, Health, money);
   }
+  public AI(String Name, double Health, double Money, Environment Location) {
+    super(Name, Health, Money);
+    setLocation(Location);
+  }
 
   public void die(Environment env) {
     super.die();
@@ -102,5 +108,22 @@ public class AI extends Entity {
     catch(Exception e){
       System.out.println(e.toString());
     }
+  }
+
+  @Override
+  public void setLocation(Environment location) {
+    try {
+      this.getLocation().removeEntity(this);
+    } catch(Exception e) {}
+    try {
+      if (!location.hasEntity(this)) {
+        location.addEntity(this);
+      }
+      super.setLocation(location);
+    } catch (Exception e) {
+      location.addEntity(this);
+      super.setLocation(location);
+    }
+
   }
 }

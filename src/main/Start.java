@@ -1,6 +1,9 @@
 package src.main;
 
 import src.classes.instances.entities.*;
+import src.classes.instances.items.potions.HealingPotion;
+import src.classes.instances.items.weapons.BluntObject;
+import src.classes.instances.items.weapons.RangedObject;
 import src.classes.instances.items.weapons.SharpObject;
 import src.classes.instances.items.weapons.Weapon;
 /// Project Imports:
@@ -18,7 +21,7 @@ public class Start {
 
   public static void startGame(ViewController view) {
     printStart(view);
-    initializePlayer();
+    initializeGame();
   }
 
   /**
@@ -64,8 +67,28 @@ public class Start {
     /**
    * Set up method creates rooms, weapons, characters, assigns weapons to merchants, bounties to contracters.
    */
-  private static Player initializePlayer(){
-    im.createItem(new SharpObject("Dagger", 39.99, 10.00));
+  private static Player initializeGame(){
+    // All weapons in game
+    new RangedObject("hard_rock", 50.00, 11.00);
+    new BluntObject("wood_club", 100.00, 15.00);
+    new SharpObject("bronze_sword", 100, 32.5);
+    new SharpObject("Dagger", 39.99, 10.00);
+    
+    // Maybe final boss weapon, might take some balancing
+    new SharpObject("obsidian_sword", 1500, 50.00);
+  
+    // All potions in game
+    new HealingPotion("basic_healing_potion", 40, 30);
+    new HealingPotion("basic_healing_potion_2", 80, 50);
+
+    // Creating enemies
+    new Enemy("grunt", 50.00, 20.00);
+    new Enemy("edrik", 100.00, 50.00);
+    new Enemy("king_ethelred", 250.00, 200.00);
+    new Peasant("james", 50.00, 10.00);
+    new Merchant("john", 50.00, 10.00);
+    new Merchant("johnson", 50.00, 10.00);
+    
     // Creating player
     Player player = Player.getInstance();
     player.inventory.add(im.getItem("Dagger"));
