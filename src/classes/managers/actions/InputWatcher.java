@@ -87,6 +87,9 @@ public class InputWatcher {
       case 2:
         inputType2(input);
         break;
+      case 3:
+        inputType3(input);
+        break;
       default: 
         inputType0(input);
     }
@@ -152,6 +155,20 @@ public class InputWatcher {
       Encounter.runEncounter(Input);
     }
   }
+
+  /**
+   * Runs whenever the user is in dialogue
+   * @param Input User input
+   */
+  private static void inputType3(String Input) {
+    if(Input.toLowerCase() == "exit"){
+      changeInput(0);
+      ViewController.getViewController().sendText("You have left the shop.");
+      return;
+    }
+    Buy.buyShop(Input.toLowerCase().replace(' ', '_').replace("buy_", ""));
+  }
+
 
   /**
    * Switch statement that runs code for each Actions enum

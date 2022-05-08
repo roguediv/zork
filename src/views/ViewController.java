@@ -103,7 +103,7 @@ public class ViewController {
     /// The buttons on the bottom that control key aspects of the game. 
     Grid grdBottomActions = new Grid(1, 3, gap, gap, stkContent.view);
     Button btnSave = new Button("Save", grdBottomActions.view, e -> sendText("Save Game"));
-    Button btnSettings = new Button("Controls", grdBottomActions.view, e -> sendText("Type 'Controls'"));
+    Button btnSettings = new Button("Controls", grdBottomActions.view, e -> onEnter("Controls"));
     Button btnExit = new Button("Exit", grdBottomActions.view, e -> System.exit(0));
     new VSpacer(padding, stkContent.view);
 
@@ -297,5 +297,9 @@ public class ViewController {
 
     /// Scroll to bottom of svwScroll
     bar.setValue(bar.getMaximum());
+  }
+
+  public static void setTypeSpeed(int speed){
+    typeSpeed = speed;
   }
 }

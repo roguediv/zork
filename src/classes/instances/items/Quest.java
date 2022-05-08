@@ -15,11 +15,11 @@ public class Quest extends Item {
    * @param enemy
    */
   public Quest(Enemy Enemy, double Reward){
-    super(Enemy.getName()+"_quest", Reward);
+    super(Enemy.getName(), Reward);
     if (Enemy == null) System.out.println("Enemy is null for quest.");
     setEnemy(Enemy);
   }
-  
+
   public Boolean getCompleted() {
     return completed;
   }

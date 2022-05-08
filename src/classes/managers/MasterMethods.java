@@ -2,6 +2,8 @@ package src.classes.managers;
 
 import java.util.concurrent.TimeUnit;
 
+import src.classes.instances.entities.Entity;
+import src.classes.instances.entities.Merchant;
 import src.classes.instances.items.Item;
 import src.classes.instances.items.armor.Armor;
 import src.classes.instances.items.potions.Potion;
@@ -99,4 +101,11 @@ public class MasterMethods {
     return decFormat.format(num);
   }
 
+  public static Merchant getMerchant(Entity e){
+    try{
+      return (Merchant)e;
+    }
+    catch(Exception i){}
+    return null;
+  }
 }

@@ -9,13 +9,18 @@ public class AcceptBounty extends Action {
     start();
     Player player = Player.getInstance();
     BountyPlacer wulfstan = BountyPlacer.getInstance();
-    if(player.getLocation().equals(wulfstan.getLocation())){
+    if(player.getLocation().getEntities().getInstance("Wulfstan") != null){
       try{
-        player.setQuest(wulfstan.getQuest("target"));
-        addText("Quest accepted. Time to kill " + player.getQuest().getName());
+        if(player.getQuest() != null){
+            wulfstan.addQuest(player.getQuest());
+            player.setQuest(null);
+            addText("Your last bounty was removed.");
+        }
+        player.setQuest(wulfstan.getQuest(target));
+        addText("Bounty accepted. Time to kill " + player.getQuest().getName());
       }
       catch(Exception e){
-        addText("Quest not found. Try using 'Accept target {target name}'");
+        addText("Bounty not found. Try using 'Accept target {target name}'");
       }
     }
     else{

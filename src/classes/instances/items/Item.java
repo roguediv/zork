@@ -17,7 +17,7 @@ public abstract class Item extends Instance {
   /**
    * Gets price
    */
-  public double getPrice() {
+  public double getValue() {
     return value;
   }
 
