@@ -1,5 +1,7 @@
 package src.classes.instances.entities;
 
+import src.classes.instances.locations.environments.Environment;
+
 public class AI extends Entity {
 
   protected String[][][][] dialogue = {
@@ -91,4 +93,14 @@ public class AI extends Entity {
     super(Name, Health, money);
   }
 
+  public void die(Environment env) {
+    super.die();
+    try{
+      env.removeEntity(this.getName());
+      this.setMoney(0);
+    }
+    catch(Exception e){
+      System.out.println(e.toString());
+    }
+  }
 }

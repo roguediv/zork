@@ -4,6 +4,7 @@ package src.classes.managers.actions;
 import src.classes.instances.entities.Entity;
 import src.classes.instances.items.potions.HealingPotion;
 import src.classes.managers.MasterMethods;
+import src.views.ViewController;
 import src.classes.instances.entities.AI;
 
 // External imports
@@ -15,7 +16,7 @@ import src.classes.instances.entities.AI;
  */
 public class Encounter extends Action {
 
-  private static Entity enemy;
+  private static AI enemy;
 
   private static Boolean battleActive = true;
   private static double defensiveBuff = 0.00;
@@ -124,6 +125,7 @@ public class Encounter extends Action {
    * Displays move options.
    */
   public static void PickMove(){
+    ViewController.setTypeSpeed(3);
     addSpace();
     addText("What move would you like to make?");
     addText("-'Swap to {weapon name}'");
@@ -171,12 +173,13 @@ public class Encounter extends Action {
       addText("You killed " + displayName(enemy.getName()) + " and found " + enemy.getMoney() + " gold.");
       addText("You now have " + player.getMoney() + " gold.");
       if(player.getQuest().getEnemy().getName() == enemy.getName()){
-        addText("Congrats you killed " + displayName(enemy.getName()) + " talk to Wulfstan to claim reward");
+        addText("Congrats you killed " + displayName(enemy.getName()) + ".");
+        addText("Talk to Wulfstan to claim reward.");
         player.getQuest().setCompleted(true);
       }
     }
     catch(Exception e){}
-    enemy.die();
+    enemy.die(player.getLocation());
     endEncounter();
   }
 
@@ -224,7 +227,7 @@ public class Encounter extends Action {
     for(int i = 0; i < player.outfit.length; i++){
       TotalArmor += player.outfit[i].getDefense();
     }
-
+    System.out.println("x");
     // enemyDamage calc, ensure that enemy has a primary weapon. If not, default 1
     double enemyDamage = enemy.primary != null ? enemy.primary.getDamage() : 1;
     // Damaging the player the damage minus what the armor takes away.

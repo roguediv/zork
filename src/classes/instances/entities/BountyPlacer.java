@@ -6,7 +6,7 @@ import src.classes.managers.instances.InstanceCollection;
 /**
  * The person who gives bounties
  */
-public class BountyPlacer extends Entity {
+public class BountyPlacer extends AI {
   // Eagar initialization singleton pattern
   private static final BountyPlacer bountyPlacer = new BountyPlacer();
 
