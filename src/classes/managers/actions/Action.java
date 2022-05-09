@@ -29,7 +29,7 @@ public abstract class Action {
       addText(string);
     }
   }
-  protected static void addSpace() {addText(" ");}
+  protected static void addSpace() {addText("‎");}
   protected static ArrayList<String> getStrings() {return strings;}
   protected static void end() {view.sendText(strings);}
   protected static String displayName(String string) {return MasterMethods.displayName(string);}

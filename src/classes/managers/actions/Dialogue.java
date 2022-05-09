@@ -7,6 +7,10 @@ import src.classes.managers.MasterMethods;
 public class Dialogue extends Action {
   private static final DialogueController dialogueController = DialogueController.getDialogueController();
 
+  /**
+   * Creates a new dialogue with a new subject
+   * @param name
+   */
   public static void newDialog(String name) {
     start();
     Entity subject = location.getEntities().getInstance(name);
@@ -53,6 +57,10 @@ public class Dialogue extends Action {
     }
   }
 
+  /**
+   * Runs on every new dialogue input
+   * @param input
+   */
   public static void run(String input) {
     start();
     dialogueController.runDialogue(input);

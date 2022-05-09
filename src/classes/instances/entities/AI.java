@@ -6,6 +6,12 @@ import src.classes.instances.locations.environments.Environment;
 
 public class AI extends Entity {
 
+  /**
+   * {
+   *    {Subject dialogue},
+   *    {User responses}
+   * }
+   */
   protected String[][][][] dialogue = {
     {
       {
@@ -44,6 +50,12 @@ public class AI extends Entity {
     }
   };
 
+  /**
+   * {
+   *    {Does the dialogue require a response? 0 = no 1 = yes},
+   *    {Next section that the reponse dialogue leads to in the array}
+   * }
+   */
   protected int[][][] dialogueProperties = {
     {
       {
@@ -68,13 +80,32 @@ public class AI extends Entity {
     }
   };
 
+  /**
+   * Get the full dialogue
+   * @return
+   */
   public String[][][][] getDialogue() {return dialogue;}
+
+  /**
+   * Get the full dialogue properties
+   * @return
+   */
   public int[][][] getDialogueProperties() {return dialogueProperties;}
 
+  /**
+   * Change a dialogue option
+   * @param String
+   * @param ArrayNum
+   */
   public void changeDialog(String[][][] String, int ArrayNum) {
     dialogue[ArrayNum] = String;
   }
 
+  /**
+   * Change the properties
+   * @param Change
+   * @param ArrayNum
+   */
   public void changeProperties(int[][] Change, int ArrayNum) {
     dialogueProperties[ArrayNum] = Change;
   }
@@ -128,6 +159,12 @@ public class AI extends Entity {
     for (Object[] ob : getFightLines()) ob[0] = false;
   }
 
+  /**
+   * Constructors for AI
+   * @param Name
+   * @param Health
+   * @param money
+   */
   public AI(String Name, double Health, double money) {
     super(Name, Health, money);
   }
@@ -136,6 +173,10 @@ public class AI extends Entity {
     setLocation(Location);
   }
 
+  /**
+   * Remove the AI from the current location whenever they die
+   * @param env
+   */
   public void die(Environment env) {
     super.die();
     try{
@@ -147,6 +188,9 @@ public class AI extends Entity {
     }
   }
 
+  /**
+   * Set a new location of an AI
+   */
   @Override
   public void setLocation(Environment location) {
     try {

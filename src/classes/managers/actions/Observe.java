@@ -6,6 +6,10 @@ import src.classes.instances.entities.*;
 
 public class Observe extends Action {
 
+  /**
+   * Checks the environment for rooms, entities, or items (or all three).
+   * @param Word
+   */
   public static void find(String Word) {
     start();
     switch (findObservationType(Word)) {
@@ -21,6 +25,11 @@ public class Observe extends Action {
     end();
   }
 
+  /**
+   * Returns what the user is looking for based on the word the user sent
+   * @param word
+   * @return
+   */
   private static int findObservationType(String word) {
     if (word == null) return -1;
     String[][] types = {
@@ -43,6 +52,9 @@ public class Observe extends Action {
     return -1;
   }
 
+  /**
+   * Code for looking for environments
+   */
   private static void rooms() {
     addText("You are currently in the area: " + displayName(location.getName()) + ".");
     addText("You look around you for places you can visit...");
@@ -54,6 +66,9 @@ public class Observe extends Action {
     if (i == 0) addText("Looks like this is a dead end.");
   }
 
+  /**
+   * Displays all entities in current room
+   */
   private static void entities() {
     Environment location = player.getLocation();
     addText("You look around you for people...");
@@ -65,6 +80,9 @@ public class Observe extends Action {
     if (i == 0) addText("You don't see any people.");
   }
 
+  /**
+   * Displays all items in current room
+   */
   private static void items() {
     Environment location = player.getLocation();
     addText("You look around for items...");

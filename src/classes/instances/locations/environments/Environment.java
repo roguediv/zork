@@ -8,15 +8,31 @@ import src.classes.managers.instances.ItemManager;
 import src.classes.instances.items.Item;
 
 public abstract class Environment extends Instance{
+  /** Manages global items */
   protected ItemManager itemManager = ItemManager.getItemManager();
+  /** Manages global entities */
   protected EntityManager entityManager = EntityManager.getEntityManager();
+  /** The parent environment */
   protected Environment source;
+  /**
+   * What is spoken when first entering a new environment
+   * Include hints about what the player can do within this environment
+   */
   protected String[] entranceDialog;
+  /** List of rooms within environment */
   private InstanceCollection<Environment> rooms = new InstanceCollection<Environment>();
+  /** All instances within environment */
   private InstanceCollection<Instance> instances = new InstanceCollection<Instance>();
+  /** All entities within environment */
   private InstanceCollection<Entity> entities = new InstanceCollection<Entity>();
+  /** All items within environment */
   private InstanceCollection<Item> items = new InstanceCollection<Item>();
 
+  /**
+   * Constructors for environment
+   * @param Name
+   * @param EntranceDialog
+   */
   public Environment(String Name, String[] EntranceDialog) {
     super(Name);
     entranceDialog = EntranceDialog;
@@ -59,6 +75,10 @@ public abstract class Environment extends Instance{
     rooms.add(Room);
   }
 
+  /**
+   * Remove a room from an environment. Can send object or string.
+   * @param room
+   */
   public void removeRoom(Environment room) {
     removeInstance(room);
     removeRoom(room);
@@ -81,6 +101,11 @@ public abstract class Environment extends Instance{
     return false;
   }
 
+  /**
+   * Check to see in an entity is within an environment
+   * @param Entity
+   * @return
+   */
   public boolean hasEntity(Entity Entity) {
     if (entities.contains(Entity)) return true;
     return false;
@@ -116,6 +141,10 @@ public abstract class Environment extends Instance{
     return false;
   }
 
+  /**
+   * Remove an item from the env, can be done by object and by stirng.
+   * @param Item
+   */
   public void removeItem(Item Item) {
     removeInstance(Item);
     items.remove(Item);
@@ -125,6 +154,11 @@ public abstract class Environment extends Instance{
     items.remove(items.getInstance(Name));
   }
 
+  /**
+   * Retrieve an object from the environment based on string
+   * @param Name
+   * @return
+   */
   public Item retrieveItem(String Name) {
     Item item = items.getInstance(Name);
     removeItem(item);

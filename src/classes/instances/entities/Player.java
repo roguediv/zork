@@ -43,14 +43,29 @@ public class Player extends Entity
     this.quest = quest;
   }
 
+  /**
+   * Get the instance of player
+   * @return
+   */
   public static Player getInstance() {
     return mainPlayer;
   }
 
+  /**
+   * Gets the game state
+   * @return
+   */
   public int getGameState() {return gameState;}
 
+  /**
+   * Sets the game state
+   * @param GameState
+   */
   public void setGameState(int GameState) {gameState = GameState;}
 
+  /**
+   * Code that runs whenever the player dies
+   */
   @Override
   public void die() {
     super.die();

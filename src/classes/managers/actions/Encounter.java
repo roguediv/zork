@@ -180,7 +180,7 @@ public class Encounter extends Action {
           /// Has it been used? 
           if ((int)ob[1] >= enemy.getHealthPercentage()) {
             /// Is the enemy health at the proper level?
-            addText(enemy.getName() + ": \"" + (String)ob[2] + "\""); // Send line to handler
+            addText(displayName(enemy.getName()) + ": \"" + (String)ob[2] + "\""); // Send line to handler
             /// Don't repeat stuff
             enemy.setFightLineBool(index, true);
           }

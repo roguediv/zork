@@ -5,6 +5,10 @@ import src.classes.managers.instances.InstanceCollection;
 
 public class Move extends Action {
 
+  /**
+   * The main method of this class that changes the player location
+   * @param word
+   */
   public static void newLocation(String word) {
     start();
     if (word == null) {Observe.find("location");return;}
@@ -12,6 +16,10 @@ public class Move extends Action {
     end();
   }
 
+  /**
+   * Changes the location of the player
+   * @param Word
+   */
   private static void changeLocation(String Word) {
     String[] goBack = {"back", "return", "last location", "last"};
     InstanceCollection<Environment> rooms = location.getRooms();
@@ -30,6 +38,9 @@ public class Move extends Action {
     }
   }
 
+  /**
+   * Displays the dialogue for entering a new location
+   */
   private static void enterLocation() {
     addText("You entered a new area: " + displayName(player.getLocation().getName()));
     addSpace();

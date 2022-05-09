@@ -25,7 +25,7 @@ public class Inventory extends Action {
   }
 
   /**
-   * 
+   * Takes item from world and places in inventory of the player
    * @param Name
    */
   public static void retrieve(String Name) {
@@ -38,6 +38,10 @@ public class Inventory extends Action {
     end();
   }
 
+  /**
+   * Places item into the player inv while taking from the world
+   * @param Name
+   */
   private static void getItem(String Name) {
     if (Name == null) return;
     Environment location = player.getLocation();
