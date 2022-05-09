@@ -44,7 +44,7 @@ public class Overworld extends Environment {
 
     Enemy jacob = new Enemy("Jacob", 100.00, 50.00, this);
     SharpObject dagger = new SharpObject("Enemy dag", 0.00, 9.00);
-    if (addEntity(jacob)) jacob.equipNewItem(dagger);
+    jacob.equipNewItem(dagger);
     
     // Creating Quest
     Quest bountyJack = new Quest((Enemy)entityManager.getEntity("Jack"), 200.00);

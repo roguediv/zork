@@ -85,11 +85,48 @@ public class AI extends Entity {
     10, 10, 30, 50
   };
 
-  protected String[][] fightLines = {
-    {"Why would you do this?"},
-    {""},
-    {"I'm getting out of here! You're crazy!"}
+  /**
+   * The fightlines that AIs use within battles.
+   * For each line:
+   * [0] = boolean, whether or not line has been spoken
+   * [1] = double, line is spoken when health drops at or below this %
+   * [2] = String, the line itself
+   */
+  protected Object[][] fightLines = {
+    {false, 100, "You're going down!"},
+    {false, 50, "I'm not finished yet!"},
+    {false, 20, "No... This can't be..."}
   };
+
+  /**
+   * Returns all fight lines
+   * @return
+   */
+  public Object[][] getFightLines() {return fightLines;}
+
+  /**
+   * Sets all fight lines
+   * @param FightLines
+   */
+  public void setFightLines(Object[][] FightLines) {
+    fightLines = FightLines;
+  } 
+
+  /**
+   * Used to turn lines on and off
+   * @param LineNum Line to be changed
+   * @param IsUsed Boolean that shows whether line has been used
+   */
+  public void setFightLineBool(int LineNum, boolean IsUsed) {
+    fightLines[LineNum][0] = IsUsed;
+  } 
+
+  /**
+   * Resets fightlines so they can be spoken again
+   */
+  public void resetFightLines() {
+    for (Object[] ob : getFightLines()) ob[0] = false;
+  }
 
   public AI(String Name, double Health, double money) {
     super(Name, Health, money);
@@ -124,6 +161,6 @@ public class AI extends Entity {
       location.addEntity(this);
       super.setLocation(location);
     }
-
   }
+
 }

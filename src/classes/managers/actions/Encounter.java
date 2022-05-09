@@ -42,6 +42,7 @@ public class Encounter extends Action {
     try{
       // Cast to AI to implement battle lines
       enemy = (AI)e;
+      displayFightLine();
       addSpace();
       addText("Battle with " + displayName(enemy.getName()) + " has begun.");
       PickMove();
@@ -119,7 +120,7 @@ public class Encounter extends Action {
         addText("Move " + Input + " could not be found.");
         PickMove();
     }
-
+    displayFightLine();
     end();
   }
 
@@ -163,6 +164,36 @@ public class Encounter extends Action {
     checkHealth();
     if(battleActive)
       PickMove();
+  }
+
+  /**
+   * Displays the fight line for the enemy
+   * based on the current value of enemy health.
+   */
+  private static void displayFightLine() {
+    int index = 0; // Waste of a line, thanks JAVA...
+    for (Object[] ob : enemy.getFightLines()) {
+      /// For each line in enemy fightLines
+      try {
+        /// Exceptions R bad
+        if (!(boolean)ob[0]) {
+          /// Has it been used? 
+          if ((int)ob[1] >= enemy.getHealthPercentage()) {
+            /// Is the enemy health at the proper level?
+            addText(enemy.getName() + ": \"" + (String)ob[2] + "\""); // Send line to handler
+            /// Don't repeat stuff
+            enemy.setFightLineBool(index, true);
+          }
+        }
+      } catch(Exception e) {
+        /// Let the programmer know who's fight lines are 
+        /// messed up.
+        System.out.println(
+          "Encounter: You set up fight lines improperly for '" + 
+          enemy.getName() + "'. Reference documention.");
+      }
+      index++;
+    }
   }
   
   /**

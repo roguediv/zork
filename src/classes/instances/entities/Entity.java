@@ -265,4 +265,12 @@ public abstract class Entity extends Instance {
   public double getMaxHealth(){
     return this.maxHealth;
   }
+
+  /**
+   * Get the percentage of entity health
+   * @return
+   */
+  public double getHealthPercentage() {
+    return (health / maxHealth) * 100;
+  }
 }
