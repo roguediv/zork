@@ -74,6 +74,12 @@ public class Start {
     new SharpObject("bronze_sword", 100, 32.5);
     new SharpObject("Dagger", 39.99, 10.00);
     
+    //Tavern items
+    new SharpObject("broken_Bottle", 10.0, 5.0);
+    new HealingPotion("beer", 50, -10);
+    // Make this a new class that can be used to give information to the player
+    new HealingPotion("information", 100, 0);
+    
     // Maybe final boss weapon, might take some balancing
     new SharpObject("obsidian_sword", 1500, 50.00);
   

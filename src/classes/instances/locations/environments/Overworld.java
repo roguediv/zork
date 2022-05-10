@@ -24,6 +24,7 @@ public class Overworld extends Environment {
     addRoom(new Palace("palace", this));
     addRoom(new Entrance("castle_entrance", this));
     addRoom(new Housing("housing_district", this));
+    addRoom(new Tavern("tavern", this));
 
     
     // entityManager.createEntity(new Enemy("Guard", 50));

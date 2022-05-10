@@ -97,8 +97,8 @@ public class AI extends Entity {
    * @param String
    * @param ArrayNum
    */
-  public void changeDialog(String[][][] String, int ArrayNum) {
-    dialogue[ArrayNum] = String;
+  public void changeDialog(String[][][][] String) {
+    dialogue = String;
   }
 
   /**
@@ -106,8 +106,8 @@ public class AI extends Entity {
    * @param Change
    * @param ArrayNum
    */
-  public void changeProperties(int[][] Change, int ArrayNum) {
-    dialogueProperties[ArrayNum] = Change;
+  public void changeProperties(int[][][] Change) {
+    dialogueProperties = Change;
   }
 
   /// Mark - Encounter
