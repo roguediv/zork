@@ -163,7 +163,7 @@ public class InputWatcher {
    */
   private static void inputType3(String Input) {
     String[] filterWords = {"buy", "purchase", "get", "take", "choose", "a", "the"}; // Removes these words from input
-
+    Input = Input.toLowerCase();
     /// Handle if player sends an empty string, then handle if player is trying to leave, then filter out input and send to buy class
     if (Input.equals("")) {ViewController.getViewController().sendText(MasterMethods.displayName("merchant") + " : \"Please choose an item to buy.\"");return;}
     String input = Input.trim().toLowerCase().replace(' ', '_'); // Cleans the input
