@@ -19,7 +19,7 @@ public class Overworld extends Environment {
   // Entrance, courtyard, tavern, market, castle(leads to another environment)
 
   private Overworld(String name) {
-    super(name, new String[] {"test"});
+    super(name, new String[] {"You entered the overworld."});
     addRoom(new Shops("shopping_district", this));
     addRoom(new Palace("palace", this));
     addRoom(new Entrance("castle_entrance", this));

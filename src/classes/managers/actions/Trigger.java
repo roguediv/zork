@@ -18,7 +18,7 @@ public class Trigger extends Action {
     switch (getItemType(item)) {
       case 1:
         if (player.primary != null) 
-          addText("You dequiped the " + displayName(player.primary.getName()) + " from your priamry weapon slot.");
+          addText("You dequiped the " + displayName(player.primary.getName()) + " from your primary weapon slot.");
         player.equipItem((Weapon)item);
         addText("You equiped the " + displayName(item.getName()) + " as your primary weapon.");
         break;
@@ -34,6 +34,7 @@ public class Trigger extends Action {
         potion.useItem(player);
         double health2 = player.getHealth();
         addText("You used the " + displayName(potion.getName()) + " and it restored " + MasterMethods.Round(health2 - health1) + " points of health.");
+        addText("You now have " + player.getHealth() + " health points.");
         break;
     }
     end();

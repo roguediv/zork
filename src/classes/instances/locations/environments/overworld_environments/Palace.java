@@ -9,7 +9,7 @@ import src.classes.instances.locations.environments.underground_environments.Jai
 public class Palace extends Environment {
 
   public Palace(String Name, Environment Source) {
-    super(Name, Source, new String[] {"test"});
+    super(Name, Source, new String[] {"You have entered the royal palace."});
 
     // You get closer to the Palace and are approached by a guard.
     // "Hault, what is your reason for entering the palace?"
