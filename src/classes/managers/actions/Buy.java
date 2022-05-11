@@ -19,13 +19,14 @@ public class Buy extends Action{
   public static void buyShop(String ItemName){
 		start();
 		Boolean isFound = false;
+		Item item = null;
 		System.out.println(merchant.getShop().size());
 		for(Item i:merchant.getShop()){
 			if(i.getName().equals(ItemName)){
 				isFound = true;
 				if(player.spendMoney(i.getValue())){
 					player.addInventory(i);
-					merchant.removeItem(i);
+					item = i;
 					addText("You purchased the " + displayName(i.getName()) + " from " + displayName(merchant.getName()) +".");
 					addText(displayName(merchant.getName()) + ": \"Alway's a pleasure doing business...\"");
 				}
@@ -33,6 +34,9 @@ public class Buy extends Action{
 					addText(displayName(merchant.getName()) + ": \"You don't have enough money for this " + displayName(i.getName()) + ".\"");
 				}
 			}
+		}
+		if(item != null){
+			merchant.getShop().remove(item);
 		}
 		if(!isFound) addText(displayName(ItemName) + " is not found.");
 		end();
