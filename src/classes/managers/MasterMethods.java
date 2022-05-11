@@ -18,10 +18,14 @@ public class MasterMethods {
   // For formatting output
   private static DecimalFormat decFormat = new DecimalFormat("#.##");
 
+  // Singleton constructor
   private MasterMethods() {
-
   }
 
+  /**
+   * creates singleton instance
+   * @return
+   */
   public static MasterMethods methods() {
     if (methods == null) {
       methods = new MasterMethods();
@@ -55,6 +59,11 @@ public class MasterMethods {
     return rtn.trim();
   }
 
+  /**
+   * Returns item type
+   * @param Item
+   * @return
+   */
   public static int getItemType(Item Item) {
     int rtn = 0;
     try {
@@ -73,6 +82,11 @@ public class MasterMethods {
     return rtn;
   }
 
+  /**
+   * Casts an item as a weapon
+   * @param Item
+   * @return
+   */
   public static Weapon getWeapon(Item Item) {
     Weapon rtn = new BluntObject("null", 0, 0);
     try {
@@ -101,6 +115,9 @@ public class MasterMethods {
     return decFormat.format(num);
   }
 
+  /**
+   * Casts an entity as a merchant
+   */
   public static Merchant getMerchant(Entity e){
     try{
       return (Merchant)e;

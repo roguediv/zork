@@ -29,7 +29,7 @@ public class Shops extends Environment {
     BountyPlacer wulfstan = BountyPlacer.getInstance();
     wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("grunt"), 25));
     wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("edrik"), 100));
-    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("King Ethelred"), 1000000.00));
+    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("king_ethelred"), 1000000.00));
   }
 
 }
