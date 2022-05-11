@@ -23,7 +23,7 @@ public class Tavern extends Environment {
     String[][][][] dialogueChange = {
         {
             {
-                {"Are you here to fight?"}
+                {"Are you here to fight?"},
             },
             {
                 {"I'm here to fight."},
@@ -39,6 +39,8 @@ public class Tavern extends Environment {
         },
         {
             {
+                {"Quit wasting my time."},
+                {"Quit wasting my time."},
                 {"Quit wasting my time."}
             }
         }
@@ -47,23 +49,23 @@ public class Tavern extends Environment {
     int[][][] propertiesChange = {
         {
             {
-              1,1,0
+              1
             },
             {
-              1,2,2
+              1,2,2,2
             }
           },
           {
             {
-              0,0,0
+              0, 0, 0, 0
             },
             {
-              1,2,2
+              0
             }
           },  
           {
             {
-              0, 0, 0
+              0, 0, 0, 0
             }
           }
     };

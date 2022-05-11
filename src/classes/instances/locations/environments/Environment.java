@@ -57,7 +57,7 @@ public abstract class Environment extends Instance{
    * Add instance to instances within location
    * @param Instance
    */
-  private void addInstance(Instance Instance) {instances.add(Instance);}
+  public void addInstance(Instance Instance) {instances.add(Instance);}
 
   /**
    * Remove instance from instances within location

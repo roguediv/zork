@@ -1,6 +1,7 @@
 package src.classes.instances.items;
 
 import src.classes.instances.entities.Enemy;
+import src.classes.instances.locations.environments.Environment;
 
 /**
  * A bounty placed on an enemy
@@ -16,6 +17,12 @@ public class Quest extends Item {
    */
   public Quest(Enemy Enemy, double Reward){
     super(Enemy.getName(), Reward);
+    if (Enemy == null) System.out.println("Enemy is null for quest.");
+    setEnemy(Enemy);
+  }
+  public Quest(Enemy Enemy, double Reward, Environment instanceHolder){
+    super(Enemy.getName(), Reward);
+    instanceHolder.addInstance(Enemy);
     if (Enemy == null) System.out.println("Enemy is null for quest.");
     setEnemy(Enemy);
   }
