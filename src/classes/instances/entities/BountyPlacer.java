@@ -30,6 +30,10 @@ public class BountyPlacer extends AI {
     quests.add(Quest);
   }
 
+  public void removeQuest(Quest Quest) {
+    quests.remove(Quest);
+  }
+
   public InstanceCollection<Quest> getQuests(){
     return quests;
   }

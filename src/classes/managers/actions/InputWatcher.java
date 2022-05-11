@@ -10,6 +10,7 @@ import java.util.Collections;
 /// Internal Imports.
 import src.classes.instances.Instance;
 import src.classes.instances.entities.Player;
+import src.classes.managers.MasterMethods;
 import src.classes.managers.instances.InstanceCollection;
 import src.views.ViewController;
 
@@ -164,11 +165,11 @@ public class InputWatcher {
     String[] filterWords = {"buy", "purchase", "get", "take", "choose", "a", "the"}; // Removes these words from input
 
     /// Handle if player sends an empty string, then handle if player is trying to leave, then filter out input and send to buy class
-    if (Input.equals("")) {ViewController.getViewController().sendText("Wulfstan: \"Please choose an item to buy.\"");return;}
+    if (Input.equals("")) {ViewController.getViewController().sendText(MasterMethods.displayName("merchant") + " : \"Please choose an item to buy.\"");return;}
     String input = Input.trim().toLowerCase().replace(' ', '_'); // Cleans the input
     String[] words = input.split("_"); // For input filtering
 
-    if(Input.equals("exit")){ // Player wants to leave
+    if(Input.toLowerCase().equals("exit")){ // Player wants to leave
       changeInput(0); // return to default inputtype
       ViewController.getViewController().sendText("You have left the shop."); // Tell the player they left
       return;

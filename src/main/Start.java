@@ -38,7 +38,7 @@ public class Start {
     view.sendText("1042 London, England");
     view.sendText(new String[] {
       "You have lived your whole life in hiding, all thanks",
-      "to king Ethelred. Just because you are Danish."
+      "to King Ethelred. Just because you are Danish."
     });
      view.sendText(new String[] {
        "In the year 1002, King Ethelred ordered a massacre of",
@@ -53,6 +53,9 @@ public class Start {
        "You must find a secret contracter to find the targets",
        "and the bounties."
      });
+     view.sendText(new String[]{
+       "Wulfstan is watching you from the corner",
+        "He looks like he may have something for you."});
     view.setStoryMode(false);
   }
 
