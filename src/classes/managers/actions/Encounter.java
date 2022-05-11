@@ -173,6 +173,7 @@ public class Encounter extends Action {
         if(MasterMethods.getChance(enemy.getRecklessMovePercentage())){
           enemyRecklessAttack();
         }
+        // The defensive move percentage
         else if(MasterMethods.getChance(enemy.getDefenseMovePercentage())){
           enemyDefensiveMove();
         }
@@ -234,6 +235,7 @@ public class Encounter extends Action {
     }
     catch(Exception e){}
     enemy.die(player.getLocation());
+    player.heal(player.getMaxHealth() / 2);
     endEncounter();
   }
 

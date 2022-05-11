@@ -62,8 +62,8 @@ public class Start {
   private static Player initializeGame(){
     // All weapons in game
     new RangedObject("hard_rock", 50.00, 11.00);
-    new BluntObject("wood_club", 100.00, 15.00);
-    new SharpObject("bronze_sword", 100, 32.5);
+    new BluntObject("wood_club", 80.00, 13.00);
+    new SharpObject("bronze_sword", 100, 15.5);
     new SharpObject("Dagger", 39.99, 10.00);
     
     //Tavern items
@@ -73,7 +73,7 @@ public class Start {
     new HealingPotion("information", 100, 0);
     
     // Maybe final boss weapon, might take some balancing
-    new SharpObject("obsidian_sword", 1500, 50.00);
+    new SharpObject("obsidian_sword", 500, 30.00);
   
     // All potions in game
     new HealingPotion("basic_healing_potion", 40, 30);
@@ -82,7 +82,42 @@ public class Start {
     // Creating enemies
     new Enemy("grunt", 50.00, 20.00);
     new Enemy("edrik", 100.00, 50.00);
-    new Enemy("king_ethelred", 250.00, 200.00);
+    Enemy king = new Enemy("king_ethelred", 120.00, 200.00);
+    Object[][] fightlines = {
+      {
+        false,
+        100,
+        "You dare challenge the king!"
+      },
+      {
+        false,
+        80,
+        "Tis but a scratch."
+      },
+      {
+        false,
+        50,
+        "You will not beat the crown."
+      },
+      {
+        false,
+        25,
+        "Last chance, before I kill you."
+      },
+      {
+        false,
+        15,
+        "No please... I will make you a knight"
+      },
+      {
+        false,
+        0,
+        "...how is this possible?"
+      }
+    };
+    king.setFightLines(fightlines);
+    king.setDefenseMovePercentage(5.00);
+    king.setRecklessMovePercentage(55.00);
     new Peasant("james", 50.00, 10.00);
     new Merchant("john", 50.00, 10.00);
     new Merchant("johnson", 50.00, 10.00);

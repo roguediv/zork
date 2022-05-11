@@ -6,7 +6,7 @@ import src.classes.instances.locations.environments.Environment;
 
 public class AI extends Entity {
 
-  private double defenseMovePercentage = 80.00;
+  private double defenseMovePercentage = 33.00;
   private double recklessMovePercentage = 25.00;
   /**
    * {

@@ -38,11 +38,10 @@ public class Overworld extends Environment {
     // addEntity(entityManager.getEntity("Gu"));
 
     // This is the process of creating an enemy, creating a weapon, and giving it to the enemy.
-    Enemy jack = new Enemy("Jack j", 10.00, 50.00, this);
-    SharpObject shiv = new SharpObject("Simple Shiv", 10.00, 7.00);
+    Enemy jack = new Enemy("Jack", 50.00, 50.00, this);
+    SharpObject shiv = new SharpObject("Simple Shiv", 10.00, 12.00);
     jack.equipNewItem(shiv);
-    // End process
-
+    
     Enemy jacob = new Enemy("Jacob", 100.00, 50.00, this);
     SharpObject dagger = new SharpObject("Enemy dag", 0.00, 9.00);
     jacob.equipNewItem(dagger);
@@ -55,9 +54,8 @@ public class Overworld extends Environment {
     wulfstan.setLocation(this);
     wulfstan.equipNewItem(new SharpObject("Danish Dragon Slayer Dagger", 1000.00, 60.00));
     // Adding Quest
-    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("Jack j"), 200, this));
-    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("grunt"), 25, this));
-    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("edrik"), 100, this));
+    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("Jack"), 200, this));
+    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("edrik"), 500, this));
     wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("King Ethelred"), 1000000.00, this));
 
     addItem(itemManager.getItem("Basic_Healing_Potion"));

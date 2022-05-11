@@ -13,7 +13,9 @@ public class AcceptBounty extends Action {
     if(player.getLocation().getEntities().getInstance("Wulfstan") != null){
       try{
         if(player.getQuest() != null){
-            wulfstan.addQuest(player.getQuest());
+            if(player.getQuest().getEnemy().getHealth() < 0){
+              wulfstan.addQuest(player.getQuest());
+            }
             player.setQuest(null);
             addText("Your last bounty was removed.");
         }

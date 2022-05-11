@@ -25,7 +25,13 @@ public class Dialogue extends Action {
         addText("Wulfstan:\"Well, here is your reward of " + player.getQuest().getValue() + "\"");
         player.payMoney(player.getQuest().getValue());
         addText("You now have " + player.getMoney() + " gold.");
-        pickQuest();
+        if(player.getQuest().getEnemy().getName().equals("king_ethelred"))
+        {
+          addText("You have won the game and freed your people!");
+        }
+        else{
+          pickQuest();
+        }
       }
       else{
         addText("Wulfstan:\"Looks like you still have your hands full with " + displayName(player.getQuest().getName()) +  "\"");

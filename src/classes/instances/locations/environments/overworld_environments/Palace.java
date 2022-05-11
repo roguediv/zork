@@ -15,10 +15,13 @@ public class Palace extends Environment {
     // "Hault, what is your reason for entering the palace?"
 
     Enemy palaceGuard = new Enemy("guard", 100.00, 50.00, this);
-    SharpObject ironSword = new SharpObject("iron_sword", 100.00, 20);
+    SharpObject ironSword = new SharpObject("iron_sword", 100.00, 13);
     palaceGuard.equipNewItem(ironSword);
 
-    Enemy kingEthelred = entityManager.getEnemies().getInstance("king_ethelred");
+    Enemy king = entityManager.getEnemies().getInstance("king_ethelred");
+    king.setLocation(this);
+    SharpObject dagger = new SharpObject("King's sword", 0.00, 25.00);
+    king.equipNewItem(dagger);
 
     Player player = (Player) entityManager.getEntity("player");
 
