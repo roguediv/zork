@@ -27,10 +27,10 @@ public class Buy extends Action{
 					player.addInventory(i);
 					merchant.removeItem(i);
 					addText("You purchased the " + displayName(i.getName()) + " from " + displayName(merchant.getName()) +".");
-					addText("Wulfstan: \"Alway's a pleasure doing business...\"");
+					addText(displayName(merchant.getName()) + ": \"Alway's a pleasure doing business...\"");
 				}
 				else{
-					addText("Wulfstan: \"You don't have enough money for this " + displayName(i.getName()) + ".\"");
+					addText(displayName(merchant.getName()) + ": \"You don't have enough money for this " + displayName(i.getName()) + ".\"");
 				}
 			}
 		}
