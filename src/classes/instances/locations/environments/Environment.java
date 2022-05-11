@@ -70,6 +70,7 @@ public abstract class Environment extends Instance{
 
   /// MARK - Room Management
   public InstanceCollection<Environment> getRooms() {return rooms;}
+  // Adds a sub-location to a location.
   public void addRoom(Environment Room) {
     addInstance(Room);
     rooms.add(Room);

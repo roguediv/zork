@@ -6,6 +6,11 @@ import src.classes.instances.locations.environments.Environment;
 
 public class Entrance extends Environment {
 
+  /**
+   * The castle entrance
+   * @param Name
+   * @param Source
+   */
   public Entrance(String Name, Environment Source) {
     super(Name, Source, new String[] {"You have entered the castle entrance."});
     

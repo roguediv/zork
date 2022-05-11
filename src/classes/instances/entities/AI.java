@@ -4,6 +4,9 @@ import javax.tools.DocumentationTool.Location;
 
 import src.classes.instances.locations.environments.Environment;
 
+/**
+ * Class that controls entity AI
+ */
 public class AI extends Entity {
 
   private double defenseMovePercentage = 33.00;
