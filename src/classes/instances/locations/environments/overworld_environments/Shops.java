@@ -22,7 +22,6 @@ public class Shops extends Environment {
     Merchant johnson = entityManager.getMerchants().getInstance("johnson");
     addEntity(johnson);
     johnson.addItem(itemManager.getItem("basic_healing_potion"));
-    johnson.addItem(itemManager.getItem("basic_healing_potion_2"));
     johnson.addItem(new SharpObject("fakeitem", 1000, 50000));
 
   

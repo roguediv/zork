@@ -58,7 +58,6 @@ public class Overworld extends Environment {
     wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("Jack j"), 200));
 
     addItem(itemManager.getItem("Basic_Healing_Potion"));
-    addItem(itemManager.getItem("Basic_Healing_Potion_2"));
     
   }
 

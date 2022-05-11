@@ -7,6 +7,7 @@ public class AcceptBounty extends Action {
 
   static void acceptBounty(String target){
     start();
+    System.out.println(target);
     Player player = Player.getInstance();
     BountyPlacer wulfstan = BountyPlacer.getInstance();
     if(player.getLocation().getEntities().getInstance("Wulfstan") != null){
