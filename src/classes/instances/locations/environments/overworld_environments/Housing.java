@@ -8,7 +8,7 @@ public class Housing extends Environment {
   public Housing(String Name, Environment Source) {
     super(Name, Source, new String[] {"You have entered the housing district."});
     addRoom(new House("jacob's_house", this));
-    addItem(itemManager.getItem("Basic_Healing_Potion"));
+    addItem(itemManager.getItem("Great_Healing_Potion"));
   }
 
 }

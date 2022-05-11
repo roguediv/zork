@@ -77,7 +77,7 @@ public class Start {
   
     // All potions in game
     new HealingPotion("basic_healing_potion", 40, 30);
-    new HealingPotion("Great Healing Potion", 40, 50);
+    new HealingPotion("great_healing_potion", 40, 50);
 
     // Creating enemies
     new Enemy("grunt", 50.00, 20.00);
