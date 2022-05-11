@@ -218,7 +218,6 @@ public class InputWatcher {
         Help.displayControls();
         break;
       case DISPLAYQUEST:
-        System.out.println("this is working");
         DisplayQuest.displayQuest();
         break;
       case ACCEPT:
