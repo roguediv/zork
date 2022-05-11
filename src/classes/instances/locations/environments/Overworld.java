@@ -38,7 +38,7 @@ public class Overworld extends Environment {
     // addEntity(entityManager.getEntity("Gu"));
 
     // This is the process of creating an enemy, creating a weapon, and giving it to the enemy.
-    Enemy jack = new Enemy("Jack", 10.00, 50.00, this);
+    Enemy jack = new Enemy("Jack", 50.00, 50.00, this);
     SharpObject shiv = new SharpObject("Simple Shiv", 10.00, 12.00);
     jack.equipNewItem(shiv);
 
