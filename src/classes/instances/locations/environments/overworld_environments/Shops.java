@@ -24,5 +24,4 @@ public class Shops extends Environment {
     johnson.addItem(itemManager.getItem("basic_healing_potion"));
     johnson.addItem(new SharpObject("fakeitem", 1000, 50000));
   }
-
 }
