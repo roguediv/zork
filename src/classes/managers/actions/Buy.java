@@ -29,7 +29,7 @@ public class Buy extends Action{
 					addText(displayName(merchant.getName()) + ": \"Alway's a pleasure doing business...\"");
 				}
 				else{
-					addText("Wulfstan: \"You don't have enough money for this " + displayName(i.getName()) + ".\"");
+					addText(displayName(merchant.getName()) + ": \"You don't have enough money for this " + displayName(i.getName()) + ".\"");
 				}
 			}
 		}

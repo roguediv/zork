@@ -9,7 +9,7 @@ import src.classes.instances.locations.environments.Environment;
 public class Shops extends Environment {
 
   public Shops(String Name, Environment Source) {
-    super(Name, Source, new String[] {"test", "dfsfsd"});
+    super(Name, Source, new String[] {"Welcome to the shopping district", "There are people around who will let you purchase items.", "Look around for shop owners."});
 
     /// Merchant that sells items
     Merchant john = entityManager.getMerchants().getInstance("john");
