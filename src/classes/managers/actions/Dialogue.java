@@ -21,14 +21,14 @@ public class Dialogue extends Action {
         pickQuest();
       }
       else if(player.getQuest().getEnemy().getHealth() <= 0.00){
-        addText("Wulfstan:\"Wow, you actually killed " + player.getQuest().getName() + "!\"");
+        addText("Wulfstan:\"Wow, you actually killed " + displayName(player.getQuest().getName()) + "!\"");
         addText("Wulfstan:\"Well, here is your reward of " + player.getQuest().getValue() + "\"");
         player.payMoney(player.getQuest().getValue());
         addText("You now have " + player.getMoney() + " gold.");
         pickQuest();
       }
       else{
-        addText("Wulfstan:\"Looks like you still have your hands full with " + player.getQuest().getName() +  "\"");
+        addText("Wulfstan:\"Looks like you still have your hands full with " + displayName(player.getQuest().getName()) +  "\"");
         addText("Wulfstan:\"Would you like to exchange it?\"");
         pickQuest();
       }
@@ -71,7 +71,7 @@ public class Dialogue extends Action {
     addText(" ");
     addText("Wulfstan: \"Here for a contract?\"");
     for(int i = 0; i < wulfstan.getQuests().size(); i++){
-      addText("Bounty on: " + wulfstan.getQuests().get(i).getName() + " Reward: " + wulfstan.getQuests().get(i).getValue());
+      addText("Bounty on: " + displayName(wulfstan.getQuests().get(i).getName()) + " Reward: " + wulfstan.getQuests().get(i).getValue());
     }
   }
 }

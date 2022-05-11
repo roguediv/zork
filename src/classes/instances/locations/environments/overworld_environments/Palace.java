@@ -18,7 +18,7 @@ public class Palace extends Environment {
     SharpObject ironSword = new SharpObject("iron_sword", 100.00, 20);
     palaceGuard.equipNewItem(ironSword);
 
-    Enemy kingEtherlred = entityManager.getEnemies().getInstance("king_ethelred");
+    Enemy kingEthelred = entityManager.getEnemies().getInstance("king_ethelred");
 
     Player player = (Player) entityManager.getEntity("player");
 

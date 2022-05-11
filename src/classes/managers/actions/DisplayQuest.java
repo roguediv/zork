@@ -16,7 +16,7 @@ public class DisplayQuest extends Action {
     }
     catch(Exception e){
       addText("No current bounty found.");
-      addText("Talk to Wulfstan to get a quest.");
+      addText("Talk to Wulfstan to get a bounty.");
     }
     end();
   }

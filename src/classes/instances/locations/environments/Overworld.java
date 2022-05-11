@@ -38,7 +38,7 @@ public class Overworld extends Environment {
     // addEntity(entityManager.getEntity("Gu"));
 
     // This is the process of creating an enemy, creating a weapon, and giving it to the enemy.
-    Enemy jack = new Enemy("Jack", 10.00, 50.00, this);
+    Enemy jack = new Enemy("Jack j", 10.00, 50.00, this);
     SharpObject shiv = new SharpObject("Simple Shiv", 10.00, 7.00);
     jack.equipNewItem(shiv);
     // End process
@@ -48,14 +48,14 @@ public class Overworld extends Environment {
     jacob.equipNewItem(dagger);
     
     // Creating Quest
-    Quest bountyJack = new Quest((Enemy)entityManager.getEntity("Jack"), 200.00);
+    // Quest bountyJack = new Quest((Enemy)entityManager.getEntity("Jack j"), 200.00);
 
     // Copy and paste this where we want wulfstan the bounty giver
     BountyPlacer wulfstan = BountyPlacer.getInstance();
     wulfstan.setLocation(this);
     wulfstan.equipNewItem(new SharpObject("Danish Dragon Slayer Dagger", 1000.00, 60.00));
     // Adding Quest
-    wulfstan.addQuest(bountyJack);
+    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("Jack j"), 200));
 
     addItem(itemManager.getItem("Basic_Healing_Potion"));
     addItem(itemManager.getItem("Basic_Healing_Potion_2"));

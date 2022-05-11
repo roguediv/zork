@@ -36,32 +36,24 @@ public class Start {
     // potential treachery. Final boss could be King Ethelred
     view.setStoryMode(true);
     view.sendText("1042 London, England");
-    //MasterMethods.sleep(200);
     view.sendText(new String[] {
       "You have lived your whole life in hiding, all thanks",
       "to king Ethelred. Just because you are Danish."
     });
-    //MasterMethods.sleep(200);
-    // view.sendText(new String[] {
-    //   "In the year 1002, King Ethelred ordered a massacre of",
-    //   "all Danish people in England, but he missed you."
-    // });
-    // MasterMethods.sleep(200);
-    // view.sendText("Now you're coming for revenge.");
-    // MasterMethods.sleep(3);
-    // // Testing different ways to send text
-    // view.sendText(new String[] {
-    //   "All you have is a dagger, and knowledge that the", 
-    //   "Danish king has put a bounty on high ranking members." 
-    // });
-    // MasterMethods.sleep(200);
-    // view.sendText(new String[] {
-    //   "You must find a secret contracter to find the targets",
-    //   "and the bounties."
-    // });
+     view.sendText(new String[] {
+       "In the year 1002, King Ethelred ordered a massacre of",
+       "all Danish people in England, but he missed you."
+     });
+     view.sendText("Now you're coming for revenge.");
+     view.sendText(new String[] {
+       "All you have is a dagger, and knowledge that the", 
+       "Danish king has put a bounty on high ranking members." 
+     });
+     view.sendText(new String[] {
+       "You must find a secret contracter to find the targets",
+       "and the bounties."
+     });
     view.setStoryMode(false);
-    // Conversation topic: How will we handle movement
-    // Maybe a each room is a grid? 
   }
 
     /**

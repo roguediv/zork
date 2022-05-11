@@ -21,7 +21,7 @@ public class InstanceCollection<T extends Instance> extends ArrayList<T> {
   public T getInstance(String str) {
     for (int i = 0; i < this.size(); i++) {
       T obj = this.get(i);
-      if (str.toLowerCase().replace(" ", "_").equals(obj.getName().toLowerCase().replace(" ", "_"))) {
+      if (str.toLowerCase().replace(" ", "_").trim().equals(obj.getName().toLowerCase().replace(" ", "_").trim())) {
         return obj;
       }
     }

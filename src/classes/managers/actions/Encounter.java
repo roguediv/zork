@@ -23,6 +23,10 @@ public class Encounter extends Action {
   private static double defensiveBuff = 0.00;
   // Counting reckless attacks in a row.
   private static int recklessAttackCounter = 0;
+
+  private static double enemyDefensiveBuff = 0.00;
+  // Counting reckless attacks in a row.
+  private static int enemyRecklessAttackCounter = 0;
   /**
    * Starts encounter or battle
    * @param str the name of the enemy we are fighting
@@ -113,6 +117,7 @@ public class Encounter extends Action {
           flee();
         }
         else{
+          addText("Your flee attempt failed.");
           EnemyMove(defensiveBuff);
         }
         break;
@@ -158,7 +163,23 @@ public class Encounter extends Action {
       enemy.inventory.get(location).useItem(enemy);
     }
     else{
-      enemyAttack(defenseBuff);
+      // If the player is in kill range, the enemy will always kill
+      if(player.getHealth() <= (enemy.primary.getDamage() - (enemy.primary.getDamage() * defenseBuff * 0.01))){
+        enemyAttack(defenseBuff);
+      }
+      else{
+        // Next we look at logic and percentages for enemy moves, from the enemy class
+        // The reckless attack percentage
+        if(MasterMethods.getChance(enemy.getRecklessMovePercentage())){
+          enemyRecklessAttack();
+        }
+        else if(MasterMethods.getChance(enemy.getDefenseMovePercentage())){
+          enemyDefensiveMove();
+        }
+        else{
+          enemyAttack(defenseBuff);
+        }
+      }
     }
     displayHealth();
     checkHealth();
@@ -201,8 +222,8 @@ public class Encounter extends Action {
    */
   private static void displayWin(){
     addText("You win!");
+    player.payMoney(enemy.getMoney());
     try{
-      player.payMoney(enemy.getMoney());
       addText("You killed " + displayName(enemy.getName()) + " and found " + enemy.getMoney() + " gold.");
       addText("You now have " + player.getMoney() + " gold.");
       if(player.getQuest().getEnemy().getName() == enemy.getName()){
@@ -260,9 +281,8 @@ public class Encounter extends Action {
     for(int i = 0; i < player.outfit.length; i++){
       TotalArmor += player.outfit[i].getDefense();
     }
-    System.out.println("x");
     // enemyDamage calc, ensure that enemy has a primary weapon. If not, default 1
-    double enemyDamage = enemy.primary != null ? enemy.primary.getDamage() : 1;
+    double enemyDamage = enemy.primary != null ? enemy.primary.getDamage() : 5;
     // Damaging the player the damage minus what the armor takes away.
     double damageDone = enemyDamage - (enemyDamage * TotalArmor * 0.01);
     
@@ -272,16 +292,29 @@ public class Encounter extends Action {
   }
 
   /**
-   * Defensive buff, increases player's defense by 6%, also resets reckless attack counter
+   * Defensive buff, increases player's defense by 7%, also resets reckless attack counter
    */
   public static void defensiveMove(){
-    // Increasing defensive buff by 6% and stacking on past buffs.
-    defensiveBuff = 6 + (defensiveBuff * 1.06);
+    // Increasing defensive buff by 7% and stacking on past buffs.
+    defensiveBuff = 7 + (defensiveBuff * 1.06);
     addText("Defense has been buffed.");
     addText("Your defense buff is now " + MasterMethods.Round(defensiveBuff) + "%");
     // Resetting reckless attack counters
     recklessAttackCounter = 0;
   }
+
+  /**
+   * Enemy defensive buff, increases player's defense by 7%, also resets reckless attack counter
+   */
+  public static void enemyDefensiveMove(){
+    // Increasing defensive buff by 7% and stacking on past buffs.
+    enemyDefensiveBuff = 7 + (enemyDefensiveBuff * 1.06);
+    addText("Enemy defense has been buffed.");
+    addText("Enemy's defense buff is now " + MasterMethods.Round(enemyDefensiveBuff) + "%");
+    // Resetting enemy reckless attack counters
+    enemyRecklessAttackCounter = 0;
+  }
+
   /**
    * Allows you to escape from battle.
    */
@@ -308,10 +341,45 @@ public class Encounter extends Action {
   
       // Damaging the enemy the damage minus what the armor takes away. Damage also has reckless attack included.
       double damageDone = (player.primary.getDamage() * (1.6 - (recklessAttackCounter * 0.1))- (player.primary.getDamage() * (TotalArmor * 0.01)));
+      
+      // Takes damageDone minus the enemy defensive buff
+      damageDone -= (enemyDefensiveBuff * damageDone * 0.01);
+      
       enemy.damage(damageDone);
       player.damage(recklessDamage);
   
-      addText("You attacked and you did " + MasterMethods.Round(damageDone) + ", but took " + MasterMethods.Round(recklessDamage) + " damage");
+      addText("You attacked recklessly and you did " + MasterMethods.Round(damageDone) + ", but took " + MasterMethods.Round(recklessDamage) + " damage");
+    }
+      catch(Exception e){
+        addText("You don't have a weapon equipped.");
+      }
+  }
+
+  /**
+   * Reckless attack - does 1.5 times damage but at the becomes less effective and deals more damage to self each use
+   */
+  public static void enemyRecklessAttack(){
+    try{
+      enemyRecklessAttackCounter++;
+      // Player takes 20 percent of base weapon damage time the number of times reckless attack has been used.
+      // The counter resets to 0 when defensive move is used.
+      double recklessDamage = (0.2 * enemy.primary.getDamage()) * enemyRecklessAttackCounter;
+      // Gathering the total armor of the enemy
+      double TotalArmor = 0.00;
+      for(int i = 0; i < player.outfit.length; i++){
+        TotalArmor += player.outfit[i].getDefense();
+      }
+  
+      // Damaging the enemy the damage minus what the armor takes away. Damage also has reckless attack included.
+      double damageDone = (enemy.primary.getDamage() * (1.6 - (enemyRecklessAttackCounter * 0.1))- (enemy.primary.getDamage() * (TotalArmor * 0.01)));
+      
+      // Takes damageDone minus the defensive buff
+      damageDone -= (defensiveBuff * damageDone * 0.01);
+
+      player.damage(damageDone - (defensiveBuff * damageDone * 0.01));
+      enemy.damage(recklessDamage);
+  
+      addText(enemy.getName() + " attacked recklessly and did " + MasterMethods.Round(damageDone) + ", but took " + MasterMethods.Round(recklessDamage) + " damage");
     }
       catch(Exception e){
         addText("You don't have a weapon equipped.");
@@ -331,6 +399,7 @@ public class Encounter extends Action {
 
     // Damaging the enemy the damage minus what the armor takes away.
     double damageDone = player.primary.getDamage() - (player.primary.getDamage() * TotalArmor);
+    damageDone -= (enemyDefensiveBuff * damageDone * 0.01);
     enemy.damage(damageDone);
 
     addText("You attacked and you did " + MasterMethods.Round(damageDone) + ".");}

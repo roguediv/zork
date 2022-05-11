@@ -6,6 +6,8 @@ import src.classes.instances.locations.environments.Environment;
 
 public class AI extends Entity {
 
+  private double defenseMovePercentage = 80.00;
+  private double recklessMovePercentage = 25.00;
   /**
    * {
    *    {Subject dialogue},
@@ -85,6 +87,22 @@ public class AI extends Entity {
    * @return
    */
   public String[][][][] getDialogue() {return dialogue;}
+
+  public double getRecklessMovePercentage() {
+    return recklessMovePercentage;
+  }
+
+  public void setRecklessMovePercentage(double recklessMovePercentage) {
+    this.recklessMovePercentage = recklessMovePercentage;
+  }
+
+  public double getDefenseMovePercentage() {
+    return defenseMovePercentage;
+  }
+
+  public void setDefenseMovePercentage(double defenseMovePercentage) {
+    this.defenseMovePercentage = defenseMovePercentage;
+  }
 
   /**
    * Get the full dialogue properties
