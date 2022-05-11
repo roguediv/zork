@@ -55,10 +55,12 @@ public class Overworld extends Environment {
     wulfstan.setLocation(this);
     wulfstan.equipNewItem(new SharpObject("Danish Dragon Slayer Dagger", 1000.00, 60.00));
     // Adding Quest
-    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("Jack j"), 200));
+    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("Jack j"), 200, this));
+    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("grunt"), 25, this));
+    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("edrik"), 100, this));
+    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("King Ethelred"), 1000000.00, this));
 
     addItem(itemManager.getItem("Basic_Healing_Potion"));
-    
   }
 
   public static Overworld getOverWorld() {

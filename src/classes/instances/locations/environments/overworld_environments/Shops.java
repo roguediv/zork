@@ -23,13 +23,6 @@ public class Shops extends Environment {
     addEntity(johnson);
     johnson.addItem(itemManager.getItem("basic_healing_potion"));
     johnson.addItem(new SharpObject("fakeitem", 1000, 50000));
-
-  
-    /// Creating bounty placer and adding bounties
-    BountyPlacer wulfstan = BountyPlacer.getInstance();
-    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("grunt"), 25));
-    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("edrik"), 100));
-    wulfstan.addQuest(new Quest(entityManager.getEnemies().getInstance("King Ethelred"), 1000000.00));
   }
 
 }
